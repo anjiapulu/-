@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  05/02/2021 00:04:35 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  05/02/2021 14:42:29 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -23,7 +23,7 @@ line level    source
   13          int leftnumber, lbaiwei, lshiwei, lgewei,
   14          frontnumber, fbaiwei, fshiwei, fgewei,
   15          rightnumber, rbaiwei, rshiwei, rgewei,
-  16          i, j, k, l;
+  16          i, j, k, l; 
   17          int main()
   18          {
   19   1        k = 0;
@@ -62,7 +62,7 @@ line level    source
   52   6                  {
   53   7                    lbaiwei = MatrixKey() * 100;
   54   7                  }
-C51 COMPILER V9.54   MAIN                                                                  05/02/2021 00:04:35 PAGE 2   
+C51 COMPILER V9.54   MAIN                                                                  05/02/2021 14:42:29 PAGE 2   
 
   55   6                  if (i == 1)
   56   6                  {
@@ -126,7 +126,7 @@ line level    source
  114   6                  {
  115   7                    rshiwei = MatrixKey() * 10;
  116   7                  }
-C51 COMPILER V9.54   MAIN                                                                  05/02/2021 00:04:35 PAGE 3   
+C51 COMPILER V9.54   MAIN                                                                  05/02/2021 14:42:29 PAGE 3   
 
  117   6                  if (i == 2)
  118   6                  {
