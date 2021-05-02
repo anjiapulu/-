@@ -13,7 +13,7 @@ char left[] = "___", front[] = "___", right[] = "___", KeyNum = 10;
 int leftnumber, lbaiwei, lshiwei, lgewei,
 frontnumber, fbaiwei, fshiwei, fgewei,
 rightnumber, rbaiwei, rshiwei, rgewei,
-i, j, k, l;
+i, j, k, l; 
 int main()
 {
 	k = 0;
