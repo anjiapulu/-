@@ -13,5 +13,4 @@ void write_cmd(unsigned char cmd);
 void write_data(unsigned char DData);
 void dispaly(unsigned char X, unsigned char Y, unsigned char DData);
 void dispaly_character(unsigned char X, unsigned char Y, unsigned char* Arry);
-
 #endif

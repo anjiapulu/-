@@ -9,3 +9,4 @@ void Start_I2c();
 					void NoAck_I2c(void);
 						bit ISendStr(unsigned char sla,unsigned char suba,unsigned char *s,unsigned char no);
 							bit IRcvStr(unsigned char sla,unsigned char suba,unsigned char *s,unsigned char no);
+			
