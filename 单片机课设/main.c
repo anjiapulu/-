@@ -53,15 +53,15 @@ int main()
 					{
 						setdistance[i] = number[KeyNum];
 						dispaly_character(0, 1, setdistance);
-						if (i == 0)
+						if (i == 2)
 						{
 							lbaiwei = MatrixKey() * 100;
 						}
-						if (i == 1)
+						if (i == 3)
 						{
 							lshiwei = MatrixKey() * 10;
 						}
-						if (i == 2)
+						if (i == 4)
 						{
 							lgewei = MatrixKey();
 						}
@@ -81,15 +81,15 @@ int main()
 
 						setdistance[i] = number[KeyNum];
 						dispaly_character(0, 1, setdistance);
-						if (i == 0)
+						if (i == 7)
 						{
 							fbaiwei = MatrixKey() * 100;
 						}
-						if (i == 1)
+						if (i == 8)
 						{
 							fshiwei = MatrixKey() * 10;
 						}
-						if (i == 2)
+						if (i == 9)
 						{
 							fgewei = MatrixKey();
 						}
@@ -108,15 +108,15 @@ int main()
 					{
 						setdistance[i] = number[KeyNum];
 						dispaly_character(0, 1, setdistance);
-						if (i == 0)
+						if (i == 12)
 						{
 							rbaiwei = MatrixKey() * 100;
 						}
-						if (i == 1)
+						if (i ==13)
 						{
 							rshiwei = MatrixKey() * 10;
 						}
-						if (i == 2)
+						if (i == 14)
 						{
 							rgewei = MatrixKey();
 						}
