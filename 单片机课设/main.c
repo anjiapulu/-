@@ -41,13 +41,16 @@ int main()
 		{
 			k++;
 			if (k == 1)
-			{
+			{ 
+				for(i=0;i<15;i++)
+				{
+				setdistance[i] =redistance[i];
+				}
 				for (i = 2; i < 5;)
 				{
 					KeyNum = MatrixKey();
 					if (KeyNum < 10)
 					{
-
 						setdistance[i] = number[KeyNum];
 						dispaly_character(0, 1, setdistance);
 						if (i == 0)
