@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  05/02/2021 14:42:29 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  05/02/2021 15:10:09 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -15,45 +15,45 @@ line level    source
    5          #include "MatrixKey.h"
    6          #include "at24c02.h"
    7          unsigned char code redistance[] = " L___ F___ R___ ";
-   8          unsigned char code safe[] = "    safe now    ";
-   9          unsigned char code danger[] = "   danger now   ";
-  10          unsigned char code setting[] = "   input dist   ";
-  11          unsigned char code number[] = "0123456789";
-  12          char left[] = "___", front[] = "___", right[] = "___", KeyNum = 10;
-  13          int leftnumber, lbaiwei, lshiwei, lgewei,
-  14          frontnumber, fbaiwei, fshiwei, fgewei,
-  15          rightnumber, rbaiwei, rshiwei, rgewei,
-  16          i, j, k, l; 
-  17          int main()
-  18          {
-  19   1        k = 0;
-  20   1        lcd_init();
-  21   1        dispaly_character(0, 0, setting);
-  22   1        dispaly_character(0, 1, redistance);
-  23   1        while (1)
-  24   1        {
-  25   2          KeyNum = MatrixKey();
-  26   2          /*save*/
-  27   2          if (KeyNum == 11) 
-  28   2          {
-  29   3            ISendStr(0xA0, 0, left, 3);
-  30   3      
-  31   3          }
-  32   2          /*load*/
-  33   2          if (KeyNum == 12) 
-  34   2          {
-  35   3            IRcvStr(0xA0, 0, left, 3);
-  36   3            k = 0;
-  37   3          }
-  38   2          /*set distance*/
-  39   2          if (KeyNum == 13) 
-  40   2          {
-  41   3            k++;
-  42   3            if (k == 1)
-  43   3            {
-  44   4              char left[] = "___";
-  45   4              dispaly_character(2, 1, left);
-  46   4              for (i = 0; i < 3;)
+   8          
+   9          unsigned char code safe[] = "    safe now    ";
+  10          unsigned char code danger[] = "   danger now   ";
+  11          unsigned char code setting[] = "   input dist   ";
+  12          unsigned char code number[] = "0123456789";
+  13          char setdistance[] = " L___ F___ R___ ",KeyNum = 10;
+  14          int leftnumber, lbaiwei, lshiwei, lgewei,
+  15              frontnumber, fbaiwei, fshiwei, fgewei,
+  16              rightnumber, rbaiwei, rshiwei, rgewei,
+  17          i, j, k, l; 
+  18          int main()
+  19          {
+  20   1        k = 0;
+  21   1        lcd_init();
+  22   1        dispaly_character(0, 0, setting);
+  23   1        dispaly_character(0, 1, redistance);
+  24   1        while (1)
+  25   1        {
+  26   2          KeyNum = MatrixKey();
+  27   2          /*save*/
+  28   2          if (KeyNum == 11) 
+  29   2          {
+  30   3            ISendStr(0xA0, 0, setdistance, 16);
+  31   3            j=k;
+  32   3          }
+  33   2          /*load*/
+  34   2          if (KeyNum == 12) 
+  35   2          {
+  36   3            IRcvStr(0xA0,0,setdistance,16);
+  37   3            dispaly_character(0, 1, setdistance);
+  38   3            k = j;
+  39   3          }
+  40   2          /*set distance*/
+  41   2          if (KeyNum == 13) 
+  42   2          {
+  43   3            k++;
+  44   3            if (k == 1)
+  45   3            {
+  46   4              for (i = 2; i < 5;)
   47   4              {
   48   5                KeyNum = MatrixKey();
   49   5                if (KeyNum < 10)
@@ -62,7 +62,7 @@ line level    source
   52   6                  {
   53   7                    lbaiwei = MatrixKey() * 100;
   54   7                  }
-C51 COMPILER V9.54   MAIN                                                                  05/02/2021 14:42:29 PAGE 2   
+C51 COMPILER V9.54   MAIN                                                                  05/02/2021 15:10:09 PAGE 2   
 
   55   6                  if (i == 1)
   56   6                  {
@@ -73,8 +73,8 @@ line level    source
   61   7                    lgewei = MatrixKey();
   62   7                  }
   63   6                  leftnumber = lbaiwei + lshiwei + lgewei;
-  64   6                  left[i] = number[KeyNum];
-  65   6                  dispaly_character(2, 1, left);
+  64   6                  setdistance[i] = number[KeyNum];
+  65   6                  dispaly_character(0, 1, setdistance);
   66   6                  i++;
   67   6                }
   68   5              }
@@ -82,83 +82,79 @@ line level    source
   70   3      
   71   3            if (k == 2)
   72   3            {
-  73   4              char front[] = "___";
-  74   4              dispaly_character(7, 1, front);
-  75   4              for (i = 0; i < 3;)
-  76   4              {
-  77   5                KeyNum = MatrixKey();
-  78   5                if (KeyNum < 10)
-  79   5                {
-  80   6                  if (i == 0)
-  81   6                  {
-  82   7                    fbaiwei = MatrixKey() * 100;
-  83   7                  }
-  84   6                  if (i == 1)
-  85   6                  {
-  86   7                    fshiwei = MatrixKey() * 10;
-  87   7                  }
-  88   6                  if (i == 2)
-  89   6                  {
-  90   7                    fgewei = MatrixKey();
-  91   7                  }
-  92   6                  frontnumber = fbaiwei + fshiwei + fgewei;
-  93   6                  front[i] = number[KeyNum];
-  94   6                  dispaly_character(7, 1, front);
-  95   6                  i++;
-  96   6                }
-  97   5              }
-  98   4            }
-  99   3      
- 100   3            if (k == 3)
- 101   3            {
- 102   4              char  right[] = "___";
- 103   4              dispaly_character(12, 1, right);
- 104   4              for (i = 0; i < 3;)
- 105   4              {
- 106   5                KeyNum = MatrixKey();
- 107   5                if (KeyNum < 10)
- 108   5                {
- 109   6                  if (i == 0)
+  73   4              for (i =7 ; i < 10;)
+  74   4              {
+  75   5                KeyNum = MatrixKey();
+  76   5                if (KeyNum < 10)
+  77   5                {
+  78   6                  if (i == 0)
+  79   6                  {
+  80   7                    fbaiwei = MatrixKey() * 100;
+  81   7                  }
+  82   6                  if (i == 1)
+  83   6                  {
+  84   7                    fshiwei = MatrixKey() * 10;
+  85   7                  }
+  86   6                  if (i == 2)
+  87   6                  {
+  88   7                    fgewei = MatrixKey();
+  89   7                  }
+  90   6                  frontnumber = fbaiwei + fshiwei + fgewei;
+  91   6                  setdistance[i] = number[KeyNum];
+  92   6                  dispaly_character(0, 1, setdistance);
+  93   6                  i++;
+  94   6                }
+  95   5              }
+  96   4            }
+  97   3      
+  98   3            if (k == 3)
+  99   3            {
+ 100   4              for (i =12; i < 15;)
+ 101   4              {
+ 102   5                KeyNum = MatrixKey();
+ 103   5                if (KeyNum < 10)
+ 104   5                {
+ 105   6                  if (i == 0)
+ 106   6                  {
+ 107   7                    rbaiwei = MatrixKey() * 100;
+ 108   7                  }
+ 109   6                  if (i == 1)
  110   6                  {
- 111   7                    rbaiwei = MatrixKey() * 100;
+ 111   7                    rshiwei = MatrixKey() * 10;
  112   7                  }
- 113   6                  if (i == 1)
+ 113   6                  if (i == 2)
  114   6                  {
- 115   7                    rshiwei = MatrixKey() * 10;
+ 115   7                    rgewei = MatrixKey();
  116   7                  }
-C51 COMPILER V9.54   MAIN                                                                  05/02/2021 14:42:29 PAGE 3   
+C51 COMPILER V9.54   MAIN                                                                  05/02/2021 15:10:09 PAGE 3   
 
- 117   6                  if (i == 2)
- 118   6                  {
- 119   7                    rgewei = MatrixKey();
- 120   7                  }
- 121   6                  rightnumber = rbaiwei + rshiwei + rgewei;
- 122   6                  right[i] = number[KeyNum];
- 123   6                  dispaly_character(12, 1, right);
- 124   6                  i++;
- 125   6                }
- 126   5              }
- 127   4              k = 0;
- 128   4            }
- 129   3      
- 130   3      
- 131   3      
- 132   3      
- 133   3          }
- 134   2        
- 135   2        }
- 136   1        return 0;
- 137   1      }
-*** WARNING C316 IN LINE 137 OF main.c: unterminated conditionals
-*** WARNING C294 IN LINE 136 OF main.c: unreachable code
+ 117   6                  rightnumber = rbaiwei + rshiwei + rgewei;
+ 118   6                  setdistance[i] = number[KeyNum];
+ 119   6                  dispaly_character(0, 1, setdistance);
+ 120   6                  i++;
+ 121   6                }
+ 122   5              }
+ 123   4              k = 0;
+ 124   4            }
+ 125   3      
+ 126   3      
+ 127   3      
+ 128   3      
+ 129   3          }
+ 130   2        
+ 131   2        }
+ 132   1        return 0;
+ 133   1      }
+*** WARNING C316 IN LINE 133 OF main.c: unterminated conditionals
+*** WARNING C294 IN LINE 132 OF main.c: unreachable code
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    713    ----
-   CONSTANT SIZE    =     91    ----
+   CODE SIZE        =    643    ----
+   CONSTANT SIZE    =     79    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     45       4
+   DATA SIZE        =     50    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

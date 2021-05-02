@@ -5,11 +5,12 @@
 #include "MatrixKey.h"
 #include "at24c02.h"
 unsigned char code redistance[] = " L___ F___ R___ ";
+
 unsigned char code safe[] = "    safe now    ";
 unsigned char code danger[] = "   danger now   ";
 unsigned char code setting[] = "   input dist   ";
 unsigned char code number[] = "0123456789";
-char left[] = "___", front[] = "___", right[] = "___", KeyNum = 10;
+char setdistance[] = " L___ F___ R___ ",KeyNum = 10;
 int leftnumber, lbaiwei, lshiwei, lgewei,
     frontnumber, fbaiwei, fshiwei, fgewei,
     rightnumber, rbaiwei, rshiwei, rgewei,
@@ -26,14 +27,15 @@ int main()
 		/*save*/
 		if (KeyNum == 11) 
 		{
-			ISendStr(0xA0, 0, left, 3);
-
+			ISendStr(0xA0, 0, setdistance, 16);
+			j=k;
 		}
 		/*load*/
 		if (KeyNum == 12) 
 		{
-			IRcvStr(0xA0, 0, left, 3);
-			k = 0;
+      IRcvStr(0xA0,0,setdistance,16);
+			dispaly_character(0, 1, setdistance);
+			k = j;
 		}
 		/*set distance*/
 		if (KeyNum == 13) 
@@ -41,9 +43,7 @@ int main()
 			k++;
 			if (k == 1)
 			{
-				char left[] = "___";
-				dispaly_character(2, 1, left);
-				for (i = 0; i < 3;)
+				for (i = 2; i < 5;)
 				{
 					KeyNum = MatrixKey();
 					if (KeyNum < 10)
@@ -61,8 +61,8 @@ int main()
 							lgewei = MatrixKey();
 						}
 						leftnumber = lbaiwei + lshiwei + lgewei;
-						left[i] = number[KeyNum];
-						dispaly_character(2, 1, left);
+						setdistance[i] = number[KeyNum];
+						dispaly_character(0, 1, setdistance);
 						i++;
 					}
 				}
@@ -70,9 +70,7 @@ int main()
 
 			if (k == 2)
 			{
-				char front[] = "___";
-				dispaly_character(7, 1, front);
-				for (i = 0; i < 3;)
+				for (i =7 ; i < 10;)
 				{
 					KeyNum = MatrixKey();
 					if (KeyNum < 10)
@@ -90,8 +88,8 @@ int main()
 							fgewei = MatrixKey();
 						}
 						frontnumber = fbaiwei + fshiwei + fgewei;
-						front[i] = number[KeyNum];
-						dispaly_character(7, 1, front);
+						setdistance[i] = number[KeyNum];
+						dispaly_character(0, 1, setdistance);
 						i++;
 					}
 				}
@@ -99,9 +97,7 @@ int main()
 
 			if (k == 3)
 			{
-				char	right[] = "___";
-				dispaly_character(12, 1, right);
-				for (i = 0; i < 3;)
+				for (i =12; i < 15;)
 				{
 					KeyNum = MatrixKey();
 					if (KeyNum < 10)
@@ -119,8 +115,8 @@ int main()
 							rgewei = MatrixKey();
 						}
 						rightnumber = rbaiwei + rshiwei + rgewei;
-						right[i] = number[KeyNum];
-						dispaly_character(12, 1, right);
+						setdistance[i] = number[KeyNum];
+						dispaly_character(0, 1, setdistance);
 						i++;
 					}
 				}
