@@ -11,8 +11,8 @@ unsigned char code setting[] = "   input dist   ";
 unsigned char code number[] = "0123456789";
 char left[] = "___", front[] = "___", right[] = "___", KeyNum = 10;
 int leftnumber, lbaiwei, lshiwei, lgewei,
-frontnumber, fbaiwei, fshiwei, fgewei,
-rightnumber, rbaiwei, rshiwei, rgewei,
+    frontnumber, fbaiwei, fshiwei, fgewei,
+    rightnumber, rbaiwei, rshiwei, rgewei,
 i, j, k, l; 
 int main()
 {
