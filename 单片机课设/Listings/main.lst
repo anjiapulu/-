@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  05/06/2021 08:43:32 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  05/06/2021 10:02:42 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -14,135 +14,135 @@ line level    source
    4          #include "iic1602.h"
    5          #include "MatrixKey.h"
    6          #include "at24c02.h"
-   7          unsigned char code redistance[] = " L___ F___ R___ ";
-   8          unsigned char code safe[] = "    safe now    ";
-   9          unsigned char code danger[] = "   danger now   ";
-  10          unsigned char code setting[] = "   input dist   ";
-  11          unsigned char code number[] = "0123456789";
-  12          char setdistance[] = " L___ F___ R___ ", KeyNum = 10;
-  13          int leftnumber, lbaiwei, lshiwei, lgewei,
-  14          frontnumber, fbaiwei, fshiwei, fgewei,
-  15          rightnumber, rbaiwei, rshiwei, rgewei,
-  16          i, j, k, l;
-  17          int main()
-  18          {
-  19   1        k = 0;
-  20   1        lcd_init();
-  21   1        dispaly_character(0, 0, setting);
-  22   1        dispaly_character(0, 1, redistance);
-  23   1        while (1)
-  24   1        {
-  25   2          KeyNum = MatrixKey();
-  26   2          /*save*/
-  27   2          if (KeyNum == 11)
-  28   2          {
-  29   3            ISendStr(0xA0, 0, setdistance, 16);
-  30   3            j = k;
-  31   3          }
-  32   2          /*load*/
-  33   2          if (KeyNum == 12)
-  34   2          {
-  35   3            IRcvStr(0xA0, 0, setdistance, 16);
-  36   3            dispaly_character(0, 1, setdistance);
-  37   3            k = j;
-  38   3          }
-  39   2          /*set distance*/
-  40   2          if (KeyNum == 13)
-  41   2          {
-  42   3            k++;
-  43   3            if (k == 1)
-  44   3            { 
-  45   4              for(i=0;i<15;i++)
-  46   4              {
-  47   5              setdistance[i] =redistance[i];
-  48   5              }
-  49   4              for (i = 2; i < 5;)
-  50   4              {
-  51   5                KeyNum = MatrixKey();
-  52   5                if (KeyNum < 10)
-  53   5                {
-  54   6                  setdistance[i] = number[KeyNum];
-C51 COMPILER V9.54   MAIN                                                                  05/06/2021 08:43:32 PAGE 2   
+   7          sbit SPK=P1^2; 
+   8          unsigned char code redistance[] = " L___ F___ R___ ";
+   9          unsigned char code safe[] = "    safe now    ";
+  10          unsigned char code danger[] = "   danger now   ";
+  11          unsigned char code setting[] = "   input dist   ";
+  12          unsigned char code number[] = "0123456789";
+  13          char setdistance[] = " L___ F___ R___ ", KeyNum = 10;
+  14          int leftnumber, lbaiwei, lshiwei, lgewei,
+  15          frontnumber, fbaiwei, fshiwei, fgewei,
+  16          rightnumber, rbaiwei, rshiwei, rgewei,
+  17          i, j, k, l;
+  18          int main()
+  19          {
+  20   1        k = 0;
+  21   1        lcd_init();
+  22   1        dispaly_character(0, 0, setting);
+  23   1        dispaly_character(0, 1, redistance);
+  24   1        while (1)
+  25   1        {
+  26   2          KeyNum = MatrixKey();
+  27   2          /*save*/
+  28   2          DelayMs(1); //发出大约500Hz的方波 频率越大声音越尖
+  29   2          SPK=!SPK;
+  30   2          if (KeyNum == 11)
+  31   2          {
+  32   3            ISendStr(0xA0, 0, setdistance, 16);
+  33   3            j = k;
+  34   3          }
+  35   2          /*load*/
+  36   2          if (KeyNum == 12)
+  37   2          {
+  38   3            IRcvStr(0xA0, 0, setdistance, 16);
+  39   3            dispaly_character(0, 1, setdistance);
+  40   3            k = j;
+  41   3          }
+  42   2          /*set distance*/
+  43   2          if (KeyNum == 13)
+  44   2          {
+  45   3            k++;
+  46   3            if (k == 1)
+  47   3            { 
+  48   4              for(i=0;i<15;i++)
+  49   4              {
+  50   5              setdistance[i] =redistance[i];
+  51   5              }
+  52   4              for (i = 2; i < 5;)
+  53   4              {
+  54   5                KeyNum = MatrixKey();
+C51 COMPILER V9.54   MAIN                                                                  05/06/2021 10:02:42 PAGE 2   
 
-  55   6                  dispaly_character(0, 1, setdistance);
-  56   6                  if (i == 2)
-  57   6                  {
-  58   7                    lbaiwei = MatrixKey() * 100;
-  59   7                  }
-  60   6                  if (i == 3)
-  61   6                  {
-  62   7                    lshiwei = MatrixKey() * 10;
-  63   7                  }
-  64   6                  if (i == 4)
-  65   6                  {
-  66   7                    lgewei = MatrixKey();
-  67   7                  }
-  68   6                  leftnumber = lbaiwei + lshiwei + lgewei;
-  69   6                  i++;
-  70   6                }
-  71   5              }
-  72   4            }
-  73   3      
-  74   3            if (k == 2)
-  75   3            {
-  76   4              for (i = 7; i < 10;)
-  77   4              {
-  78   5                KeyNum = MatrixKey();
-  79   5                if (KeyNum < 10)
-  80   5                {
-  81   6      
-  82   6                  setdistance[i] = number[KeyNum];
-  83   6                  dispaly_character(0, 1, setdistance);
-  84   6                  if (i == 7)
-  85   6                  {
-  86   7                    fbaiwei = MatrixKey() * 100;
-  87   7                  }
-  88   6                  if (i == 8)
-  89   6                  {
-  90   7                    fshiwei = MatrixKey() * 10;
-  91   7                  }
-  92   6                  if (i == 9)
-  93   6                  {
-  94   7                    fgewei = MatrixKey();
-  95   7                  }
-  96   6                  frontnumber = fbaiwei + fshiwei + fgewei;
-  97   6                  i++;
-  98   6                }
-  99   5              }
- 100   4            }
- 101   3      
- 102   3            if (k == 3)
- 103   3            {
- 104   4              for (i = 12; i < 15;)
- 105   4              {
- 106   5                KeyNum = MatrixKey();
- 107   5                if (KeyNum < 10)
- 108   5                {
- 109   6                  setdistance[i] = number[KeyNum];
- 110   6                  dispaly_character(0, 1, setdistance);
- 111   6                  if (i == 12)
- 112   6                  {
- 113   7                    rbaiwei = MatrixKey() * 100;
- 114   7                  }
- 115   6                  if (i ==13)
- 116   6                  {
-C51 COMPILER V9.54   MAIN                                                                  05/06/2021 08:43:32 PAGE 3   
+  55   5                if (KeyNum < 10)
+  56   5                {
+  57   6                  setdistance[i] = number[KeyNum];
+  58   6                  dispaly_character(0, 1, setdistance);
+  59   6                  if (i == 2)
+  60   6                  {
+  61   7                    lbaiwei = MatrixKey() * 100;
+  62   7                  }
+  63   6                  if (i == 3)
+  64   6                  {
+  65   7                    lshiwei = MatrixKey() * 10;
+  66   7                  }
+  67   6                  if (i == 4)
+  68   6                  {
+  69   7                    lgewei = MatrixKey();
+  70   7                  }
+  71   6                  leftnumber = lbaiwei + lshiwei + lgewei;
+  72   6                  i++;
+  73   6                }
+  74   5              }
+  75   4            }
+  76   3      
+  77   3            if (k == 2)
+  78   3            {
+  79   4              for (i = 7; i < 10;)
+  80   4              {
+  81   5                KeyNum = MatrixKey();
+  82   5                if (KeyNum < 10)
+  83   5                {
+  84   6      
+  85   6                  setdistance[i] = number[KeyNum];
+  86   6                  dispaly_character(0, 1, setdistance);
+  87   6                  if (i == 7)
+  88   6                  {
+  89   7                    fbaiwei = MatrixKey() * 100;
+  90   7                  }
+  91   6                  if (i == 8)
+  92   6                  {
+  93   7                    fshiwei = MatrixKey() * 10;
+  94   7                  }
+  95   6                  if (i == 9)
+  96   6                  {
+  97   7                    fgewei = MatrixKey();
+  98   7                  }
+  99   6                  frontnumber = fbaiwei + fshiwei + fgewei;
+ 100   6                  i++;
+ 101   6                }
+ 102   5              }
+ 103   4            }
+ 104   3      
+ 105   3            if (k == 3)
+ 106   3            {
+ 107   4              for (i = 12; i < 15;)
+ 108   4              {
+ 109   5                KeyNum = MatrixKey();
+ 110   5                if (KeyNum < 10)
+ 111   5                {
+ 112   6                  setdistance[i] = number[KeyNum];
+ 113   6                  dispaly_character(0, 1, setdistance);
+ 114   6                  if (i == 12)
+ 115   6                  {
+ 116   7                    rbaiwei = MatrixKey() * 100;
+C51 COMPILER V9.54   MAIN                                                                  05/06/2021 10:02:42 PAGE 3   
 
- 117   7                    rshiwei = MatrixKey() * 10;
- 118   7                  }
- 119   6                  if (i == 14)
- 120   6                  {
- 121   7                    rgewei = MatrixKey();
- 122   7                  }
- 123   6                  rightnumber = rbaiwei + rshiwei + rgewei;
- 124   6                  i++;
- 125   6                }
- 126   5              }
- 127   4              k = 0;
- 128   4            }
- 129   3      
- 130   3      
- 131   3      
+ 117   7                  }
+ 118   6                  if (i ==13)
+ 119   6                  {
+ 120   7                    rshiwei = MatrixKey() * 10;
+ 121   7                  }
+ 122   6                  if (i == 14)
+ 123   6                  {
+ 124   7                    rgewei = MatrixKey();
+ 125   7                  }
+ 126   6                  rightnumber = rbaiwei + rshiwei + rgewei;
+ 127   6                  i++;
+ 128   6                }
+ 129   5              }
+ 130   4              k = 0;
+ 131   4            }
  132   3      
  133   3          }
  134   2      
@@ -154,7 +154,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    684    ----
+   CODE SIZE        =    691    ----
    CONSTANT SIZE    =     79    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

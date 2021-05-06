@@ -4,6 +4,7 @@
 #include "iic1602.h"
 #include "MatrixKey.h"
 #include "at24c02.h"
+sbit SPK=P1^2; 
 unsigned char code redistance[] = " L___ F___ R___ ";
 unsigned char code safe[] = "    safe now    ";
 unsigned char code danger[] = "   danger now   ";
@@ -24,6 +25,8 @@ int main()
 	{
 		KeyNum = MatrixKey();
 		/*save*/
+		DelayMs(1); //发出大约500Hz的方波 频率越大声音越尖
+	  SPK=!SPK;
 		if (KeyNum == 11)
 		{
 			ISendStr(0xA0, 0, setdistance, 16);
