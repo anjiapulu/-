@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  05/07/2021 15:54:27 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  05/07/2021 15:56:06 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   52   2         S1=S1/58;       //为什么除以58等于厘米，  Y米=（X秒*344）/2
   53   2         arr[0]=S1;      // X秒=（ 2*Y米）/344 -> X秒=0.0058*Y米 -> 厘米=微秒/58 
   54   2         TH0=0;
-C51 COMPILER V9.54   MAIN                                                                  05/07/2021 15:54:27 PAGE 2   
+C51 COMPILER V9.54   MAIN                                                                  05/07/2021 15:56:06 PAGE 2   
 
   55   2         TL0=0;        //清除定时器0寄存器中的值
   56   2         /*two*/
@@ -126,14 +126,14 @@ line level    source
  114   3                                      temp = arr[j];
  115   3                                      arr[j] = arr[j + 1];
  116   3                                      arr[j + 1] = temp;
-C51 COMPILER V9.54   MAIN                                                                  05/07/2021 15:54:27 PAGE 3   
+C51 COMPILER V9.54   MAIN                                                                  05/07/2021 15:56:06 PAGE 3   
 
  117   3                                }
  118   2         /*try*/
  119   2         S=(arr[1]+arr[2]+arr[3])/3;
  120   2         sprintf(DisTempData,"R=%6.2f CM     ",S);//打印输出结果
  121   2         LCD_Write_String(0,0,DisTempData);       //在液晶屏上显示
- 122   2         DelayMs(1000); 
+ 122   2         DelayMs(500); 
  123   2      /*------------------------------------------------
  124   2                  左边测距
  125   2      ------------------------------------------------*/ 
@@ -190,7 +190,7 @@ line level    source
  176   2      //   TH0=0;
  177   2      //   TL0=0;        //清除定时器0寄存器中的值
  178   2      //   /*five*/
-C51 COMPILER V9.54   MAIN                                                                  05/07/2021 15:54:27 PAGE 4   
+C51 COMPILER V9.54   MAIN                                                                  05/07/2021 15:56:06 PAGE 4   
 
  179   2      //   TRIGR=1;       //触发信号是高电平脉冲，宽度大于10us
  180   2      //   DelayUs2x(10);
