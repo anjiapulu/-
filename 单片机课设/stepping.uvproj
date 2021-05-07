@@ -393,6 +393,16 @@
               <FileType>1</FileType>
               <FilePath>.\at24c02.c</FilePath>
             </File>
+            <File>
+              <FileName>HCSR04.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\HCSR04.h</FilePath>
+            </File>
+            <File>
+              <FileName>HCSR04.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\HCSR04.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

@@ -25,16 +25,30 @@ Project File Date:  05/06/2021
 Rebuild target 'Target 1'
 assembling STARTUP.A51...
 compiling main.c...
-main.c(137): warning C316: unterminated conditionals
-main.c(136): warning C294: unreachable code
+main.c(168): warning C294: unreachable code
 compiling delay.c...
 compiling iic1602.c...
 compiling MatrixKey.c...
 compiling at24c02.c...
+compiling HCSR04.c...
 linking...
-Program Size: data=73.1 xdata=0 code=1909
-creating hex file from ".\Objects\stepping"...
-".\Objects\stepping" - 0 Error(s), 2 Warning(s).
+*** ERROR L104: MULTIPLE PUBLIC DEFINITIONS
+    SYMBOL:  DISTEMPDATA
+    MODULE:  .\Objects\HCSR04.obj (HCSR04)
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?MATRIXKEY?MATRIXKEY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ISENDSTR?AT24C02
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_IRCVSTR?AT24C02
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TIM0INIT?HCSR04
+*** ERROR L107: ADDRESS SPACE OVERFLOW
+    SPACE:   DATA    
+    SEGMENT: _DATA_GROUP_
+    LENGTH:  001CH
+Program Size: data=136.2 xdata=0 code=4002
+Target not created.
 </pre>
 </body>
 </html>
