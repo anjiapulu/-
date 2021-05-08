@@ -4,13 +4,19 @@
 #include <math.h>
 #include "1602.h"
 #include "delay.h"
-
-sbit TRIGL = P1 ^ 0;
-sbit ECHOL = P1 ^ 1;
-sbit TRIGB = P1 ^ 2;
-sbit ECHOB = P1 ^ 3;
-sbit TRIGR = P1 ^ 4;
-sbit ECHOR = P1 ^ 5;
+//
+//sbit TRIGL = P1 ^ 0;
+//sbit ECHOL = P1 ^ 1;
+//sbit TRIGB = P1 ^ 2;
+//sbit ECHOB = P1 ^ 3;
+//sbit TRIGR = P1 ^ 4;
+//sbit ECHOR = P1 ^ 5;
+sbit TRIGL = P2 ^ 0;
+sbit ECHOL = P2 ^ 1;
+sbit TRIGB = P2 ^ 2;
+sbit ECHOB = P2 ^ 3;
+sbit TRIGR = P3 ^ 4;
+sbit ECHOR = P3 ^ 5; 
 unsigned char DisTempData[7];
 /*------------------------------------------------
 					定时器0初始化
@@ -18,7 +24,7 @@ unsigned char DisTempData[7];
 void TIM1init(void)
 {
 
-	TMOD |= 0x10;//定时器0工作方式1
+	TMOD |= 0x10;//定时器0工作
 	TH1 = 0x00;
 	TL1 = 0x00;
 	ET1 = 1;
@@ -27,7 +33,7 @@ void TIM1init(void)
 /*------------------------------------------------
 					主函数
 ------------------------------------------------*/
-main()
+void distance()
 {
 	/*距离变量*/
 	TIM1init();    //初始化定时器0

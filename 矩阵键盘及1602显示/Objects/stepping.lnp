@@ -1,0 +1,9 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\delay.obj",
+".\Objects\iic1602.obj",
+".\Objects\MatrixKey.obj",
+".\Objects\at24c02.obj",
+".\Objects\HCSR04.obj" 
+TO ".\Objects\stepping" 
+PRINT(".\Listings\stepping.m51") RAMSIZE(256) 
