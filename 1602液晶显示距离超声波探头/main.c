@@ -4,7 +4,7 @@
 #include "1602.h"
 #include "delay.h"
 #include "string.h"
-#include "MatrixKey.h"
+//#include "MatrixKey.h"
 
 sbit TRIGL = P2 ^ 0;
 sbit ECHOL = P2 ^ 1;
@@ -185,7 +185,7 @@ while (1)
 					arr[j + 1] = temp;
 				}
 		/*try*/
-		S = ((arr[2] + arr[3] + arr[4]+arr[5]+arr[6]+arr[7]) / 6)+0.50;
+		S = ((arr[2] + arr[3] + arr[4]+arr[5]+arr[6]+arr[7]) / 6);
 		sprintf(DisTempData, "R=%6.2f", S);  
 		LCD_Write_String(0, 1, DisTempData);       
 		DelayMs(500);
@@ -335,7 +335,7 @@ while (1)
 					arr[j + 1] = temp;
 				}
 		/*try*/
-		S = ((arr[2] + arr[3] + arr[4]+arr[5]+arr[6]+arr[7]) / 6)+0.20;
+		S = ((arr[2] + arr[3] + arr[4]+arr[5]+arr[6]+arr[7]) / 6);
 		sprintf(DisTempData, "L=%6.2f", S);
 		LCD_Write_String(4, 0, DisTempData);    
 		DelayMs(1000);
@@ -484,7 +484,7 @@ while (1)
 					arr[j + 1] = temp;
 				}
 		/*try*/
-		S = ((arr[2] + arr[3] + arr[4]+arr[5]+arr[6]+arr[7]) / 6)+0.30 ;
+		S = ((arr[2] + arr[3] + arr[4]+arr[5]+arr[6]+arr[7]) / 6) ;
 		sprintf(DisTempData, "B=%6.2f", S);
 		LCD_Write_String(8, 1, DisTempData);
 
