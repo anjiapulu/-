@@ -1,5 +1,5 @@
 #include <REGX52.H>
-unsigned char MatrixKey()
+ unsigned int MatrixKey()
 { 
 	while(1)
 	{

@@ -378,6 +378,11 @@
               <FileType>1</FileType>
               <FilePath>.\delay.c</FilePath>
             </File>
+            <File>
+              <FileName>MatrixKey.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MatrixKey.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
