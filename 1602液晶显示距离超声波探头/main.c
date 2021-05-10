@@ -314,7 +314,7 @@ main()
 			{
 				for (i = 0; i < 200; i++)
 				{
-					DelayUs2x(10);
+			 DelayUs2x(200);
     	 SPK = !SPK;
 				}
 				SPK = 0;//防止一直给喇叭通电造成损坏
@@ -470,7 +470,7 @@ main()
 			/*try*/
 			S = ((arr[1] + arr[2] + arr[3] + arr[4] + arr[5] + arr[6] + arr[7] + arr[8]) / 8);
 			temp=leftnumber;
-			if (S < 50)
+			if (S < temp)
 			{
 				for (i = 0; i < 200; i++)
 				{
