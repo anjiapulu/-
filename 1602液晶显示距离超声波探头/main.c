@@ -156,10 +156,12 @@ main()
 					 	DelayMs(50);
 					}
 
+				  LCD_Write_String(0, 0, "                ");
 				}
 			}
 		}
 	
+		
 		/*------------------------------------------------
 						右方
 		------------------------------------------------*/
@@ -313,7 +315,7 @@ main()
 				for (i = 0; i < 200; i++)
 				{
 					DelayUs2x(10);
-					SPK = !SPK;
+    	 SPK = !SPK;
 				}
 				SPK = 0;//防止一直给喇叭通电造成损坏
 
@@ -478,8 +480,9 @@ main()
 				SPK = 0;//防止一直给喇叭通电造成损坏
 				
 			}
+			
 			sprintf(DisTempData,"L=%6.2f", S);
-			LCD_Write_String(4, 0, DisTempData);
+			LCD_Write_String(8, 1, DisTempData);
 		}
 		/*------------------------------------------------
 					  后方
@@ -637,8 +640,9 @@ main()
 				SPK = 0;//防止一直给喇叭通电造成损坏
 
 			}
+		
 			sprintf(DisTempData, "B=%6.2f", S);
-			LCD_Write_String(8, 1, DisTempData);
+			LCD_Write_String(4, 0, DisTempData);
 
 		}
 	}
