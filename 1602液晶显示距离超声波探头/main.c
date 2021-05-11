@@ -7,11 +7,11 @@
 #include "MatrixKey.h"
 sbit TRIGL = P2 ^ 0;
 sbit ECHOL = P2 ^ 1;
-sbit TRIGB = P2 ^ 2;
-sbit ECHOB = P2 ^ 3;
+sbit TRIGB = P3 ^ 4;
+sbit ECHOB = P3 ^ 5;
 sbit TRIGR = P3 ^ 6;
 sbit ECHOR = P3 ^ 7;
-sbit SPK = P2 ^ 7;
+sbit SPK = P2 ^ 2;
 unsigned char DisTempData[7];
 unsigned char code studentid[]="0123456789";
 float S, arr[9], temp;
@@ -312,14 +312,12 @@ main()
 			temp=rightnumber;
 			if (S < temp)
 			{
-				for (i = 0; i < 200; i++)
-				{
-			 DelayUs2x(200);
-    	 SPK = !SPK;
-				}
-				SPK = 0;//防止一直给喇叭通电造成损坏
-
+				
+			SPK = 0;//防止一直给喇叭通电造成损坏
+			DelayMs(250);
+				
 			}
+		  SPK = 1;
 			sprintf(DisTempData, "R=%6.2f",S);
 			LCD_Write_String(0, 1, DisTempData);
 		}
@@ -472,15 +470,12 @@ main()
 			temp=leftnumber;
 			if (S < temp)
 			{
-				for (i = 0; i < 200; i++)
-				{
-					DelayUs2x(200);
-					SPK = !SPK;
-				}
-				SPK = 0;//防止一直给喇叭通电造成损坏
+				
+			SPK = 0;//防止一直给喇叭通电造成损坏
+			DelayMs(250);
 				
 			}
-			
+		  SPK = 1;
 			sprintf(DisTempData,"L=%6.2f", S);
 			LCD_Write_String(8, 1, DisTempData);
 		}
@@ -632,15 +627,12 @@ main()
 			temp=backnumber;
 			if (S < temp)
 			{
-				for (i = 0; i < 200; i++)
-				{
-					DelayUs2x(200);
-					SPK = !SPK;
-				}
-				SPK = 0;//防止一直给喇叭通电造成损坏
-
+				
+			SPK = 0;//防止一直给喇叭通电造成损坏
+			DelayMs(250);
+				
 			}
-		
+		  SPK = 1;
 			sprintf(DisTempData, "B=%6.2f", S);
 			LCD_Write_String(4, 0, DisTempData);
 
