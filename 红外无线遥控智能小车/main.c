@@ -25,16 +25,20 @@
 #include <stdio.h>
 #include <math.h>
 #include "1602.h"
-#include "distance.h"
 #include "delay.h"
+#include "distance.h"
+#include "MatrixKey.h"
 /*====================================
  自定义类型名
 ====================================*/
 typedef unsigned char INT8U;
 typedef unsigned char uchar;
-
 typedef unsigned int INT16U;
 typedef unsigned int uint;
+unsigned char DisTempData[7],nice[1];
+float S, arr[5];
+int leftnumber=0, backnumber=0, rightnumber=0;
+int i, k=0, j=10;
 /*====================================
 函数：void Delay_Ms(INT16U ms)
 参数：ms，毫秒延时形参
@@ -52,7 +56,13 @@ void Delay_Ms(unsigned int ms)
  硬件接口位声明
 ====================================*/
 sbit IR  = P3^2;     //定义红外脉冲数据接口	外部中断O输入口
-
+sbit TRIGL = P2 ^ 0;
+sbit ECHOL = P2 ^ 1;
+sbit TRIGB = P3 ^ 4;
+sbit ECHOB = P3 ^ 5;
+sbit TRIGR = P3 ^ 6;
+sbit ECHOR = P3 ^ 7;
+sbit SPK = P2 ^ 2;
 uchar IRtime; 		//检测红外高电平持续时间（脉宽）
 uchar IRcord[4];    //此数组用于储存分离出来的4个字节的数据（用户码2个字节+键值码2个字节）
 uchar IRdata[33];   //此数组用于储存红外的33位数据（第一位为引导码用户码16+键值码16）
@@ -60,7 +70,7 @@ bit IRpro_ok, IRok;  //第一个用于红外接收4个字节完毕。IRok用为检测脉宽完毕
 
 void init()	   //初始化定时器0 和外部中断0
 {
-	TMOD = 0x02; //定时器0工作方式2，8位自动重装
+	TMOD |= 0x02; //定时器0工作方式2，8位自动重装
 	TH0 = 0x00;  //高8位装入0那么定时器溢出一次的时间是256个机器周期
 	TL0 = 0x00;
 	EA = 1;      //总中断
@@ -195,8 +205,432 @@ void main()
 		   		}
 				IRpro_ok = 0;
 			}
+			if(1)
+			{
+	while (1)
+	{
+
+		/*蜂鸣器警戒值输入*/
+		while (k <= 3)
+		{
+			if (k == 0)
+			{
+					LCD_Write_String(0, 1, " L___ B___ R___ ");
+			}
+			LCD_Write_String(0, 0, "   input dist   ");
+			j = MatrixKey();
+			if (j == 13)
+			{
+				k++;
+				if (k == 1)
+				{
+					for (i = 2; i < 5;)
+					{
+						j = MatrixKey();
+						if(i==2)
+						{
+						if(j>0&&j<10)
+						{
+            leftnumber+=(j*100);
+						}
+						}
+            if(i==3)
+						{
+						if(j>0&&j<10)
+						{
+            leftnumber+=(j*10);
+						}
+						}
+						if(i==4)
+						{
+						if(j>0&&j<10)
+						{
+            leftnumber+=(j);
+						}
+						}
+						if (j < 10)
+						{
+							
+							sprintf(nice, "%d",j);
+							LCD_Write_Char(i, 1,nice[0] );
+							i++;
+						}
+						DelayMs(50);
+				
+					}
+				}
+				if (k == 2)
+				{
+					for (i = 7; i < 10; )
+					{
+						j = MatrixKey();
+						if(i==7)
+						{
+						if(j>0&&j<10)
+						{
+            backnumber+=(j*100);
+						}
+						}
+            if(i==8)
+						{
+						if(j>0&&j<10)
+						{
+            backnumber+=(j*10);
+						}
+						}
+						if(i==9)
+						{
+						if(j>0&&j<10)
+						{
+            backnumber+=(j);
+						}
+						}
+						if (j < 10)
+						{
+							sprintf(nice, "%d",j);
+							LCD_Write_Char(i, 1,nice[0] );
+							i++;
+						}
+						DelayMs(50);
+					}
+				}
+				if (k == 3)
+				{
+          k=4;
+					for (i = 12; i < 15; )
+					{
+						j = MatrixKey();
+	          if(i==12)
+						{
+						if(j>0&&j<10)
+						{
+            rightnumber+=(j*100);
+						}
+						}
+            if(i==13)
+						{
+						if(j>0&&j<10)
+						{
+            rightnumber+=(j*10);
+						}
+						}
+						if(i==14)
+						{
+						if(j>0&&j<10)
+						{
+            rightnumber+=(j);
+						}
+						}
+						if (j < 10)
+						{
+							sprintf(nice, "%d",j                                       	               );
+							LCD_Write_Char(i, 1,nice[0] );
+							i++;
+						}
+					 	DelayMs(50);
+					}
+
+				  LCD_Write_String(0, 0, "                ");
+				}
+			}
+		}
+	
+		
+		/*------------------------------------------------
+						右方
+		------------------------------------------------*/
+		if (1)
+		{
+			/*one*/
+			TRIGR = 1;
+			DelayUs2x(10);
+			TRIGR = 0;
+			while (!ECHOR);
+			TR1 = 1;
+			while (ECHOR);
+			TR1 = 0;
+			S = TH1 * 256 + TL1;
+			S = S / 58;
+			arr[0] = S;
+			TH1 = 0;
+			TL1 = 0;
+			/*two*/
+			TRIGR = 1;
+			DelayUs2x(10);
+			TRIGR = 0;
+			while (!ECHOR);
+			TR1 = 1;
+			while (ECHOR);
+			TR1 = 0;
+			S = TH1 * 256 + TL1;
+			S = S / 58;
+			arr[1] = S;
+			TH1 = 0;
+			TL1 = 0;
+			/*third*/
+			TRIGR = 1;
+			DelayUs2x(10);
+			TRIGR = 0;
+			while (!ECHOR);
+			TR1 = 1;
+			while (ECHOR);
+			TR1 = 0;
+			S = TH1 * 256 + TL1;
+			S = S / 58;
+			arr[2] = S;
+			TH1 = 0;
+			TL1 = 0;
+			/*four*/
+			TRIGR = 1;
+			DelayUs2x(10);
+			TRIGR = 0;
+			while (!ECHOR);
+			TR1 = 1;
+			while (ECHOR);
+			TR1 = 0;
+			S = TH1 * 256 + TL1;
+			S = S / 58;
+			arr[3] = S;
+			TH1 = 0;
+			TL1 = 0;
+			/*five*/
+			TRIGR = 1;
+			DelayUs2x(10);
+			TRIGR = 0;
+			while (!ECHOR);
+			TR1 = 1;
+			while (ECHOR);
+			TR1 = 0;
+			S = TH1 * 256 + TL1;
+			S = S / 58;
+			arr[4] = S;
+			TH1 = 0;
+			TL1 = 0;
+			/*try*/
+
+			for (i = 0; i < 5 - 1; i++)
+				for (j = 0; j < 5 - 1 - i; j++)
+					if (arr[j] > arr[j + 1])
+					{
+						S = arr[j];
+						arr[j] = arr[j + 1];
+						arr[j + 1] = S;
+					}
+			/*try*/
+			S = (arr[1] + arr[2] + arr[3] + arr[4] / 4);
+			if (S < rightnumber)
+			{
+
+			SPK = 0;//防止一直给喇叭通电造成损坏
+			DelayMs(250);
+
+			}
+		  SPK = 1;
+			sprintf(DisTempData, "R=%6.2f",S);
+			LCD_Write_String(0, 1, DisTempData);
+		}
+		/*------------------------------------------------
+					左方
+		------------------------------------------------*/
+		if (1)
+		{
+			/*one*/
+			TRIGL = 1;
+			DelayUs2x(10);
+			TRIGL = 0;
+			while (!ECHOL);
+			TR1 = 1;
+			while (ECHOL);
+			TR1 = 0;
+			S = TH1 * 256 + TL1;
+			S = S / 58;       //     58    ,  Y =(X *344)/2
+			arr[0] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+			TH1 = 0;
+			TL1 = 0;
+			/*two*/
+			TRIGL = 1;
+			DelayUs2x(10);
+			TRIGL = 0;
+			while (!ECHOL);
+			TR1 = 1;
+			while (ECHOL);
+			TR1 = 0;
+			S = TH1 * 256 + TL1;
+			S = S / 58;       //     58    ,  Y =(X *344)/2
+			arr[1] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+			TH1 = 0;
+			TL1 = 0;
+			/*third*/
+			TRIGL = 1;
+			DelayUs2x(10);
+			TRIGL = 0;
+			while (!ECHOL);
+			TR1 = 1;
+			while (ECHOL);
+			TR1 = 0;
+			S = TH1 * 256 + TL1;
+			S = S / 58;
+			arr[2] = S;
+			TH1 = 0;
+			TL1 = 0;
+			/*four*/
+			TRIGL = 1;
+			DelayUs2x(10);
+			TRIGL = 0;
+			while (!ECHOL);
+			TR1 = 1;
+			while (ECHOL);
+			TR1 = 0;
+			S = TH1 * 256 + TL1;
+			S = S / 58;
+			arr[3] = S;
+			TH1 = 0;
+			TL1 = 0;
+			/*five*/
+			TRIGL = 1;
+			DelayUs2x(10);
+			TRIGL = 0;
+			while (!ECHOL);
+			TR1 = 1;
+			while (ECHOL);
+			TR1 = 0;
+			S = TH1 * 256 + TL1;
+			S = S / 58;
+			arr[4] = S;
+			TH1 = 0;
+			TL1 = 0;
+			/*try*/
+			for (i = 0; i < 10 - 1; i++)
+				for (j = 0; j < 10 - 1 - i; j++)
+					if (arr[j] > arr[j + 1])
+					{
+						S = arr[j];
+						arr[j] = arr[j + 1];
+						arr[j + 1] = S;
+					}
+			/*try*/
+			S = ((arr[1] + arr[2] + arr[3] + arr[4] ) / 4);
+			if (S < leftnumber)
+			{
+				
+			SPK = 0;//防止一直给喇叭通电造成损坏
+			DelayMs(250);
+				
+			}
+		  SPK = 1;
+			sprintf(DisTempData,"L=%6.2f", S);
+			LCD_Write_String(8, 1, DisTempData);
+		}
+		/*------------------------------------------------
+					  后方
+		------------------------------------------------*/
+		if (1)
+		{
+			TRIGB = 1;
+			DelayUs2x(10);
+			TRIGB = 0;
+			while (!ECHOB);
+			TR1 = 1;
+			while (ECHOB);
+			TR1 = 0;
+			S = TH1 * 256 + TL1;
+			S = S / 58;       //     58    ,  Y =(X *344)/2
+			arr[0] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+			TH1 = 0;
+			TL1 = 0;
+			/*two*/
+			TRIGB = 1;
+			DelayUs2x(10);
+			TRIGB = 0;
+			while (!ECHOB);
+			TR1 = 1;
+			while (ECHOB);
+			TR1 = 0;
+			S = TH1 * 256 + TL1;
+			S = S / 58;       //     58    ,  Y =(X *344)/2
+			arr[1] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+			TH1 = 0;
+			TL1 = 0;
+			/*third*/
+			TRIGB = 1;
+			DelayUs2x(10);
+			TRIGB = 0;
+			while (!ECHOB);
+			TR1 = 1;
+			while (ECHOB);
+			TR1 = 0;
+			S = TH1 * 256 + TL1;
+			S = S / 58;       //     58    ,  Y =(X *344)/2
+			arr[2] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+			TH1 = 0;
+			TL1 = 0;
+			/*four*/
+			TRIGB = 1;
+			DelayUs2x(10);
+			TRIGB = 0;
+			while (!ECHOB);
+			TR1 = 1;
+			while (ECHOB);
+			TR1 = 0;
+			S = TH1 * 256 + TL1;
+			S = S / 58;       //     58    ,  Y =(X *344)/2
+			arr[3] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+			TH1 = 0;
+			TL1 = 0;
+			/*five*/
+			TRIGB = 1;
+			DelayUs2x(10);
+			TRIGB = 0;
+			while (!ECHOB);
+			TR1 = 1;
+			while (ECHOB);
+			TR1 = 0;
+			S = TH1 * 256 + TL1;
+			S = S / 58;       //     58    ,  Y =(X *344)/2
+			arr[4] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+			TH1 = 0;
+			TL1 = 0;
+			/*try*/
+			for (i = 0; i < 10 - 1; i++)
+				for (j = 0; j < 10 - 1 - i; j++)
+					if (arr[j] > arr[j + 1])
+					{
+						S = arr[j];
+						arr[j] = arr[j + 1];
+						arr[j + 1] = S;
+					}
+			/*try*/
+			S = (arr[1] + arr[2] + arr[3] + arr[4]  /4);
+			if (S < backnumber)
+			{
+				
+			SPK = 0;//防止一直给喇叭通电造成损坏
+			DelayMs(250);
+				
+			}
+		  SPK = 1;
+			sprintf(DisTempData, "B=%6.2f", S);
+			LCD_Write_String(4, 0, DisTempData);
+
+		}
+	}
+			}
 		}	
-	  distancet();
 
 	}
+}
+void TIM1init(void)
+{
+
+	TMOD |= 0x10;
+	TH1 = 0x00;
+	TL1 = 0x00;
+	ET1 = 1;
+	EA = 1;
+}
+void Timer0_isr(void) interrupt 2
+{
+	ECHOL = 0;
+	ECHOB = 0;
+	ECHOR = 0;
 }

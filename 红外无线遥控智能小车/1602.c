@@ -18,13 +18,10 @@ sbit EN = P2^6;
 
 #define RS_CLR RS=0 
 #define RS_SET RS=1
-
 #define RW_CLR RW=0 
 #define RW_SET RW=1 
-
 #define EN_CLR EN=0
 #define EN_SET EN=1
-
 #define DataPort P0
 
 /*------------------------------------------------
@@ -32,7 +29,7 @@ sbit EN = P2^6;
 ------------------------------------------------*/
  bit LCD_Check_Busy(void) 
  { 
-#ifdef CHECK_BUSY
+ #ifdef CHECK_BUSY
  DataPort= 0xFF; 
  RS_CLR; 
  RW_SET; 
@@ -40,9 +37,9 @@ sbit EN = P2^6;
  _nop_(); 
  EN_SET;
  return (bit)(DataPort & 0x80);
-#else
+ #else
  return 0;
-#endif
+ #endif
  }
 /*------------------------------------------------
               –¥»Î√¸¡Ó∫Ø ˝

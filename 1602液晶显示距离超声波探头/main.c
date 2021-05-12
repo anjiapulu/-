@@ -14,7 +14,7 @@ sbit ECHOR = P3 ^ 7;
 sbit SPK = P2 ^ 2;
 unsigned char DisTempData[7];
 unsigned char code studentid[]="0123456789";
-float S, arr[9], temp;
+float S, arr[5], temp;
 int leftnumber=0, backnumber=0, rightnumber=0;
 int i, k=0, j, KeyNum = 10;
 /*------------------------------------------------
@@ -232,75 +232,9 @@ main()
 			arr[4] = S;
 			TH1 = 0;
 			TL1 = 0;
-			/*SIX*/
-			TRIGR = 1;
-			DelayUs2x(10);
-			TRIGR = 0;
-			while (!ECHOR);
-			TR1 = 1;
-			while (ECHOR);
-			TR1 = 0;
-			S = TH1 * 256 + TL1;
-			S = S / 58;       //     58    ,  Y =(X *344)/2
-			arr[5] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
-			TH1 = 0;
-			TL1 = 0;
-			/*SEVEN*/
-			TRIGR = 1;
-			DelayUs2x(10);
-			TRIGR = 0;
-			while (!ECHOR);
-			TR1 = 1;
-			while (ECHOR);
-			TR1 = 0;
-			S = TH1 * 256 + TL1;
-			S = S / 58;       //     58    ,  Y =(X *344)/2
-			arr[6] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
-			TH1 = 0;
-			TL1 = 0;
-			/*EIGHT*/
-			TRIGR = 1;
-			DelayUs2x(10);
-			TRIGR = 0;
-			while (!ECHOR);
-			TR1 = 1;
-			while (ECHOR);
-			TR1 = 0;
-			S = TH1 * 256 + TL1;
-			S = S / 58;       //     58    ,  Y =(X *344)/2
-			arr[7] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
-			TH1 = 0;
-			TL1 = 0;
-			/*NINE*/
-			TRIGR = 1;
-			DelayUs2x(10);
-			TRIGR = 0;
-			while (!ECHOR);
-			TR1 = 1;
-			while (ECHOR);
-			TR1 = 0;
-			S = TH1 * 256 + TL1;
-			S = S / 58;       //     58    ,  Y =(X *344)/2
-			arr[8] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
-			TH1 = 0;
-			TL1 = 0;
-			/*TEN*/
-			TRIGR = 1;
-			DelayUs2x(10);
-			TRIGR = 0;
-			while (!ECHOR);
-			TR1 = 1;
-			while (ECHOR);
-			TR1 = 0;
-			S = TH1 * 256 + TL1;
-			S = S / 58;       //     58    ,  Y =(X *344)/2
-			arr[9] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
-			TH1 = 0;
-			TL1 = 0;
 			/*try*/
-
-			for (i = 0; i < 10 - 1; i++)
-				for (j = 0; j < 10 - 1 - i; j++)
+			for (i = 0; i < 5 - 1; i++)
+				for (j = 0; j < 5 - 1 - i; j++)
 					if (arr[j] > arr[j + 1])
 					{
 						temp = arr[j];
@@ -308,7 +242,7 @@ main()
 						arr[j + 1] = temp;
 					}
 			/*try*/
-			S = ((arr[1] + arr[2] + arr[3] + arr[4] + arr[5] + arr[6] + arr[7] + arr[8]) / 8);
+			S = ((arr[1] + arr[2] + arr[3] ) / 3);
 			temp=rightnumber;
 			if (S < temp)
 			{
@@ -391,74 +325,10 @@ main()
 			arr[4] = S;
 			TH1 = 0;
 			TL1 = 0;
-			/*SIX*/
-			TRIGL = 1;
-			DelayUs2x(10);
-			TRIGL = 0;
-			while (!ECHOL);
-			TR1 = 1;
-			while (ECHOL);
-			TR1 = 0;
-			S = TH1 * 256 + TL1;
-			S = S / 58;       //     58    ,  Y =(X *344)/2
-			arr[5] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
-			TH1 = 0;
-			TL1 = 0;
-			/*SEVEN*/
-			TRIGL = 1;
-			DelayUs2x(10);
-			TRIGL = 0;
-			while (!ECHOL);
-			TR1 = 1;
-			while (ECHOL);
-			TR1 = 0;
-			S = TH1 * 256 + TL1;
-			S = S / 58;
-			arr[6] = S;
-			TH1 = 0;
-			TL1 = 0;
-			/*EIGHT*/
-			TRIGL = 1;
-			DelayUs2x(10);
-			TRIGL = 0;
-			while (!ECHOL);
-			TR1 = 1;
-			while (ECHOL);
-			TR1 = 0;
-			S = TH1 * 256 + TL1;
-			S = S / 58;
-			arr[7] = S;
-			TH1 = 0;
-			TL1 = 0;
-			/*NINE*/
-			TRIGL = 1;
-			DelayUs2x(10);
-			TRIGL = 0;
-			while (!ECHOL);
-			TR1 = 1;
-			while (ECHOL);
-			TR1 = 0;
-			S = TH1 * 256 + TL1;
-			S = S / 58;
-			arr[8] = S;
-			TH1 = 0;
-			TL1 = 0;
-			/*TEN*/
-			TRIGL = 1;
-			DelayUs2x(10);
-			TRIGL = 0;
-			while (!ECHOL);
-			TR1 = 1;
-			while (ECHOL);
-			TR1 = 0;
-			S = TH1 * 256 + TL1;
-			S = S / 58;
-			arr[9] = S;
-			TH1 = 0;
-			TL1 = 0;
+
 			/*try*/
-			for (i = 0; i < 10 - 1; i++)
-				for (j = 0; j < 10 - 1 - i; j++)
+			for (i = 0; i < 5 - 1; i++)
+				for (j = 0; j < 5 - 1 - i; j++)
 					if (arr[j] > arr[j + 1])
 					{
 						temp = arr[j];
@@ -466,7 +336,7 @@ main()
 						arr[j + 1] = temp;
 					}
 			/*try*/
-			S = ((arr[1] + arr[2] + arr[3] + arr[4] + arr[5] + arr[6] + arr[7] + arr[8]) / 8);
+			S = ((arr[1] + arr[2] + arr[3] ) / 3);
 			temp=leftnumber;
 			if (S < temp)
 			{
@@ -476,6 +346,7 @@ main()
 				
 			}
 		  SPK = 1;
+			
 			sprintf(DisTempData,"L=%6.2f", S);
 			LCD_Write_String(8, 1, DisTempData);
 		}
@@ -548,74 +419,9 @@ main()
 			arr[4] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
 			TH1 = 0;
 			TL1 = 0;
-			/*SIX*/
-			TRIGB = 1;
-			DelayUs2x(10);
-			TRIGB = 0;
-			while (!ECHOB);
-			TR1 = 1;
-			while (ECHOB);
-			TR1 = 0;
-			S = TH1 * 256 + TL1;
-			S = S / 58;       //     58    ,  Y =(X *344)/2
-			arr[5] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
-			TH1 = 0;
-			TL1 = 0;
-			/*SEVEN*/
-			TRIGB = 1;
-			DelayUs2x(10);
-			TRIGB = 0;
-			while (!ECHOB);
-			TR1 = 1;
-			while (ECHOB);
-			TR1 = 0;
-			S = TH1 * 256 + TL1;
-			S = S / 58;       //     58    ,  Y =(X *344)/2
-			arr[6] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
-			TH1 = 0;
-			TL1 = 0;
-			/*EIGHT*/
-			TRIGB = 1;
-			DelayUs2x(10);
-			TRIGB = 0;
-			while (!ECHOB);
-			TR1 = 1;
-			while (ECHOB);
-			TR1 = 0;
-			S = TH1 * 256 + TL1;
-			S = S / 58;       //     58    ,  Y =(X *344)/2
-			arr[7] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
-			TH1 = 0;
-			TL1 = 0;
-			/*NINE*/
-			TRIGB = 1;
-			DelayUs2x(10);
-			TRIGB = 0;
-			while (!ECHOB);
-			TR1 = 1;
-			while (ECHOB);
-			TR1 = 0;
-			S = TH1 * 256 + TL1;
-			S = S / 58;       //     58    ,  Y =(X *344)/2
-			arr[8] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
-			TH1 = 0;
-			TL1 = 0;
-			/*TEN*/
-			TRIGB = 1;
-			DelayUs2x(10);
-			TRIGB = 0;
-			while (!ECHOB);
-			TR1 = 1;
-			while (ECHOB);
-			TR1 = 0;
-			S = TH1 * 256 + TL1;
-			S = S / 58;       //     58    ,  Y =(X *344)/2
-			arr[9] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
-			TH1 = 0;
-			TL1 = 0;
 			/*try*/
-			for (i = 0; i < 10 - 1; i++)
-				for (j = 0; j < 10 - 1 - i; j++)
+			for (i = 0; i < 5 - 1; i++)
+				for (j = 0; j < 5 - 1 - i; j++)
 					if (arr[j] > arr[j + 1])
 					{
 						temp = arr[j];
@@ -623,7 +429,7 @@ main()
 						arr[j + 1] = temp;
 					}
 			/*try*/
-			S = ((arr[1] + arr[2] + arr[3] + arr[4] + arr[5] + arr[6] + arr[7] + arr[8]) / 8);
+			S = ((arr[1] + arr[2] + arr[3] ) / 3);
 			temp=backnumber;
 			if (S < temp)
 			{
@@ -633,6 +439,7 @@ main()
 				
 			}
 		  SPK = 1;
+		
 			sprintf(DisTempData, "B=%6.2f", S);
 			LCD_Write_String(4, 0, DisTempData);
 

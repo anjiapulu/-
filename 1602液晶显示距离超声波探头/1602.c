@@ -18,10 +18,13 @@ sbit EN = P2^6;
 
 #define RS_CLR RS=0 
 #define RS_SET RS=1
+
 #define RW_CLR RW=0 
 #define RW_SET RW=1 
+
 #define EN_CLR EN=0
 #define EN_SET EN=1
+
 #define DataPort P0
 
 /*------------------------------------------------

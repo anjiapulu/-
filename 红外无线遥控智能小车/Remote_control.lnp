@@ -2,6 +2,6 @@
 "main.obj",
 "delay.obj",
 "1602.obj",
-"distance.obj" 
+"MatrixKey.obj" 
 TO "Remote_control" 
 RAMSIZE(256) 
