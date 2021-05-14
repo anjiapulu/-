@@ -8,7 +8,7 @@
 #include <QX_A11.h>//QX-A51智能小车配置文件
 typedef unsigned int u16;
 typedef unsigned int u8;
-u8 timer1;
+u16 timer1;
 
 
 unsigned char DisTempData[7];
