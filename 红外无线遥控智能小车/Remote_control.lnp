@@ -1,7 +1,6 @@
 "STARTUP.obj",
 "main.obj",
 "delay.obj",
-"1602.obj",
-"MatrixKey.obj" 
+"1602.obj" 
 TO "Remote_control" 
 RAMSIZE(256) 

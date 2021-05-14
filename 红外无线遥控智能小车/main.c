@@ -26,8 +26,8 @@
 #include <math.h>
 #include "1602.h"
 #include "delay.h"
-#include "distance.h"
-#include "MatrixKey.h"
+//#include "MatrixKey.h"
+void TIM1init(void);
 /*====================================
  自定义类型名
 ====================================*/
@@ -35,10 +35,9 @@ typedef unsigned char INT8U;
 typedef unsigned char uchar;
 typedef unsigned int INT16U;
 typedef unsigned int uint;
-unsigned char DisTempData[7],nice[1];
+unsigned char DisTempData[7];
 float S, arr[5];
-int leftnumber=0, backnumber=0, rightnumber=0;
-int i, k=0, j=10;
+int i, k=0, j;
 /*====================================
 函数：void Delay_Ms(INT16U ms)
 参数：ms，毫秒延时形参
@@ -205,134 +204,6 @@ void main()
 		   		}
 				IRpro_ok = 0;
 			}
-			if(1)
-			{
-	while (1)
-	{
-
-		/*蜂鸣器警戒值输入*/
-		while (k <= 3)
-		{
-			if (k == 0)
-			{
-					LCD_Write_String(0, 1, " L___ B___ R___ ");
-			}
-			LCD_Write_String(0, 0, "   input dist   ");
-			j = MatrixKey();
-			if (j == 13)
-			{
-				k++;
-				if (k == 1)
-				{
-					for (i = 2; i < 5;)
-					{
-						j = MatrixKey();
-						if(i==2)
-						{
-						if(j>0&&j<10)
-						{
-            leftnumber+=(j*100);
-						}
-						}
-            if(i==3)
-						{
-						if(j>0&&j<10)
-						{
-            leftnumber+=(j*10);
-						}
-						}
-						if(i==4)
-						{
-						if(j>0&&j<10)
-						{
-            leftnumber+=(j);
-						}
-						}
-						if (j < 10)
-						{
-							
-							sprintf(nice, "%d",j);
-							LCD_Write_Char(i, 1,nice[0] );
-							i++;
-						}
-						DelayMs(50);
-				
-					}
-				}
-				if (k == 2)
-				{
-					for (i = 7; i < 10; )
-					{
-						j = MatrixKey();
-						if(i==7)
-						{
-						if(j>0&&j<10)
-						{
-            backnumber+=(j*100);
-						}
-						}
-            if(i==8)
-						{
-						if(j>0&&j<10)
-						{
-            backnumber+=(j*10);
-						}
-						}
-						if(i==9)
-						{
-						if(j>0&&j<10)
-						{
-            backnumber+=(j);
-						}
-						}
-						if (j < 10)
-						{
-							sprintf(nice, "%d",j);
-							LCD_Write_Char(i, 1,nice[0] );
-							i++;
-						}
-						DelayMs(50);
-					}
-				}
-				if (k == 3)
-				{
-          k=4;
-					for (i = 12; i < 15; )
-					{
-						j = MatrixKey();
-	          if(i==12)
-						{
-						if(j>0&&j<10)
-						{
-            rightnumber+=(j*100);
-						}
-						}
-            if(i==13)
-						{
-						if(j>0&&j<10)
-						{
-            rightnumber+=(j*10);
-						}
-						}
-						if(i==14)
-						{
-						if(j>0&&j<10)
-						{
-            rightnumber+=(j);
-						}
-						}
-						if (j < 10)
-						{
-							sprintf(nice, "%d",j                                       	               );
-							LCD_Write_Char(i, 1,nice[0] );
-							i++;
-						}
-					 	DelayMs(50);
-					}
-
-				  LCD_Write_String(0, 0, "                ");
-				}
-			}
 		}
 	
 		
@@ -417,8 +288,8 @@ void main()
 						arr[j + 1] = S;
 					}
 			/*try*/
-			S = (arr[1] + arr[2] + arr[3] + arr[4] / 4);
-			if (S < rightnumber)
+			S = (arr[1] + arr[2] + arr[3] / 3);
+			if (S < 10)
 			{
 
 			SPK = 0;//防止一直给喇叭通电造成损坏
@@ -509,8 +380,8 @@ void main()
 						arr[j + 1] = S;
 					}
 			/*try*/
-			S = ((arr[1] + arr[2] + arr[3] + arr[4] ) / 4);
-			if (S < leftnumber)
+			S = ((arr[1] + arr[2] + arr[3]  ) / 3);
+			if (S < 10)
 			{
 				
 			SPK = 0;//防止一直给喇叭通电造成损坏
@@ -600,8 +471,8 @@ void main()
 						arr[j + 1] = S;
 					}
 			/*try*/
-			S = (arr[1] + arr[2] + arr[3] + arr[4]  /4);
-			if (S < backnumber)
+			S = (arr[1] + arr[2] + arr[3]   /3);
+			if (S < 10)
 			{
 				
 			SPK = 0;//防止一直给喇叭通电造成损坏
@@ -615,10 +486,10 @@ void main()
 		}
 	}
 			}
-		}	
+	
 
-	}
-}
+	
+
 void TIM1init(void)
 {
 

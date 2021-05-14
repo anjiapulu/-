@@ -4,22 +4,67 @@
 #include "1602.h"
 #include "delay.h"
 #include "string.h"
-#include "MatrixKey.h"
-sbit TRIGL = P2 ^ 0;
-sbit ECHOL = P2 ^ 1;
-sbit TRIGB = P3 ^ 4;
-sbit ECHOB = P3 ^ 5;
-sbit TRIGR = P3 ^ 6;
-sbit ECHOR = P3 ^ 7;
-sbit SPK = P2 ^ 2;
+//#include "MatrixKey.h"
+#include <QX_A11.h>//QX-A51智能小车配置文件
+typedef unsigned int u16;
+typedef unsigned int u8;
+u8 timer1;
+
+
 unsigned char DisTempData[7];
-unsigned char code studentid[]="0123456789";
+//unsigned char code studentid[]="0123456789";
 float S, arr[5], temp;
-int leftnumber=0, backnumber=0, rightnumber=0;
+float leftnumber, backnumber, rightnumber;
 int i, k=0, j, KeyNum = 10;
 /*------------------------------------------------
-				   主函数
+				   子函数
 ------------------------------------------------*/
+void pwm1(u16 count)
+{
+ if(count>=timer1)
+	 IN1=1;
+   else
+   IN1=0;
+}
+void pwm2(u16 count)
+{
+ if(count>=timer1)IN2=1;
+   else
+   IN2=0;
+}
+void pwm3(u16 count)
+{
+ if(count>=timer1)IN3=1;
+   else
+   IN3=0;
+}
+void pwm4(u16 count)
+{
+ if(count>=timer1)IN4=1;
+   else
+   IN4=0;
+}
+void Timer0Init()
+{
+ TMOD|=0X01;
+ TH0=(65536-100)/256;
+ TL0=(65536-100)%256;
+ ET0=1;
+ EA=1;
+ TR0=1;
+}
+void Time0() interrupt 1
+{
+ TH0=(65536-100)/256;
+ TL0=(65536-100)%256;
+ timer1++;
+ if(timer1>100)
+ {
+  timer1=0;
+ }
+}
+
+
 void TIM1init(void)
 {
 
@@ -27,8 +72,51 @@ void TIM1init(void)
 	TH1 = 0x00;
 	TL1 = 0x00;
 	ET1 = 1;
-	EA = 1;
 }
+void Forward()
+{
+ pwm1(3);
+ IN2=0;
+ Left_moto_pwm=1;
+ IN3=0;
+ pwm4(3);
+ Right_moto_pwm=1;
+}
+void back()
+{
+ IN1=0;
+ pwm2(5);
+ Left_moto_pwm=1;
+ pwm3(5);
+ IN4=0;
+ Right_moto_pwm=1;
+}
+void turnright()
+{
+ IN1=0;
+ IN2=0;
+ Left_moto_pwm=0;
+ IN3=0;
+ pwm4(3);
+ Right_moto_pwm=1;
+}
+void turnleft()
+{
+ pwm1(3);
+ IN2=0;
+ Left_moto_pwm=1;
+ IN3=0;
+ IN4=0;
+ Right_moto_pwm=0;
+}
+void stop()
+{
+ IN1=0;
+ IN2=0;
+ IN3=0;
+ IN4=0;
+}
+
 /*------------------------------------------------
 				主函数
 ------------------------------------------------*/
@@ -36,10 +124,11 @@ main()
 {
 	TIM1init();
 	LCD_Init();
+	Timer0Init();
 	while (1)
 	{
-
-		/*蜂鸣器警戒值输入*/
+/*------------------------------------------------
+		蜂鸣器警戒值输入
 		while (k <= 3)
 		{
 			if (k == 0)
@@ -162,6 +251,8 @@ main()
 		}
 	
 		
+//	
+------------------------------------------------*/
 		/*------------------------------------------------
 						右方
 		------------------------------------------------*/
@@ -243,17 +334,29 @@ main()
 					}
 			/*try*/
 			S = ((arr[1] + arr[2] + arr[3] ) / 3);
-			temp=rightnumber;
-			if (S < temp)
+//			temp=rightnumber;
+//			if (S < temp)
+//			{
+//				                                          
+//			SPK = 0;//防止一直给喇叭通电造成损坏
+//			DelayMs(250);
+//				
+//			}
+			
+//				SPK = 1;
+			rightnumber=S;
+      if(rightnumber<5.5||rightnumber>1000)
 			{
-				
-			SPK = 0;//防止一直给喇叭通电造成损坏
-			DelayMs(250);
-				
+      turnright();
+			DelayMs(50);
+			Forward();
+			DelayMs(50);
+			turnleft();
+			back();
 			}
-		  SPK = 1;
 			sprintf(DisTempData, "R=%6.2f",S);
 			LCD_Write_String(0, 1, DisTempData);
+			
 		}
 		/*------------------------------------------------
 					左方
@@ -337,24 +440,31 @@ main()
 					}
 			/*try*/
 			S = ((arr[1] + arr[2] + arr[3] ) / 3);
-			temp=leftnumber;
-			if (S < temp)
+			leftnumber=S;
+//			if (S < temp)
+//			{
+//				
+//			SPK = 0;//防止一直给喇叭通电造成损坏
+//			DelayMs(250);
+//				
+//			}
+//		  SPK = 1;
+      if(leftnumber<5.5||leftnumber>1000)
 			{
-				
-			SPK = 0;//防止一直给喇叭通电造成损坏
-			DelayMs(250);
-				
+			turnleft();
+			Forward();
+			turnright();
+			back();
 			}
-		  SPK = 1;
-			
 			sprintf(DisTempData,"L=%6.2f", S);
 			LCD_Write_String(8, 1, DisTempData);
+
 		}
 		/*------------------------------------------------
 					  后方
 		------------------------------------------------*/
 		if (1)
-		{
+			{
 			TRIGB = 1;
 			DelayUs2x(10);
 			TRIGB = 0;
@@ -430,22 +540,37 @@ main()
 					}
 			/*try*/
 			S = ((arr[1] + arr[2] + arr[3] ) / 3);
-			temp=backnumber;
-			if (S < temp)
-			{
-				
-			SPK = 0;//防止一直给喇叭通电造成损坏
-			DelayMs(250);
-				
-			}
-		  SPK = 1;
-		
-			sprintf(DisTempData, "B=%6.2f", S);
-			LCD_Write_String(4, 0, DisTempData);
+			backnumber=S;
+//			if (S < temp)
+//			{
+//				
+//			SPK = 0;//防止一直给喇叭通电造成损坏
+//			DelayMs(250);
+//				
+//			}
+//		  SPK = 1;
 
+     if(rightnumber>6&&leftnumber>6&&(backnumber>4&&backnumber<100))
+		 {
+		 back();
+		 }
+
+     while(rightnumber<6&&leftnumber<6&&backnumber<4)
+     {
+		 stop();
+		 }
+		 if(backnumber>1000)
+		 {
+		 Forward();
+		 }
+		sprintf(DisTempData, "B=%6.2f", S);
+		LCD_Write_String(4, 0, DisTempData);
 		}
 	}
+	
 }
+  
+
 
 /*------------------------------------------------
 				 中断
