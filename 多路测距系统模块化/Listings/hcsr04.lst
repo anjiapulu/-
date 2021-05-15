@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   HCSR04                                                                05/14/2021 23:22:24 PAGE 1   
+C51 COMPILER V9.54   HCSR04                                                                05/15/2021 13:36:32 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE HCSR04
@@ -62,7 +62,7 @@ line level    source
   52   2          while (ECHOR);
   53   2          TR1 = 0;
   54   2          S = TH1 * 256 + TL1;
-C51 COMPILER V9.54   HCSR04                                                                05/14/2021 23:22:24 PAGE 2   
+C51 COMPILER V9.54   HCSR04                                                                05/15/2021 13:36:32 PAGE 2   
 
   55   2          S = S / 58;
   56   2          arr[1] = S;
@@ -126,7 +126,7 @@ line level    source
  114   3      
  115   3          }
  116   2          SPK = 1;
-C51 COMPILER V9.54   HCSR04                                                                05/14/2021 23:22:24 PAGE 3   
+C51 COMPILER V9.54   HCSR04                                                                05/15/2021 13:36:32 PAGE 3   
 
  117   2          sprintf(DisTempData, "R=%6.2f", S);
  118   2          LCD_Write_String(0, 1, DisTempData);
@@ -190,7 +190,7 @@ line level    source
  176   2          TH1 = 0;
  177   2          TL1 = 0;
  178   2          /*five*/
-C51 COMPILER V9.54   HCSR04                                                                05/14/2021 23:22:24 PAGE 4   
+C51 COMPILER V9.54   HCSR04                                                                05/15/2021 13:36:32 PAGE 4   
 
  179   2          TRIGL = 1;
  180   2          DelayUs2x(10);
@@ -254,7 +254,7 @@ line level    source
  238   2          while (ECHOB);
  239   2          TR1 = 0;
  240   2          S = TH1 * 256 + TL1;
-C51 COMPILER V9.54   HCSR04                                                                05/14/2021 23:22:24 PAGE 5   
+C51 COMPILER V9.54   HCSR04                                                                05/15/2021 13:36:32 PAGE 5   
 
  241   2          S = S / 58;       //     58    ,  Y =(X *344)/2
  242   2          arr[1] = S;      // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
@@ -318,7 +318,7 @@ line level    source
  300   3      
  301   3          }
  302   2          SPK = 1;
-C51 COMPILER V9.54   HCSR04                                                                05/14/2021 23:22:24 PAGE 6   
+C51 COMPILER V9.54   HCSR04                                                                05/15/2021 13:36:32 PAGE 6   
 
  303   2          sprintf(DisTempData, "B=%6.2f", S);
  304   2          LCD_Write_String(4, 0, DisTempData);

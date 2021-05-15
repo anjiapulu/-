@@ -1,0 +1,200 @@
+C51 COMPILER V9.54   HWMK                                                                  05/15/2021 13:36:32 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE HWMK
+OBJECT MODULE PLACED IN .\Objects\hwmk.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\Keil_v5\C51\BIN\C51.EXE hwmk.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND P
+                    -RINT(.\Listings\hwmk.lst) TABS(2) OBJECT(.\Objects\hwmk.obj)
+
+line level    source
+
+   1          #include <reg52.h> //51Í·ÎÄ¼ş
+   2          #include <QX_A11.h>//QX-A51ÖÇÄÜĞ¡³µÅäÖÃÎÄ¼ş
+   3          /*====================================
+   4           ×Ô¶¨ÒåÀàĞÍÃû
+   5          ====================================*/
+   6          typedef unsigned char INT8U;
+   7          typedef unsigned char uchar;
+   8          
+   9          typedef unsigned int INT16U;
+  10          typedef unsigned int uint;
+  11          /*====================================
+  12          º¯Êı£ºvoid Delay_Ms(INT16U ms)
+  13          ²ÎÊı£ºms£¬ºÁÃëÑÓÊ±ĞÎ²Î
+  14          ÃèÊö£º12T 51µ¥Æ¬»ú×ÔÊÊÓ¦Ö÷Ê±ÖÓºÁÃë¼¶ÑÓÊ±º¯Êı
+  15          ====================================*/
+  16          void Delay_Ms(unsigned int ms)
+  17          {
+  18   1           unsigned int i;
+  19   1         do{
+  20   2              i = MAIN_Fosc / 96000; 
+  21   2            while(--i);   //96T per loop
+  22   2           }while(--ms);
+  23   1      }
+  24          /*====================================
+  25           Ó²¼ş½Ó¿ÚÎ»ÉùÃ÷
+  26          ====================================*/
+  27          sbit IR  = P3^2;     //¶¨ÒåºìÍâÂö³åÊı¾İ½Ó¿Ú Íâ²¿ÖĞ¶ÏOÊäÈë¿Ú
+  28          
+  29          uchar IRtime;     //¼ì²âºìÍâ¸ßµçÆ½³ÖĞøÊ±¼ä£¨Âö¿í£©
+  30          uchar IRcord[4];    //´ËÊı×éÓÃÓÚ´¢´æ·ÖÀë³öÀ´µÄ4¸ö×Ö½ÚµÄÊı¾İ£¨ÓÃ»§Âë2¸ö×Ö½Ú+¼üÖµÂë2¸ö×Ö½Ú£©
+  31          uchar IRdata[33];   //´ËÊı×éÓÃÓÚ´¢´æºìÍâµÄ33Î»Êı¾İ£¨µÚÒ»Î»ÎªÒıµ¼ÂëÓÃ»§Âë16+¼üÖµÂë16£©
+  32          bit IRpro_ok, IRok;  //µÚÒ»¸öÓÃÓÚºìÍâ½ÓÊÕ4¸ö×Ö½ÚÍê±Ï¡£IRokÓÃÎª¼ì²âÂö¿íÍê±Ï
+  33          
+  34          void init()    //³õÊ¼»¯¶¨Ê±Æ÷0 ºÍÍâ²¿ÖĞ¶Ï0
+  35          {
+  36   1        TMOD = 0x02; //¶¨Ê±Æ÷0¹¤×÷·½Ê½2£¬8Î»×Ô¶¯ÖØ×°
+  37   1        TH0 = 0x00;  //¸ß8Î»×°Èë0ÄÇÃ´¶¨Ê±Æ÷Òç³öÒ»´ÎµÄÊ±¼äÊÇ256¸ö»úÆ÷ÖÜÆÚ
+  38   1        TL0 = 0x00;
+  39   1        EA = 1;      //×ÜÖĞ¶Ï
+  40   1        ET0 = 1;     //¶¨Ê±Æ÷0ÖĞ¶Ï
+  41   1        TR0 = 1;     //Æô¶¯¶¨Ê±Æ÷0
+  42   1        IT0 = 1;     //ÉèÖÃÍâ²¿ÖĞ¶Ï0ÎªÌøÑØ´¥·¢·½Ê½£¬À´Ò»¸öÏÂ½µÑØ´¥·¢Ò»´Î
+  43   1        EX0 = 1;     //Æô¶¯Íâ²¿ÖĞ¶Ï0
+  44   1      }
+  45          
+  46          void time0() interrupt 1   //¶¨Òå¶¨Ê±Æ÷0
+  47          {
+  48   1        IRtime++;          //¼ì²âÂö¿í£¬1´ÎÎª278us
+  49   1      }
+  50          
+  51          void int0() interrupt 0       //¶¨ÒåÍâ²¿ÖĞ¶Ï0
+  52          {
+  53   1        static uchar i;       //  ÉùÃ÷¾²Ì¬±äÁ¿£¨ÔÚÌø³öº¯ÊıºóÔÚ»ØÀ´Ö´ĞĞµÄÊ±ºò²»»á¶ªÊ§ÊıÖµ£©iÓÃÓÚ°Ñ33´Î¸ßµçÆ½µÄ³ÖĞøÊ±¼
+             -ä´æÈëIRdata
+C51 COMPILER V9.54   HWMK                                                                  05/15/2021 13:36:32 PAGE 2   
+
+  54   1        static bit startflag;   //¿ªÊ¼´¢´æÂö¿í±êÖ¾Î»
+  55   1        if(startflag)       //¿ªÊ¼½ÓÊÕÂö¿í¼ì²â
+  56   1        {
+  57   2          if( (IRtime < 53) && (IRtime >= 32) ) /*ÅĞ¶ÏÊÇ·ñÊÇÒıµ¼Âë£¬µ×µçÆ½9000us+¸ß4500us 
+  58   2          Õâ¸ö×Ô¼º¿ÉÒÔËãÎÒÒÔ11.0592À´ËãÁËNECĞ­ÒéµÄÒıµ¼ÂëµÍ8000-10000+¸ß4000-5000 
+  59   2          Èç¹ûÒÑ¾­½ÓÊÕÁËÒıµ¼ÂëÄÇÃ´i²»»á±»ÖÃ0¾Í»á¿ªÊ¼ÒÀ´Î´æÈëÂö¿í*/
+  60   2            i = 0;         //Èç¹ûÊÇÒıµ¼ÂëÄÇÃ´Ö´ĞĞi=0°ÑËû´æµ½IRdataµÄµÚÒ»¸öÎ»
+  61   2          IRdata[i] = IRtime;      //ÒÔT0µÄÒç³ö´ÎÊıÀ´¼ÆËãÂö¿í£¬°ÑÕâ¸öÊ±¼ä´æµ½Êı×éÀïÃæµ½ºóÃæÅĞ¶Ï
+  62   2          IRtime = 0;        //¼ÆÊıÇåÁã£¬ÏÂÒ»¸öÏÂ½µÑØµÄÊ±ºòÔÚ´æÈëÂö¿í
+  63   2          i++;           //¼ÆÊıÂö¿í´æÈëµÄ´ÎÊı
+  64   2          if(i == 33)          //Èç¹û´æÈë34´Î Êı×éµÄÏÂ±êÊÇ´Ó0¿ªÊ¼iµÈÓÚ33±íÊ¾Ö´ĞĞÁË34´Î
+  65   2          {
+  66   3            IRok = 1;        //ÄÇÃ´±íÊ¾Âö¿í¼ì²âÍê±Ï
+  67   3            i = 0;         //°ÑÂö¿í¼ÆÊıÇåÁã×¼±¸ÏÂ´Î´æÈë
+  68   3          }
+  69   2        }
+  70   1        else      
+  71   1        {
+  72   2          IRtime = 0;          //Òıµ¼Âë¿ªÊ¼½øÈë°ÑÂö¿í¼ÆÊıÇåÁã¿ªÊ¼¼ÆÊı
+  73   2          startflag = 1;       //¿ªÊ¼´¦Àí±êÖ¾Î»ÖÃ1
+  74   2        }
+  75   1      }
+  76          
+  77          void IRcordpro()           //ÌáÈ¡ËüµÄ33´ÎÂö¿í½øĞĞÊı¾İ½âÂë
+  78          {
+  79   1        uchar i, j, k, cord, value; /*iÓÃÓÚ´¦Àí4¸ö×Ö½Ú£¬jÓÃÓÚ´¦ÀíÒ»¸ö×Ö½ÚÖĞÃ¿Ò»Î»£¬kÓÃÓÚ33´ÎÂö¿íÖĞµÄÄÄÒ»Î»
+  80   1        cordÓÃÓÚÈ¡³öÂö¿íµÄÊ±¼äÅĞ¶ÏÊÇ·ñ·ûºÏ1µÄÂö¿íÊ±¼ä*/
+  81   1        k = 1;            //´ÓµÚÒ»Î»Âö¿í¿ªÊ¼È¡£¬¶ªÆúÒıµ¼ÂëÂö¿í
+  82   1        for(i = 0; i < 4; i++)
+  83   1        {
+  84   2          for(j = 0; j < 8; j++)
+  85   2          {
+  86   3            cord = IRdata[k];     //°ÑÂö¿í´æÈëcord
+  87   3            if(cord > 5)      //Èç¹ûÂö¿í´óÓÚÎÒ11.0592µÄt0Òç³öÂÊÎªÔ¼278us*5=1390ÄÇÃ´ÅĞ¶ÏÎª1
+  88   3            value = value | 0x80; /*½ÓÊÕµÄÊ±ºòÊÇÏÈ½ÓÊÕ×îµÍÎ»£¬
+  89   3            °Ñ×îµÍÎ»ÏÈ·Åµ½valueµÄ×î¸ßÎ»ÔÚºÍ0x08°´Î»»òÒ»ÏÂ
+  90   3            ÕâÑù²»»á¸Ä±ävaluaµÄÆäËûÎ»µÄÊıÖµÖ»»áÈÃËû×î¸ßÎ»Îª1*/
+  91   3            if(j < 7)
+  92   3            {
+  93   4              value = value >> 1; //valueÎ»×óÒÆÒÀ´Î½ÓÊÕ8Î»Êı¾İ¡£
+  94   4            }
+  95   3            k++;        //Ã¿Ö´ĞĞÒ»´ÎÂö¿íÎ»¼Ó1
+  96   3          }
+  97   2          IRcord[i] = value;     //Ã¿´¦ÀíÍêÒ»¸ö×Ö½Ú°ÑËü·ÅÈëIRcordÊı×éÖĞ¡£
+  98   2          value = 0;         //ÇåÁãvalue·½±ãÏÂ´ÎÔÚ´æÈëÊı¾İ
+  99   2        }
+ 100   1        IRpro_ok = 1;          //½ÓÊÕÍê4¸ö×Ö½ÚºóIRpro okÖÃ1±íÊ¾ºìÍâ½âÂëÍê³É 
+ 101   1      }
+ 102          /*PWM¿ØÖÆÊ¹ÄÜ Ğ¡³µÇ°½ø*/
+ 103          void forward()
+ 104          {
+ 105   1        left_motor_go; //×óµç»úÇ°½ø
+*** ERROR C202 IN LINE 105 OF hwmk.c: 'left_motor_go': undefined identifier
+ 106   1        right_motor_go; //ÓÒµç»úÇ°½ø
+*** ERROR C202 IN LINE 106 OF hwmk.c: 'right_motor_go': undefined identifier
+ 107   1      }
+ 108          
+ 109            
+ 110          /*PWM¿ØÖÆÊ¹ÄÜ Ğ¡³µºóÍË*/
+ 111          void backward()
+ 112          {
+ 113   1        left_motor_back; //×óµç»úºóÍË
+C51 COMPILER V9.54   HWMK                                                                  05/15/2021 13:36:32 PAGE 3   
+
+*** ERROR C202 IN LINE 113 OF hwmk.c: 'left_motor_back': undefined identifier
+ 114   1        right_motor_back; //ÓÒµç»úºóÍË  
+*** ERROR C202 IN LINE 114 OF hwmk.c: 'right_motor_back': undefined identifier
+ 115   1      }
+ 116          
+ 117          
+ 118          /*PWM¿ØÖÆÊ¹ÄÜ Ğ¡³µ×ó×ª*/
+ 119          void left_run()
+ 120          {
+ 121   1        left_motor_stops; //×óµç»úÍ£Ö¹
+*** ERROR C202 IN LINE 121 OF hwmk.c: 'left_motor_stops': undefined identifier
+ 122   1        right_motor_go; //ÓÒµç»úÇ°½ø  
+*** ERROR C202 IN LINE 122 OF hwmk.c: 'right_motor_go': undefined identifier
+ 123   1      }
+ 124          
+ 125          
+ 126          /*PWM¿ØÖÆÊ¹ÄÜ Ğ¡³µÓÒ×ª*/
+ 127          void right_run()
+ 128          {
+ 129   1        right_motor_stops;//ÓÒµç»úÍ£Ö¹
+*** ERROR C202 IN LINE 129 OF hwmk.c: 'right_motor_stops': undefined identifier
+ 130   1        left_motor_go;    //×óµç»úÇ°½ø
+*** ERROR C202 IN LINE 130 OF hwmk.c: 'left_motor_go': undefined identifier
+ 131   1      }
+ 132          
+ 133          
+ 134          /*Ğ¡³µÍ£Ö¹*/
+ 135          void stop()
+ 136          {
+ 137   1        right_motor_stops;//ÓÒµç»úÍ£Ö¹
+*** ERROR C202 IN LINE 137 OF hwmk.c: 'right_motor_stops': undefined identifier
+ 138   1        left_motor_stops; //×óµç»úÍ£Ö¹  
+*** ERROR C202 IN LINE 138 OF hwmk.c: 'left_motor_stops': undefined identifier
+ 139   1      }
+ 140          
+ 141          void hwmk()
+ 142          {
+ 143   1        init(); //Ö´ĞĞ³õÊ¼»¯¶¨Ê±Æ÷0ºÍÍâ²¿ÖĞ¶Ï0
+ 144   1        Left_moto_pwm = Right_moto_pwm = 1;//Ê¹ÄÜ×óÓÒµç»ú
+ 145   1        while(1)  //´óÑ­»·
+ 146   1        {
+ 147   2          if(IRok)    //ÅĞ¶ÏÂö¿íÊÇ·ñ¼ì²âÍê±Ï                    
+ 148   2          {   
+ 149   3            IRcordpro();//¸ù¾İÂö¿í½âÂë³ö4¸ö×Ö½ÚµÄÊı¾İ
+ 150   3            IRok = 0; //ÖØĞÂµÈ´ıÂö¿í¼ì²â
+ 151   3            if(IRpro_ok) //ÅĞ¶ÏÊÇ·ñ½âÂëÍê±Ï  
+ 152   3            {
+ 153   4                  switch(IRcord[2])
+ 154   4                {
+ 155   5                   case 0x18:  stop(); Delay_Ms(200); forward();       //Ç°½ø
+ 156   5                           break;
+ 157   5                   case 0x52:  stop(); Delay_Ms(200); backward();        //ºóÍË  
+ 158   5                           break;
+ 159   5                   case 0x08:  stop(); Delay_Ms(200); left_run();        //×ó×ª
+ 160   5                           break;
+ 161   5                 case 0x5A:  stop(); Delay_Ms(200); right_run();       //ÓÒ×ª
+ 162   5                           break;
+ 163   5                 case 0x1C:  stop();           //Í£Ö¹
+ 164   5                           break;
+ 165   5                 default:break;
+ 166   5                }
+ 167   4              IRpro_ok = 0;
+C51 COMPILER V9.54   HWMK                                                                  05/15/2021 13:36:32 PAGE 4   
+
+ 168   4            }
+ 169   3          } 
+ 170   2        }
+ 171   1      }
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  10 ERROR(S)

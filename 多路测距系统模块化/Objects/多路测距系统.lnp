@@ -1,9 +1,9 @@
 ".\Objects\STARTUP.obj",
-".\Objects\keydous.obj",
-".\Objects\1602.obj",
-".\Objects\delay.obj",
-".\Objects\MatrixKey.obj",
 ".\Objects\main.obj",
-".\Objects\hcsr04.obj" 
+".\Objects\MatrixKey.obj",
+".\Objects\keydous.obj",
+".\Objects\hcsr04.obj",
+".\Objects\1602.obj",
+".\Objects\delay.obj" 
 TO ".\Objects\多路测距系统" 
 PRINT(".\Listings\多路测距系统.m51") RAMSIZE(256) 

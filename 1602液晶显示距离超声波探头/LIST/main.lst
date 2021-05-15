@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  05/14/2021 20:59:02 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  05/15/2021 13:30:04 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   52   1       ET0=1;
   53   1       EA=1;
   54   1       TR0=1;
-C51 COMPILER V9.54   MAIN                                                                  05/14/2021 20:59:02 PAGE 2   
+C51 COMPILER V9.54   MAIN                                                                  05/15/2021 13:30:04 PAGE 2   
 
   55   1      }
   56          void Time0() interrupt 1
@@ -126,7 +126,7 @@ line level    source
  114   1       IN1=0;
  115   1       IN2=0;
  116   1       IN3=0;
-C51 COMPILER V9.54   MAIN                                                                  05/14/2021 20:59:02 PAGE 3   
+C51 COMPILER V9.54   MAIN                                                                  05/15/2021 13:30:04 PAGE 3   
 
  117   1       IN4=0;
  118   1      }
@@ -190,7 +190,7 @@ line level    source
  176   2              
  177   2                }
  178   2              }
-C51 COMPILER V9.54   MAIN                                                                  05/14/2021 20:59:02 PAGE 4   
+C51 COMPILER V9.54   MAIN                                                                  05/15/2021 13:30:04 PAGE 4   
 
  179   2              if (k == 2)
  180   2              {
@@ -254,7 +254,7 @@ line level    source
  238   2                  }
  239   2                  }
  240   2                  if (KeyNum < 10)
-C51 COMPILER V9.54   MAIN                                                                  05/14/2021 20:59:02 PAGE 5   
+C51 COMPILER V9.54   MAIN                                                                  05/15/2021 13:30:04 PAGE 5   
 
  241   2                  {
  242   2                    LCD_Write_Char(i, 1, studentid[KeyNum]);
@@ -318,7 +318,7 @@ line level    source
  300   3            /*four*/
  301   3            TRIGR = 1;
  302   3            DelayUs2x(10);
-C51 COMPILER V9.54   MAIN                                                                  05/14/2021 20:59:02 PAGE 6   
+C51 COMPILER V9.54   MAIN                                                                  05/15/2021 13:30:04 PAGE 6   
 
  303   3            TRIGR = 0;
  304   3            while (!ECHOR);
@@ -382,7 +382,7 @@ line level    source
  362   2                ×ó·½
  363   2          ------------------------------------------------*/
  364   2          if (1)
-C51 COMPILER V9.54   MAIN                                                                  05/14/2021 20:59:02 PAGE 7   
+C51 COMPILER V9.54   MAIN                                                                  05/15/2021 13:30:04 PAGE 7   
 
  365   2          {
  366   3            /*one*/
@@ -446,7 +446,7 @@ line level    source
  424   3            while (ECHOL);
  425   3            TR1 = 0;
  426   3            S = TH1 * 256 + TL1;
-C51 COMPILER V9.54   MAIN                                                                  05/14/2021 20:59:02 PAGE 8   
+C51 COMPILER V9.54   MAIN                                                                  05/15/2021 13:30:04 PAGE 8   
 
  427   3            S = S / 58;
  428   3            arr[4] = S;
@@ -510,7 +510,7 @@ line level    source
  486   3            while (ECHOB);
  487   3            TR1 = 0;
  488   3            S = TH1 * 256 + TL1;
-C51 COMPILER V9.54   MAIN                                                                  05/14/2021 20:59:02 PAGE 9   
+C51 COMPILER V9.54   MAIN                                                                  05/15/2021 13:30:04 PAGE 9   
 
  489   3            S = S / 58;       //     58    ,  Y =(X *344)/2
  490   3            arr[1] = S;      // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
@@ -574,7 +574,7 @@ line level    source
  548   3      //      DelayMs(250);
  549   3      //        
  550   3      //      }
-C51 COMPILER V9.54   MAIN                                                                  05/14/2021 20:59:02 PAGE 10  
+C51 COMPILER V9.54   MAIN                                                                  05/15/2021 13:30:04 PAGE 10  
 
  551   3      //      SPK = 1;
  552   3      
