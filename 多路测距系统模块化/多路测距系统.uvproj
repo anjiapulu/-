@@ -369,9 +369,24 @@
               <FilePath>.\STARTUP.A51</FilePath>
             </File>
             <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>MatrixKey.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MatrixKey.c</FilePath>
+            </File>
+            <File>
               <FileName>keydous.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\keydous.c</FilePath>
+            </File>
+            <File>
+              <FileName>hcsr04.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\hcsr04.c</FilePath>
             </File>
             <File>
               <FileName>1602.c</FileName>
@@ -382,21 +397,6 @@
               <FileName>delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\delay.c</FilePath>
-            </File>
-            <File>
-              <FileName>MatrixKey.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\MatrixKey.c</FilePath>
-            </File>
-            <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>hcsr04.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hcsr04.c</FilePath>
             </File>
           </Files>
         </Group>

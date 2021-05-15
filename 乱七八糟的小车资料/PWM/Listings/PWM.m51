@@ -1,0 +1,249 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        05/14/2021  15:31:56  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\PROGRAM FILES (X86)\KEIL_V5\C51\BIN\BL51.EXE .\Objects\pwm.obj TO .\Objects\PWM PRINT (.\Listings\PWM.m51)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\pwm.obj (PWM)
+  C:\PROGRAM FILES (X86)\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  .\Objects\PWM (PWM)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0002H     UNIT         ?DT?PWM
+            IDATA   000AH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     0026H     UNIT         ?PR?TIME0?PWM
+            CODE    0034H     0013H     UNIT         ?PR?FORWARD?PWM
+            CODE    0047H     0013H     UNIT         ?PR?BACK?PWM
+            CODE    005AH     0012H     UNIT         ?PR?TURNRIGHT?PWM
+            CODE    006CH     0012H     UNIT         ?PR?TURNLEFT?PWM
+            CODE    007EH     0010H     UNIT         ?PR?TIMER0INIT?PWM
+            CODE    008EH     000FH     UNIT         ?PR?_PWM1?PWM
+            CODE    009DH     000FH     UNIT         ?PR?_PWM2?PWM
+            CODE    00ACH     000FH     UNIT         ?PR?_PWM3?PWM
+            CODE    00BBH     000FH     UNIT         ?PR?_PWM4?PWM
+            CODE    00CAH     000CH     UNIT         ?PR?MAIN?PWM
+            CODE    00D6H     000CH     UNIT         ?C_C51STARTUP
+            CODE    00E2H     0009H     UNIT         ?PR?STOP?PWM
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\PWM (PWM)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?PWM
+
+?PR?MAIN?PWM
+  +--> ?PR?TIMER0INIT?PWM
+  +--> ?PR?_PWM1?PWM
+
+
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/14/2021  15:31:56  PAGE 2
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\PWM (PWM)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        PWM
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  C:008EH         PUBLIC        _pwm1
+  C:009DH         PUBLIC        _pwm2
+  C:00ACH         PUBLIC        _pwm3
+  C:00BBH         PUBLIC        _pwm4
+  D:00A8H         PUBLIC        IE
+  C:0047H         PUBLIC        back
+  D:00B8H         PUBLIC        IP
+  C:00CAH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  C:000EH         PUBLIC        Time0
+  C:00E2H         PUBLIC        stop
+  B:0090H.4       PUBLIC        IN1
+  B:0090H.3       PUBLIC        IN2
+  B:00A8H.1       PUBLIC        ET0
+  B:0090H.2       PUBLIC        IN3
+  B:0090H.1       PUBLIC        IN4
+  C:007EH         PUBLIC        Timer0Init
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0090H.5       PUBLIC        ENA
+  B:0090H.0       PUBLIC        ENB
+  D:0008H         PUBLIC        timer1
+  B:0088H.4       PUBLIC        TR0
+  C:0034H         PUBLIC        Forward
+  D:00C8H         PUBLIC        T2CON
+  C:005AH         PUBLIC        turnright
+  C:006CH         PUBLIC        turnleft
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _PWM1
+  D:0006H         SYMBOL        count
+  C:008EH         LINE#         14
+  C:008EH         LINE#         15
+  C:008EH         LINE#         16
+  C:0097H         LINE#         17
+  C:009AH         LINE#         19
+  C:009CH         LINE#         20
+  -------         ENDPROC       _PWM1
+  -------         PROC          _PWM2
+  D:0006H         SYMBOL        count
+  C:009DH         LINE#         21
+  C:009DH         LINE#         22
+  C:009DH         LINE#         23
+  C:00A9H         LINE#         25
+  C:00ABH         LINE#         26
+  -------         ENDPROC       _PWM2
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/14/2021  15:31:56  PAGE 3
+
+
+  -------         PROC          _PWM3
+  D:0006H         SYMBOL        count
+  C:00ACH         LINE#         27
+  C:00ACH         LINE#         28
+  C:00ACH         LINE#         29
+  C:00B8H         LINE#         31
+  C:00BAH         LINE#         32
+  -------         ENDPROC       _PWM3
+  -------         PROC          _PWM4
+  D:0006H         SYMBOL        count
+  C:00BBH         LINE#         33
+  C:00BBH         LINE#         34
+  C:00BBH         LINE#         35
+  C:00C7H         LINE#         37
+  C:00C9H         LINE#         38
+  -------         ENDPROC       _PWM4
+  -------         PROC          FORWARD
+  C:0034H         LINE#         41
+  C:0034H         LINE#         42
+  C:0034H         LINE#         43
+  C:003BH         LINE#         44
+  C:003DH         LINE#         45
+  C:003FH         LINE#         46
+  C:0041H         LINE#         47
+  C:0044H         LINE#         48
+  C:0046H         LINE#         49
+  -------         ENDPROC       FORWARD
+  -------         PROC          BACK
+  C:0047H         LINE#         50
+  C:0047H         LINE#         51
+  C:0047H         LINE#         52
+  C:0049H         LINE#         53
+  C:0050H         LINE#         54
+  C:0052H         LINE#         55
+  C:0055H         LINE#         56
+  C:0057H         LINE#         57
+  C:0059H         LINE#         58
+  -------         ENDPROC       BACK
+  -------         PROC          TURNRIGHT
+  C:005AH         LINE#         59
+  C:005AH         LINE#         60
+  C:005AH         LINE#         61
+  C:005CH         LINE#         62
+  C:005EH         LINE#         63
+  C:0060H         LINE#         64
+  C:0062H         LINE#         65
+  C:0069H         LINE#         66
+  C:006BH         LINE#         67
+  -------         ENDPROC       TURNRIGHT
+  -------         PROC          TURNLEFT
+  C:006CH         LINE#         68
+  C:006CH         LINE#         69
+  C:006CH         LINE#         70
+  C:0073H         LINE#         71
+  C:0075H         LINE#         72
+  C:0077H         LINE#         73
+  C:0079H         LINE#         74
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/14/2021  15:31:56  PAGE 4
+
+
+  C:007BH         LINE#         75
+  C:007DH         LINE#         76
+  -------         ENDPROC       TURNLEFT
+  -------         PROC          STOP
+  C:00E2H         LINE#         77
+  C:00E2H         LINE#         78
+  C:00E2H         LINE#         79
+  C:00E4H         LINE#         80
+  C:00E6H         LINE#         81
+  C:00E8H         LINE#         82
+  C:00EAH         LINE#         83
+  -------         ENDPROC       STOP
+  -------         PROC          MAIN
+  C:00CAH         LINE#         85
+  C:00CAH         LINE#         86
+  C:00CAH         LINE#         88
+  C:00CDH         LINE#         90
+  C:00CDH         LINE#         91
+  C:00CDH         LINE#         92
+  C:00D4H         LINE#         93
+  -------         ENDPROC       MAIN
+  -------         PROC          TIMER0INIT
+  C:007EH         LINE#         96
+  C:007EH         LINE#         97
+  C:007EH         LINE#         98
+  C:0081H         LINE#         99
+  C:0084H         LINE#         100
+  C:0087H         LINE#         101
+  C:0089H         LINE#         102
+  C:008BH         LINE#         103
+  C:008DH         LINE#         105
+  -------         ENDPROC       TIMER0INIT
+  -------         PROC          TIME0
+  C:000EH         LINE#         106
+  C:0012H         LINE#         108
+  C:0015H         LINE#         109
+  C:0018H         LINE#         110
+  C:0020H         LINE#         111
+  C:0029H         LINE#         112
+  C:0029H         LINE#         113
+  C:002FH         LINE#         114
+  C:002FH         LINE#         115
+  -------         ENDPROC       TIME0
+  -------         ENDMOD        PWM
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FORWARD?PWM
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?BACK?PWM
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TURNRIGHT?PWM
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TURNLEFT?PWM
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/14/2021  15:31:56  PAGE 5
+
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?STOP?PWM
+
+Program Size: data=11.0 xdata=0 code=227
+LINK/LOCATE RUN COMPLETE.  5 WARNING(S),  0 ERROR(S)

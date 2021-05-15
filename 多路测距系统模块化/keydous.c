@@ -4,10 +4,11 @@
 #include "string.h"
 #include "MatrixKey.h"
 unsigned char code studentid[]="0123456789";
-extern int leftnumber, backnumber, rightnumber;
+extern int leftnumber, backnumber, rightnumber,i,j;
+int KeyNum,k=0;
 char  keydous()
 {  
-	int KeyNum,i,k=0;
+	
 /*------------------------------------------------
 		·äÃùÆ÷¾¯½äÖµÊäÈë
 ------------------------------------------------*/

@@ -1,0 +1,396 @@
+C51 COMPILER V9.54   MAIN                                                                  05/10/2021 21:37:16 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Program Files (x86)\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND T
+                    -ABS(2)
+
+line level    source
+
+   1          /*********************************************************************************
+   2          * ¡¾±àÐ´Ê±¼ä¡¿£º 2020Äê12ÔÂ12ÈÕ
+   3          * ¡¾×÷    Õß¡¿£º ÇåÏèµç×Ó:03
+   4          * ¡¾°æ    ±¾¡¿£º 1.0
+   5          * ¡¾Íø    Õ¾¡¿£º http://www.QXMBOT.com/ 
+   6          * ¡¾ÌÔ±¦µêÆÌ¡¿£º http://qxmcu.taobao.com/ (Ö±Ïúµê)
+   7          * ¡¾ÊµÑéÆ½Ì¨¡¿£º QX-A11ÑÇ¿ËÁ¦ÖÇÄÜÐ¡³µ  STC89C52
+   8          * ¡¾Íâ²¿¾§Õñ¡¿£º 11.0592mhz 
+   9          * ¡¾Ö÷¿ØÐ¾Æ¬¡¿£º STC89C52
+  10          * ¡¾±àÒë»·¾³¡¿£º Keil ¦ÌVisio4
+  11          * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
+  12          * Copyright(C) QXMBOT
+  13          * All rights reserved
+  14          ***********************************************************************************
+  15          * ¡¾½ÓÏßËµÃ÷¡¿£ºÇë²Î¿¼×ÊÁÏÄÚÍ¼ÎÄËµÃ÷Êé
+  16          * ¡¾³ÌÐò¹¦ÄÜ¡¿£ºQX-A11ÑÇ¿ËÁ¦ÖÇÄÜÐ¡³µÑ­¼£±ÜÕÏºìÍâÒ£¿ØÈýºÏÒ»                                  
+  17          * ¡¾×¢ÒâÊÂÏî¡¿£º±ÜÃâÐ¡³µ×²ÏòÕÏ°­Îï»òÐ¡³µÂÖ×Ó¶Â×ª£¬ºìÍâ±ÜÕÏÅÂ¹â,P32²»ÄÜ½ÓÆäËûÉè±¸
+  18          **********************************************************************************/
+  19          //Í¨¹ý°´°å×ÓKEY¼üÇÐ»»Ä£Ê½£¬Ä¬ÈÏÑ­¼£Ä£Ê½£¬LED1,LED2×´Ì¬Ö¸Ê¾µÆÃð£¬°´Ò»´ÎÇÐ»»µ½±ÜÕÏÄ£Ê½£¬LDE1ÁÁ£¬LED2Ãð
+  20          //ÔÙ°´Ò»´ÎÇÐ»»µ½ºìÍâÒ£¿ØÄ£Ê½LED2ÁÁ£¬LED1Ãð¡£
+  21          //ºÚÏßÌù3ÀåÃ×¿í£¬·ñÔòÐ¡³µ°Ú¶¯ºÜÀ÷º¦
+  22          #include <REG52.H>//51Í·ÎÄ¼þ
+  23          #include <QX_A11.h>//QX_A11ÖÇÄÜÐ¡³µÅäÖÃÎÄ¼þ
+  24          unsigned char pwm_val_left,pwm_val_right; //ÖÐ¼ä±äÁ¿£¬ÓÃ»§ÇëÎðÐÞ¸Ä¡£
+  25          unsigned char   pwm_left,pwm_right;     //¶¨ÒåPWMÊä³ö¸ßµçÆ½µÄÊ±¼äµÄ±äÁ¿¡£ÓÃ»§²Ù×÷PWMµÄ±äÁ¿¡£
+  26          unsigned char IRtime;     //¼ì²âºìÍâ¸ßµçÆ½³ÖÐøÊ±¼ä£¨Âö¿í£©
+  27          unsigned char IRcord[4];    //´ËÊý×éÓÃÓÚ´¢´æ·ÖÀë³öÀ´µÄ4¸ö×Ö½ÚµÄÊý¾Ý£¨ÓÃ»§Âë2¸ö×Ö½Ú+¼üÖµÂë2¸ö×Ö½Ú£©
+  28          unsigned char IRdata[33];   //´ËÊý×éÓÃÓÚ´¢´æºìÍâµÄ33Î»Êý¾Ý£¨µÚÒ»Î»ÎªÒýµ¼ÂëÓÃ»§Âë16+¼üÖµÂë16£©
+  29          bit IRpro_ok, IRok;  //µÚÒ»¸öÓÃÓÚºìÍâ½ÓÊÕ4¸ö×Ö½ÚÍê±Ï¡£IRokÓÃÎª¼ì²âÂö¿íÍê±Ï
+  30          #define   PWM_DUTY    200     //¶¨ÒåPWMµÄÖÜÆÚ£¬ÊýÖµÎª¶¨Ê±Æ÷0Òç³öÖÜÆÚ£¬¼ÙÈç¶¨Ê±Æ÷Òç³öÊ±¼äÎª100us£¬ÔòPWMÖÜÆÚÎª20m
+             -s¡£
+  31          #define   PWM_HIGH_MIN  70      //ÏÞÖÆPWMÊä³öµÄ×îÐ¡Õ¼¿Õ±È¡£ÓÃ»§ÇëÎðÐÞ¸Ä¡£
+  32          #define   PWM_HIGH_MAX  PWM_DUTY  //ÏÞÖÆPWMÊä³öµÄ×î´óÕ¼¿Õ±È¡£ÓÃ»§ÇëÎðÐÞ¸Ä¡£
+  33          
+  34          void Timer0_Init(void); //¶¨Ê±Æ÷0³õÊ¼»¯
+  35          void Timer1_Init(void); //¶¨Ê±Æ÷1³õÊ¼»¯
+  36          void EXTI0_Init(void);//Íâ²¿ÖÐ¶Ï0³õÊ¼»¯
+  37          void QXMBOT_LoadPWM(void);//×°ÈëPWMÊä³öÖµ 
+  38          void Delay_Ms(unsigned int ms);//ºÁÃë¼¶ÑÓÊ±º¯Êý
+  39          void forward(unsigned char LeftSpeed,unsigned char RightSpeed);//QX_A11ÖÇÄÜÐ¡³µÇ°½ø 
+  40          void left_run(unsigned char LeftSpeed,unsigned char RightSpeed);//QX_A11ÖÇÄÜÐ¡³µ×ó×ª  
+  41          void right_run(unsigned char LeftSpeed,unsigned char RightSpeed);//QX_A11ÖÇÄÜÐ¡³µÓÒ×ª
+  42          void back_run(unsigned char LeftSpeed,unsigned char RightSpeed);//QX_A11ÖÇÄÜÐ¡³µºóÍË
+  43          void stop(void);//QX_A11ÖÇÄÜÐ¡³µÍ£³µ
+  44          void Tracking(void);//ºÚÏßÑ­¼£
+  45          void IRavoid(void);//ºìÍâ±ÜÕÏ
+  46          void QXMBOT_IRcordpro(void);//ºìÍâ½âÂë
+  47          void QXMBOT_IR_Remote(void);//ºìÍâÒ£¿Ø
+  48          
+  49          /*Ö÷º¯Êý*/     
+  50          void main(void)
+  51          {
+  52   1        unsigned char mode;
+  53   1        EA_on;//¿ª×ÜÖÐ¶Ï
+C51 COMPILER V9.54   MAIN                                                                  05/10/2021 21:37:16 PAGE 2   
+
+  54   1        Timer0_Init();//¶¨Ê±0³õÊ¼»¯
+  55   1        Timer1_Init();//¶¨Ê±1³õÊ¼»¯
+  56   1        EXTI0_Init();//Íâ²¿ÖÐ¶Ï0³õÊ¼»¯
+  57   1        while(1)
+  58   1        {
+  59   2          if(KEY==0)//ÅÐ¶ÏKEYÊÇ·ñ°´ÏÂ
+  60   2          {
+  61   3            stop();//Í£³µ
+  62   3            beep=0;//·äÃùÆ÷¿ªÆô
+  63   3            Delay_Ms(10); //Èí¼þÏû¶¶
+  64   3            if(KEY==0)//ÔÙ´ÎÅÐ¶ÏKEYÊÇ·ñ°´ÏÂ
+  65   3            {
+  66   4              mode++;
+  67   4              while(!KEY);//ËÉÊÖ¼ì²â
+  68   4              beep=1;//·äÃùÆ÷¹Ø±Õ 
+  69   4            }
+  70   3          }
+  71   2          if(mode > 2)  mode = 0;
+  72   2          switch(mode)
+  73   2          {
+  74   3            case 0:  LED1=1,LED2=1; Tracking(); break; //ºìÍâÑ­¼£Ä£Ê½,LED1,LED2×´Ì¬Ö¸Ê¾µÆÏ¨Ãð
+  75   3            case 1:  LED1=0,LED2=1; IRavoid(); break;  //ºìÍâ±ÜÕÏÄ£Ê½,LED1ÁÁ,LED2Ãð
+  76   3            case 2:  LED1=1,LED2=0; QXMBOT_IR_Remote(); break;//ºìÍâÒ£¿ØÄ£Ê½,LED1Ãð,LED2ÁÁ
+  77   3            default: stop(); /*Í£³µ*/  break;
+  78   3          }
+  79   2        } 
+  80   1      }
+  81          
+  82          
+  83          /*********************************************
+  84          QX_A11ÖÇÄÜÐ¡³µÇ°½ø
+  85          Èë¿Ú²ÎÊý£ºLeftSpeed£¬RightSpeed
+  86          ³ö¿Ú²ÎÊý: ÎÞ
+  87          ËµÃ÷£ºLeftSpeed£¬RightSpeed·Ö±ðÉèÖÃ×óÓÒ³µÂÖ×ªËÙ
+  88          **********************************************/
+  89          void forward(unsigned char LeftSpeed,unsigned char RightSpeed)
+  90          {
+  91   1        pwm_left = LeftSpeed,pwm_right =  RightSpeed;//ÉèÖÃËÙ¶È
+  92   1        left_motor_go; //×óµç»úÇ°½ø
+  93   1        right_motor_go; //ÓÒµç»úÇ°½ø
+  94   1      }
+  95          /*Ð¡³µ×ó×ª*/
+  96          /*********************************************
+  97          QX_A11ÖÇÄÜÐ¡³µ×ó×ª
+  98          Èë¿Ú²ÎÊý£ºLeftSpeed£¬RightSpeed
+  99          ³ö¿Ú²ÎÊý: ÎÞ
+ 100          ËµÃ÷£ºLeftSpeed£¬RightSpeed·Ö±ðÉèÖÃ×óÓÒ³µÂÖ×ªËÙ
+ 101          **********************************************/
+ 102          void left_run(unsigned char LeftSpeed,unsigned char RightSpeed)
+ 103          {
+ 104   1        pwm_left = LeftSpeed,pwm_right =  RightSpeed;//ÉèÖÃËÙ¶È
+ 105   1        left_motor_back; //×óµç»úºóÍË
+ 106   1        right_motor_go; //ÓÒµç»úÇ°½ø  
+ 107   1      }
+ 108          
+ 109          /*********************************************
+ 110          QX_A11ÖÇÄÜÐ¡³µÓÒ×ª
+ 111          Èë¿Ú²ÎÊý£ºLeftSpeed£¬RightSpeed
+ 112          ³ö¿Ú²ÎÊý: ÎÞ
+ 113          ËµÃ÷£ºLeftSpeed£¬RightSpeed·Ö±ðÉèÖÃ×óÓÒ³µÂÖ×ªËÙ
+ 114          **********************************************/
+ 115          void right_run(unsigned char LeftSpeed,unsigned char RightSpeed)
+C51 COMPILER V9.54   MAIN                                                                  05/10/2021 21:37:16 PAGE 3   
+
+ 116          {
+ 117   1        pwm_left = LeftSpeed,pwm_right =  RightSpeed;//ÉèÖÃËÙ¶È
+ 118   1        right_motor_back;//ÓÒµç»úºóÍË
+ 119   1        left_motor_go;    //×óµç»úÇ°½ø
+ 120   1      }
+ 121          /*********************************************
+ 122          QX_A11ÖÇÄÜÐ¡³µºóÍË
+ 123          Èë¿Ú²ÎÊý£ºLeftSpeed£¬RightSpeed
+ 124          ³ö¿Ú²ÎÊý: ÎÞ
+ 125          ËµÃ÷£ºLeftSpeed£¬RightSpeed·Ö±ðÉèÖÃ×óÓÒ³µÂÖ×ªËÙ
+ 126          **********************************************/
+ 127          void back_run(unsigned char LeftSpeed,unsigned char RightSpeed)
+ 128          {
+ 129   1        pwm_left = LeftSpeed,pwm_right =  RightSpeed;//ÉèÖÃËÙ¶È
+ 130   1        right_motor_back;//ÓÒµç»úºóÍË
+ 131   1        left_motor_back; //×óµç»úºóÍË
+ 132   1      }
+ 133          /*********************************************
+ 134          QX_A11ÖÇÄÜÐ¡³µÍ£³µ
+ 135          Èë¿Ú²ÎÊý£ºÎÞ
+ 136          ³ö¿Ú²ÎÊý: ÎÞ
+ 137          ËµÃ÷£ºQX_A11ÖÇÄÜÐ¡³µÍ£³µ
+ 138          **********************************************/
+ 139          void stop(void)
+ 140          {
+ 141   1        left_motor_stops;
+ 142   1        right_motor_stops;
+ 143   1      }
+ 144          /*********************************************
+ 145          QX_A11ÖÇÄÜÐ¡³µPWMÊä³ö
+ 146          Èë¿Ú²ÎÊý£ºÎÞ
+ 147          ³ö¿Ú²ÎÊý: ÎÞ
+ 148          ËµÃ÷£º×°ÔØPWMÊä³ö,Èç¹ûÉèÖÃÈ«¾Ö±äÁ¿pwm_left,pwm_right·Ö±ðÅäÖÃ×óÓÒÊä³ö¸ßµçÆ½Ê±¼ä
+ 149          **********************************************/
+ 150          void QXMBOT_LoadPWM(void)
+ 151          {
+ 152   1        if(pwm_left > PWM_HIGH_MAX)   pwm_left = PWM_HIGH_MAX;  //Èç¹û×óÊä³öÐ´Èë´óÓÚ×î´óÕ¼¿Õ±ÈÊý¾Ý£¬ÔòÇ¿ÖÆÎª×î´óÕ¼¿
+             -Õ±È¡£
+ 153   1        if(pwm_left < PWM_HIGH_MIN)   pwm_left = PWM_HIGH_MIN;  //Èç¹û×óÊä³öÐ´ÈëÐ¡ÓÚ×îÐ¡Õ¼¿Õ±ÈÊý¾Ý£¬ÔòÇ¿ÖÆÎª×îÐ¡Õ¼¿
+             -Õ±È¡£
+ 154   1        if(pwm_right > PWM_HIGH_MAX)  pwm_right = PWM_HIGH_MAX; //Èç¹ûÓÒÊä³öÐ´Èë´óÓÚ×î´óÕ¼¿Õ±ÈÊý¾Ý£¬ÔòÇ¿ÖÆÎª×î´óÕ¼
+             -¿Õ±È¡£
+ 155   1        if(pwm_right < PWM_HIGH_MIN)  pwm_right = PWM_HIGH_MIN; //Èç¹ûÓÒÊä³öÐ´ÈëÐ¡ÓÚ×îÐ¡Õ¼¿Õ±ÈÊý¾Ý£¬ÔòÇ¿ÖÆÎª×îÐ¡Õ¼
+             -¿Õ±È¡£
+ 156   1        if(pwm_val_left<=pwm_left)    Left_moto_pwm = 1;  //×°ÔØ×óPWMÊä³ö¸ßµçÆ½Ê±¼ä
+ 157   1        else Left_moto_pwm = 0;                 //×°ÔØ×óPWMÊä³öµÍµçÆ½Ê±¼ä
+ 158   1        if(pwm_val_left>=PWM_DUTY)    pwm_val_left = 0; //Èç¹û×ó¶Ô±ÈÖµ´óÓÚµÈÓÚ×î´óÕ¼¿Õ±ÈÊý¾Ý£¬ÔòÎªÁã
+ 159   1      
+ 160   1        if(pwm_val_right<=pwm_right)  Right_moto_pwm = 1; //×°ÔØÓÒPWMÊä³ö¸ßµçÆ½Ê±¼ä
+ 161   1        else Right_moto_pwm = 0;              //×°ÔØÓÒPWMÊä³öµÍµçÆ½Ê±¼ä
+ 162   1        if(pwm_val_right>=PWM_DUTY)   pwm_val_right = 0;  //Èç¹ûÓÒ¶Ô±ÈÖµ´óÓÚµÈÓÚ×î´óÕ¼¿Õ±ÈÊý¾Ý£¬ÔòÎªÁã
+ 163   1      }
+ 164          //ºìÍâÑ­¼£
+ 165          void Tracking()
+ 166          {
+ 167   1        //Îª0 Ã»ÓÐÊ¶±ðµ½ºÚÏß Îª1Ê¶±ðµ½ºÚÏß
+ 168   1        char data1,data2 = left_led1,data3 = right_led1;
+ 169   1        data1 = data2*10+data3;
+ 170   1        if(data1 == 11)//ÔÚºÚÏßÉÏ£¬Ç°½ø
+ 171   1        {
+ 172   2          forward(120,120);//Ç°½ø
+ 173   2        }
+C51 COMPILER V9.54   MAIN                                                                  05/10/2021 21:37:16 PAGE 4   
+
+ 174   1        else
+ 175   1        {
+ 176   2          if(data1 == 10)//Ð¡·ùÆ«ÓÒ£¬×ó×ª
+ 177   2          {
+ 178   3            left_run(80,160);//×ó×ª
+ 179   3          }
+ 180   2          if(data1 == 1)//Ð¡·ùÆ«×ó£¬ÓÒ×ª
+ 181   2          {
+ 182   3            right_run(160,80);//ÓÒ×ª
+ 183   3          }
+ 184   2          if(data1 == 0)//´ó·ùÆ«×ó»òÆ«ÓÒ£¬ÒÑÍÑÀë¹ìµÀ
+ 185   2          {
+ 186   3            stop(); 
+ 187   3          }
+ 188   2        }
+ 189   1      }
+ 190          //ºìÍâ±ÜÕÏ
+ 191          void IRavoid()
+ 192          {
+ 193   1        //Îª0 Ã»ÓÐÊ¶±ðµ½ºÚÏß Îª1Ê¶±ðµ½ºÚÏß
+ 194   1        char data1,data2 = left_led2,data3 = right_led2;
+ 195   1        data1 = data2*10+data3;
+ 196   1        if(data1 == 11)//Ã»¼ì²âµ½ÕÏ°­Îï£¬Ç°½ø
+ 197   1        {
+ 198   2          forward(120,120);//Ç°½ø
+ 199   2        }
+ 200   1        else
+ 201   1        {
+ 202   2          if(data1 == 10)//ÓÒ¼ì²âµ½ÕÏ°­Îï£¬×ó×ª£¬¼ÇÂ¼Îª×´Ì¬1
+ 203   2          {
+ 204   3            left_run(120,120);//×ó×ª
+ 205   3          }
+ 206   2          if(data1 == 1)//×ó¼ì²âµ½ÕÏ°­Îï£¬ÓÒ×ª£¬¼ÇÂ¼Îª×´Ì¬2
+ 207   2          {
+ 208   3            right_run(120,120);//ÓÒ×ª
+ 209   3          }
+ 210   2          if(data1 == 0)//×óÓÒ¶¼¼ì²âµ½ÕÏ°­Îï£¬ºóÍË
+ 211   2          {
+ 212   3            stop();//Í£³µ
+ 213   3            Delay_Ms(100);//Ö´ÐÐÍ£³µµÄÊ±¼ä
+ 214   3            back_run(120,120);//ºóÍË
+ 215   3            Delay_Ms(200);//Ö´ÐÐºóÍËµÄÊ±¼ä
+ 216   3            right_run(120,120);//ÓÒ×ªµôÍ·
+ 217   3            Delay_Ms(280);//Ö´ÐÐÓÒ×ªµÄÊ±¼ä        
+ 218   3          }
+ 219   2        }
+ 220   1      }
+ 221          /*====================================
+ 222          º¯Êý£ºvoid Delay_Ms(INT16U ms)
+ 223          ²ÎÊý£ºms£¬ºÁÃëÑÓÊ±ÐÎ²Î
+ 224          ÃèÊö£º12T 51µ¥Æ¬»ú×ÔÊÊÓ¦Ö÷Ê±ÖÓºÁÃë¼¶ÑÓÊ±º¯Êý
+ 225          ====================================*/
+ 226          void Delay_Ms(unsigned int ms)
+ 227          {
+ 228   1           unsigned int i;
+ 229   1         do{
+ 230   2              i = MAIN_Fosc / 96000; 
+ 231   2            while(--i);   //96T per loop
+ 232   2           }while(--ms);
+ 233   1      }
+ 234          //ºìÍâ½ÓÊÕ½âÂë
+ 235          void QXMBOT_IRcordpro()            //ÌáÈ¡ËüµÄ33´ÎÂö¿í½øÐÐÊý¾Ý½âÂë
+C51 COMPILER V9.54   MAIN                                                                  05/10/2021 21:37:16 PAGE 5   
+
+ 236          {
+ 237   1        unsigned char i, j, k, cord, value; /*iÓÃÓÚ´¦Àí4¸ö×Ö½Ú£¬jÓÃÓÚ´¦ÀíÒ»¸ö×Ö½ÚÖÐÃ¿Ò»Î»£¬kÓÃÓÚ33´ÎÂö¿íÖÐµÄÄÄÒ»Î
+             -»
+ 238   1        cordÓÃÓÚÈ¡³öÂö¿íµÄÊ±¼äÅÐ¶ÏÊÇ·ñ·ûºÏ1µÄÂö¿íÊ±¼ä*/
+ 239   1        k = 1;            //´ÓµÚÒ»Î»Âö¿í¿ªÊ¼È¡£¬¶ªÆúÒýµ¼ÂëÂö¿í
+ 240   1        for(i = 0; i < 4; i++)
+ 241   1        {
+ 242   2          for(j = 0; j < 8; j++)
+ 243   2          {
+ 244   3            cord = IRdata[k];     //°ÑÂö¿í´æÈëcord
+ 245   3            if(cord > 5)      //Èç¹ûÂö¿í´óÓÚÎÒ11.0592µÄt0Òç³öÂÊÎªÔ¼278us*5=1390ÄÇÃ´ÅÐ¶ÏÎª1
+ 246   3            value = value | 0x80; /*½ÓÊÕµÄÊ±ºòÊÇÏÈ½ÓÊÕ×îµÍÎ»£¬
+ 247   3            °Ñ×îµÍÎ»ÏÈ·Åµ½valueµÄ×î¸ßÎ»ÔÚºÍ0x08°´Î»»òÒ»ÏÂ
+ 248   3            ÕâÑù²»»á¸Ä±ävaluaµÄÆäËûÎ»µÄÊýÖµÖ»»áÈÃËû×î¸ßÎ»Îª1*/
+ 249   3            if(j < 7)
+ 250   3            {
+ 251   4              value = value >> 1; //valueÎ»×óÒÆÒÀ´Î½ÓÊÕ8Î»Êý¾Ý¡£
+ 252   4            }
+ 253   3            k++;        //Ã¿Ö´ÐÐÒ»´ÎÂö¿íÎ»¼Ó1
+ 254   3          }
+ 255   2          IRcord[i] = value;     //Ã¿´¦ÀíÍêÒ»¸ö×Ö½Ú°ÑËü·ÅÈëIRcordÊý×éÖÐ¡£
+ 256   2          value = 0;         //ÇåÁãvalue·½±ãÏÂ´ÎÔÚ´æÈëÊý¾Ý
+ 257   2        }
+ 258   1        IRpro_ok = 1;          //½ÓÊÕÍê4¸ö×Ö½ÚºóIRpro okÖÃ1±íÊ¾ºìÍâ½âÂëÍê³É 
+ 259   1      }
+ 260          /*********************************************
+ 261          QX_A11ÖÇÄÜÐ¡³µºìÍâÒ£¿Ø
+ 262          Èë¿Ú²ÎÊý£ºÎÞ
+ 263          ³ö¿Ú²ÎÊý: ÎÞ
+ 264          ËµÃ÷£ºÎÞ
+ 265          **********************************************/
+ 266          void QXMBOT_IR_Remote(void)
+ 267          {
+ 268   1        if(IRok)    //ÅÐ¶ÏÂö¿íÊÇ·ñ¼ì²âÍê±Ï                    
+ 269   1        {   
+ 270   2          QXMBOT_IRcordpro();//¸ù¾ÝÂö¿í½âÂë³ö4¸ö×Ö½ÚµÄÊý¾Ý
+ 271   2          IRok = 0; //ÖØÐÂµÈ´ýÂö¿í¼ì²â
+ 272   2          if(IRpro_ok) //ÅÐ¶ÏÊÇ·ñ½âÂëÍê±Ï  
+ 273   2          {
+ 274   3                switch(IRcord[2])
+ 275   3              {
+ 276   4                 case 0x18:  stop(); Delay_Ms(200); forward(120,120);        //Ç°½ø
+ 277   4                         break;
+ 278   4                 case 0x52:  stop(); Delay_Ms(200); back_run(120,120);         //ºóÍË  
+ 279   4                         break;
+ 280   4                 case 0x08:  stop(); Delay_Ms(200); left_run(120,120);       //×ó×ª
+ 281   4                         break;
+ 282   4               case 0x5A:  stop(); Delay_Ms(200); right_run(120,120);        //ÓÒ×ª
+ 283   4                         break;
+ 284   4               case 0x1C:  stop();           //Í£Ö¹
+ 285   4                         break;
+ 286   4               default:break;
+ 287   4              }
+ 288   3            IRpro_ok = 0;
+ 289   3          }
+ 290   2        }   
+ 291   1      }
+ 292          /********************* Timer0³õÊ¼»¯************************/
+ 293          void Timer0_Init(void)
+ 294          {
+ 295   1        TMOD |= 0x02; //¶¨Ê±Æ÷0¹¤×÷·½Ê½2£¬8Î»×Ô¶¯ÖØ×°
+ 296   1        TH0 = 0x00;  //¸ß8Î»×°Èë0ÄÇÃ´¶¨Ê±Æ÷Òç³öÒ»´ÎµÄÊ±¼äÊÇ256¸ö»úÆ÷ÖÜÆÚ
+C51 COMPILER V9.54   MAIN                                                                  05/10/2021 21:37:16 PAGE 6   
+
+ 297   1        TL0 = 0x00;
+ 298   1        ET0 = 1;     //¶¨Ê±Æ÷0ÖÐ¶Ï
+ 299   1        TR0 = 1;     //Æô¶¯¶¨Ê±Æ÷0  
+ 300   1      }
+ 301          /********************* Timer0³õÊ¼»¯************************/
+ 302          void Timer1_Init(void)
+ 303          {
+ 304   1        TMOD |= 0x20;//¶¨Ê±Æ÷1£¬8Î»×Ô¶¯ÖØ×°Ä£¿é
+ 305   1        TH1 = 164;
+ 306   1        TL1 = 164;//11.0592M¾§Õñ£¬12TÒç³öÊ±¼äÔ¼µÈÓÚ100Î¢Ãë
+ 307   1        TR1 = 1;//Æô¶¯¶¨Ê±Æ÷1
+ 308   1        ET1 = 1;//ÔÊÐí¶¨Ê±Æ÷1ÖÐ¶Ï 
+ 309   1      }
+ 310          /********************* Íâ²¿ÖÐ¶Ï0³õÊ¼»¯************************/
+ 311          void EXTI0_Init(void)
+ 312          {
+ 313   1        IT0 = 1;     //ÉèÖÃÍâ²¿ÖÐ¶Ï0ÎªÌøÑØ´¥·¢·½Ê½£¬À´Ò»¸öÏÂ½µÑØ´¥·¢Ò»´Î
+ 314   1        EX0 = 1;     //Æô¶¯Íâ²¿ÖÐ¶Ï0  
+ 315   1      }
+ 316          /********************* Íâ²¿ÖÐ¶Ï0ÖÐ¶Ïº¯Êý************************/
+ 317          void QXMBOT_int0() interrupt 0        //¶¨ÒåÍâ²¿ÖÐ¶Ï0
+ 318          {
+ 319   1        static unsigned char i;       //  ÉùÃ÷¾²Ì¬±äÁ¿£¨ÔÚÌø³öº¯ÊýºóÔÚ»ØÀ´Ö´ÐÐµÄÊ±ºò²»»á¶ªÊ§ÊýÖµ£©iÓÃÓÚ°Ñ33´Î¸ßµçÆ½µ
+             -Ä³ÖÐøÊ±¼ä´æÈëIRdata
+ 320   1        static bit startflag;   //¿ªÊ¼´¢´æÂö¿í±êÖ¾Î»
+ 321   1        if(startflag)       //¿ªÊ¼½ÓÊÕÂö¿í¼ì²â
+ 322   1        {
+ 323   2          if( (IRtime < 53) && (IRtime >= 32) ) /*ÅÐ¶ÏÊÇ·ñÊÇÒýµ¼Âë£¬µ×µçÆ½9000us+¸ß4500us 
+ 324   2          Õâ¸ö×Ô¼º¿ÉÒÔËãÎÒÒÔ11.0592À´ËãÁËNECÐ­ÒéµÄÒýµ¼ÂëµÍ8000-10000+¸ß4000-5000 
+ 325   2          Èç¹ûÒÑ¾­½ÓÊÕÁËÒýµ¼ÂëÄÇÃ´i²»»á±»ÖÃ0¾Í»á¿ªÊ¼ÒÀ´Î´æÈëÂö¿í*/
+ 326   2            i = 0;         //Èç¹ûÊÇÒýµ¼ÂëÄÇÃ´Ö´ÐÐi=0°ÑËû´æµ½IRdataµÄµÚÒ»¸öÎ»
+ 327   2          IRdata[i] = IRtime;      //ÒÔT0µÄÒç³ö´ÎÊýÀ´¼ÆËãÂö¿í£¬°ÑÕâ¸öÊ±¼ä´æµ½Êý×éÀïÃæµ½ºóÃæÅÐ¶Ï
+ 328   2          IRtime = 0;        //¼ÆÊýÇåÁã£¬ÏÂÒ»¸öÏÂ½µÑØµÄÊ±ºòÔÚ´æÈëÂö¿í
+ 329   2          i++;           //¼ÆÊýÂö¿í´æÈëµÄ´ÎÊý
+ 330   2          if(i == 33)          //Èç¹û´æÈë34´Î Êý×éµÄÏÂ±êÊÇ´Ó0¿ªÊ¼iµÈÓÚ33±íÊ¾Ö´ÐÐÁË34´Î
+ 331   2          {
+ 332   3            IRok = 1;        //ÄÇÃ´±íÊ¾Âö¿í¼ì²âÍê±Ï
+ 333   3            i = 0;         //°ÑÂö¿í¼ÆÊýÇåÁã×¼±¸ÏÂ´Î´æÈë
+ 334   3          }
+ 335   2        }
+ 336   1        else      
+ 337   1        {
+ 338   2          IRtime = 0;          //Òýµ¼Âë¿ªÊ¼½øÈë°ÑÂö¿í¼ÆÊýÇåÁã¿ªÊ¼¼ÆÊý
+ 339   2          startflag = 1;       //¿ªÊ¼´¦Àí±êÖ¾Î»ÖÃ1
+ 340   2        }
+ 341   1      }
+ 342          /********************* Timer0ÖÐ¶Ïº¯Êý************************/
+ 343          void timer0_int (void) interrupt 1
+ 344          {
+ 345   1         IRtime++;         //¼ì²âÂö¿í£¬1´ÎÎª278us
+ 346   1      }
+ 347          /********************* Timer0ÖÐ¶Ïº¯Êý************************/
+ 348          void timer1_int (void) interrupt 3
+ 349          {
+ 350   1         pwm_val_left++;
+ 351   1         pwm_val_right++;
+ 352   1         QXMBOT_LoadPWM();//×°ÔØPWMÊä³ö
+ 353   1      } 
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    650    ----
+C51 COMPILER V9.54   MAIN                                                                  05/10/2021 21:37:16 PAGE 7   
+
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     43       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      3    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

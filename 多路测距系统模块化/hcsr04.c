@@ -4,7 +4,7 @@
 //#include <math.h>
 #include "delay.h"
 #include "1602.h"
-int leftnumber, backnumber, rightnumber;
+int leftnumber, backnumber, rightnumber,i,j;
 void Timer0_isr(void) interrupt 2
 {
 	ECHOL = 0;
@@ -22,7 +22,6 @@ void TIM1init(void)
 
 void hcsr04()
 { float S, arr[5], temp;
-	int i, j;
 	unsigned char DisTempData[7];
 
 	/*------------------------------------------------
