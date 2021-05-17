@@ -5,7 +5,6 @@
 ".\Objects\hcsr04.obj",
 ".\Objects\1602.obj",
 ".\Objects\delay.obj",
-".\Objects\at24c02.obj",
 ".\Objects\pwm.obj" 
 TO ".\Objects\多路测距系统" 
 PRINT(".\Listings\多路测距系统.m51") RAMSIZE(256) 

@@ -3,29 +3,26 @@
 #include "delay.h"
 #include "string.h"
 #include "MatrixKey.h"
-#include "at24c02.h"
+int leftnumber, backnumber, rightnumber ;
 unsigned char code studentid[] = "0123456789";
-extern char leftnumber, backnumber, rightnumber ;
-int KeyNum, k = 0, number[3];
-extern int i,j;
-char  keydous()
+int KeyNum;
+extern int i,j,k = 0;
+int  keydous()
 {
-	/*------------------------------------------------
-			at24c02´æÈ¡
-	------------------------------------------------*/
-		if (KeyNum == 11)
-		{
-		ISendStr(0xA0, 0, &leftnumber, 4);
-		ISendStr(0xA0, 4, &backnumber, 4);
-		ISendStr(0xA0, 8, &rightnumber, 4);
-		}
-		if (KeyNum == 12)
-		{
-		IRcvStr(0xA0, 0, &leftnumber, 4);
-		IRcvStr(0xA0, 4, &backnumber, 4);
-		IRcvStr(0xA0, 8, &rightnumber, 4);
-		k=4;
-		}
+//	/*------------------------------------------------
+//			at24c02´æÈ¡
+//	------------------------------------------------*/
+//		if (KeyNum == 11)
+//		{
+//     
+//		}
+//		if (KeyNum == 12)
+//		{
+//		IRcvStr(0xA0, 0, &leftnumber, 1);
+//		IRcvStr(0xA0, 4, &backnumber, 1);
+//		IRcvStr(0xA0, 8, &rightnumber, 1);
+//		k=4;
+//		}
 	/*------------------------------------------------
 			·äÃùÆ÷¾¯½äÖµÊäÈë
 	------------------------------------------------*/
@@ -49,7 +46,7 @@ char  keydous()
 					{
 					case 2:if (KeyNum > 0 && KeyNum < 10)leftnumber += (KeyNum * 100); break;
 					case 3: if (KeyNum > 0 && KeyNum < 10)leftnumber += (KeyNum * 10); break;
-					case 4: if (KeyNum > 0 && KeyNum < 10)leftnumber += (KeyNum); break;
+					case 4: if (KeyNum >= 0 && KeyNum < 10)leftnumber += (KeyNum); break;
 					}
 
 					if (KeyNum < 10)
@@ -59,6 +56,7 @@ char  keydous()
 					}
 					DelayMs(50);
 				}
+			
 			}
 			if (k == 2)
 			{
@@ -69,7 +67,7 @@ char  keydous()
 					{
 					case 7: if (KeyNum > 0 && KeyNum < 10)backnumber += (KeyNum * 100); break;
 					case 8: if (KeyNum > 0 && KeyNum < 10)backnumber += (KeyNum * 10); break;
-					case 9: if (KeyNum > 0 && KeyNum < 10)backnumber += (KeyNum); break;
+					case 9: if (KeyNum >= 0 && KeyNum < 10)backnumber += (KeyNum); break;
 					}
 					if (KeyNum < 10)
 					{
@@ -89,7 +87,7 @@ char  keydous()
 					{
 					case 12: if (KeyNum > 0 && KeyNum < 10)rightnumber += (KeyNum * 100); break;
 					case 13: if (KeyNum > 0 && KeyNum < 10)rightnumber += (KeyNum * 10); break;
-					case 14: if (KeyNum > 0 && KeyNum < 10)rightnumber += (KeyNum); break;
+					case 14: if (KeyNum >= 0 && KeyNum < 10)rightnumber += (KeyNum); break;
 					}
 
 					if (KeyNum < 10)
@@ -99,12 +97,12 @@ char  keydous()
 					}
 					DelayMs(50);
 				}
-
 				LCD_Write_String(0, 0, "                ");
+
 			}
 
 		}
 
 	}
-	return leftnumber, backnumber, rightnumber;
+return 0;
 }

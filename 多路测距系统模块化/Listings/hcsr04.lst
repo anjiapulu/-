@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   HCSR04                                                                05/17/2021 08:48:53 PAGE 1   
+C51 COMPILER V9.54   HCSR04                                                                05/17/2021 10:04:05 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE HCSR04
@@ -16,7 +16,7 @@ line level    source
    6          #include "1602.h"
    7          #include "pwm.h"
    8          int i,j;
-   9          char leftnumber, backnumber, rightnumber ;
+   9          extern int leftnumber, backnumber, rightnumber ;
   10          extern float S1,S2,S3;
   11          unsigned char DisTempData[7];
   12          void Timer1_isr(void) interrupt 2
@@ -62,7 +62,7 @@ line level    source
   52   2          /*two*/
   53   2          TRIGR = 1;
   54   2          DelayUs2x(10);
-C51 COMPILER V9.54   HCSR04                                                                05/17/2021 08:48:53 PAGE 2   
+C51 COMPILER V9.54   HCSR04                                                                05/17/2021 10:04:05 PAGE 2   
 
   55   2          TRIGR = 0;
   56   2          while (!ECHOR);
@@ -126,7 +126,7 @@ line level    source
  114   2          S1 = ((arr[1] + arr[2] + arr[3]) / 3);
  115   2          if (S1 < rightnumber)
  116   2          {
-C51 COMPILER V9.54   HCSR04                                                                05/17/2021 08:48:53 PAGE 3   
+C51 COMPILER V9.54   HCSR04                                                                05/17/2021 10:04:05 PAGE 3   
 
  117   3      
  118   3            SPK = 0;//防止一直给喇叭通电造成损坏
@@ -190,7 +190,7 @@ line level    source
  176   2          TR1 = 1;
  177   2          while (ECHOL);
  178   2          TR1 = 0;
-C51 COMPILER V9.54   HCSR04                                                                05/17/2021 08:48:53 PAGE 4   
+C51 COMPILER V9.54   HCSR04                                                                05/17/2021 10:04:05 PAGE 4   
 
  179   2          S2 = TH1 * 256 + TL1;
  180   2          S2 = S2 / 58;
@@ -254,7 +254,7 @@ line level    source
  238   2          /*two*/
  239   2          TRIGB = 1;
  240   2          DelayUs2x(10);
-C51 COMPILER V9.54   HCSR04                                                                05/17/2021 08:48:53 PAGE 5   
+C51 COMPILER V9.54   HCSR04                                                                05/17/2021 10:04:05 PAGE 5   
 
  241   2          TRIGB = 0;
  242   2          while (!ECHOB);
@@ -318,7 +318,7 @@ line level    source
  300   2          S3 = ((arr[1] + arr[2] + arr[3]) / 3);
  301   2          if (S3 < backnumber)
  302   2          {
-C51 COMPILER V9.54   HCSR04                                                                05/17/2021 08:48:53 PAGE 6   
+C51 COMPILER V9.54   HCSR04                                                                05/17/2021 10:04:05 PAGE 6   
 
  303   3      
  304   3            SPK = 0;//防止一直给喇叭通电造成损坏
@@ -333,11 +333,11 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1986    ----
+   CODE SIZE        =   1992    ----
    CONSTANT SIZE    =     24    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     14      24
+   DATA SIZE        =     11      24
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

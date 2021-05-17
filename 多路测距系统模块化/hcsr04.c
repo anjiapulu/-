@@ -6,7 +6,7 @@
 #include "1602.h"
 #include "pwm.h"
 int i,j;
-char leftnumber, backnumber, rightnumber ;
+extern int leftnumber, backnumber, rightnumber ;
 extern float S1,S2,S3;
 unsigned char DisTempData[7];
 void Timer1_isr(void) interrupt 2

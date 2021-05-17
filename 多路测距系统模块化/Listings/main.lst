@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  05/17/2021 08:48:52 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  05/17/2021 10:04:05 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -19,17 +19,18 @@ line level    source
    9                  主函数
   10          ------------------------------------------------*/
   11          void main()
-  12          {
+  12          { 
   13   1        LCD_Init();  /*1602初始化*/
   14   1        TIM1init();  /*超声波定时器初始化*/
   15   1        Timer0Init();
   16   1        while (1)
   17   1        {
-  18   2          keydous();
-  19   2          hcsr04();
-  20   2          pwm();
-  21   2        }
-  22   1      }
+  18   2        
+  19   2          keydous();
+  20   2          hcsr04();
+  21   2          pwm();
+  22   2        }
+  23   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
