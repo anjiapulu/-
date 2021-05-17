@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   AT24C02                                                               05/17/2021 01:02:19 PAGE 1   
+C51 COMPILER V9.54   AT24C02                                                               05/17/2021 08:48:53 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE AT24C02
@@ -62,7 +62,7 @@ line level    source
   52   1        _Nop();
   53   1        SDA=1;    //??I2C??????
   54   1        _Nop();
-C51 COMPILER V9.54   AT24C02                                                               05/17/2021 01:02:19 PAGE 2   
+C51 COMPILER V9.54   AT24C02                                                               05/17/2021 08:48:53 PAGE 2   
 
   55   1        _Nop();
   56   1        _Nop();
@@ -126,7 +126,7 @@ line level    source
  114   2              _Nop();           
  115   2              SCL=0;       //??????,???????
  116   2              _Nop();
-C51 COMPILER V9.54   AT24C02                                                               05/17/2021 01:02:19 PAGE 3   
+C51 COMPILER V9.54   AT24C02                                                               05/17/2021 08:48:53 PAGE 3   
 
  117   2              _Nop();      //?????????4.7us
  118   2              _Nop();
@@ -190,7 +190,7 @@ line level    source
  176          
  177          
  178          
-C51 COMPILER V9.54   AT24C02                                                               05/17/2021 01:02:19 PAGE 4   
+C51 COMPILER V9.54   AT24C02                                                               05/17/2021 08:48:53 PAGE 4   
 
  179          bit ISendStr(unsigned char sla,unsigned char suba,unsigned char *s,unsigned char no)
  180          {

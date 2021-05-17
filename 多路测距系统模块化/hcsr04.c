@@ -8,6 +8,7 @@
 int i,j;
 char leftnumber, backnumber, rightnumber ;
 extern float S1,S2,S3;
+unsigned char DisTempData[7];
 void Timer1_isr(void) interrupt 2
 {
 	
@@ -29,7 +30,7 @@ void TIM1init(void)
 void hcsr04()
 { 
 	float  arr[5], temp;
-	unsigned char DisTempData[7];
+
 	/*------------------------------------------------
 					”“∑Ω
 	------------------------------------------------*/
