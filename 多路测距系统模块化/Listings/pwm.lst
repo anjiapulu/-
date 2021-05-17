@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   PWM                                                                   05/17/2021 00:32:42 PAGE 1   
+C51 COMPILER V9.54   PWM                                                                   05/17/2021 01:02:19 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE PWM
@@ -10,11 +10,11 @@ line level    source
 
    1          #include"reg52.h"
    2          #include"QX_A11.h"
-   3          typedef unsigned int u16;
-   4          void Timer0Init();
-   5          u16 timer1;
-   6          //u16 count=10;
-   7          
+   3          #include"delay.h"
+   4          typedef unsigned int u16;
+   5          void Timer0Init();
+   6          u16 timer1;
+   7          float S1,S2,S3;
    8          void pwm1(u16 count)
    9          {
   10   1       if(count>=timer1)
@@ -44,36 +44,36 @@ line level    source
   34          
   35          void Forward()
   36          {
-  37   1       pwm1(50);
+  37   1       pwm1(5);
   38   1       IN2=0;
   39   1       Left_moto_pwm=1;
   40   1       IN3=0;
-  41   1       pwm4(50);
+  41   1       pwm4(5);
   42   1       Right_moto_pwm=1;
   43   1      }
   44          void back()
   45          {
   46   1       IN1=0;
-  47   1       pwm2(50);
+  47   1       pwm2(7);
   48   1       Left_moto_pwm=1;
-  49   1       pwm3(50);
+  49   1       pwm3(7);
   50   1       IN4=0;
   51   1       Right_moto_pwm=1;
   52   1      }
   53          void turnright()
   54          {
-C51 COMPILER V9.54   PWM                                                                   05/17/2021 00:32:42 PAGE 2   
+C51 COMPILER V9.54   PWM                                                                   05/17/2021 01:02:19 PAGE 2   
 
   55   1       IN1=0;
   56   1       IN2=0;
   57   1       Left_moto_pwm=0;
   58   1       IN3=0;
-  59   1       pwm4(50);
+  59   1       pwm4(5);
   60   1       Right_moto_pwm=1;
   61   1      }
   62          void turnleft()
   63          {
-  64   1       pwm1(50);
+  64   1       pwm1(5);
   65   1       IN2=0;
   66   1       Left_moto_pwm=1;
   67   1       IN3=0;
@@ -88,47 +88,69 @@ line level    source
   76   1       IN4=0;
   77   1      }
   78          
-  79          void pwm()
-  80          {   
-  81   1             
-  82   1         Timer0Init();
-  83   1         
-  84   1         while(1)
-  85   1         {  
-  86   2               
-  87   2           } 
-  88   1      }
-  89          
-  90          void Timer0Init()
+  79          
+  80          void Timer0Init()
+  81          {
+  82   1       TMOD|=0X01;
+  83   1       TH0=0XFF;
+  84   1       TL0=0X38;
+  85   1       ET0=1;
+  86   1       EA=1;
+  87   1       TR0=1;
+  88   1      
+  89   1      }
+  90          void Time0() interrupt 1
   91          {
-  92   1       TMOD|=0X01;
-  93   1       TH0=0XFF;
-  94   1       TL0=0X38;
-  95   1       ET0=1;
-  96   1       EA=1;
-  97   1       TR0=1;
-  98   1      
+  92   1       TH0=0XFF;
+  93   1       TL0=0X38;
+  94   1       timer1++;
+  95   1       if(timer1>100)
+  96   1       {
+  97   2        timer1=0;
+  98   2       }
   99   1      }
- 100          void Time0() interrupt 1
- 101          {
- 102   1       TH0=0XFF;
- 103   1       TL0=0X38;
- 104   1       timer1++;
- 105   1       if(timer1>100)
- 106   1       {
- 107   2        timer1=0;
- 108   2       }
- 109   1      }
+ 100          void pwm()
+ 101          {     /*S1ÓÒ±ß  S2×ó±ß  S3ºó±ß*/  
+ 102   1            if((S1<5.5)||(S2<5.5)) 
+ 103   1            {
+ 104   2            Forward();       
+ 105   2            DelayMs(500);
+ 106   2            }
+ 107   1            if(S1>S2)  
+ 108   1            {
+ 109   2            turnleft();
+ 110   2            DelayMs(500);
+ 111   2            if(S3>8)
+ 112   2            {
+ 113   3            back();
+ 114   3            }
+ 115   2            }
+ 116   1            else
+C51 COMPILER V9.54   PWM                                                                   05/17/2021 01:02:19 PAGE 3   
+
+ 117   1            {
+ 118   2            turnright();
+ 119   2            DelayMs(500);
+ 120   2            if(S3>8)
+ 121   2            {
+ 122   3            back();
+ 123   3            DelayMs(500);
+ 124   3            }
+ 125   2            }
+ 126   1            while(S1<6&&S2<6&&S3<5)
+ 127   1            {
+ 128   2            stop();
+ 129   2            }
+ 130   1            
+ 131   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    202    ----
+   CODE SIZE        =    405    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-C51 COMPILER V9.54   PWM                                                                   05/17/2021 00:32:42 PAGE 3   
-
-   DATA SIZE        =      2    ----
+   DATA SIZE        =     14    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

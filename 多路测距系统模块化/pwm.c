@@ -1,10 +1,10 @@
 #include"reg52.h"
 #include"QX_A11.h"
+#include"delay.h"
 typedef unsigned int u16;
 void Timer0Init();
 u16 timer1;
-//u16 count=10;
-
+float S1,S2,S3;
 void pwm1(u16 count)
 {
  if(count>=timer1)
@@ -34,19 +34,19 @@ void pwm4(u16 count)
 
 void Forward()
 {
- pwm1(50);
+ pwm1(5);
  IN2=0;
  Left_moto_pwm=1;
  IN3=0;
- pwm4(50);
+ pwm4(5);
  Right_moto_pwm=1;
 }
 void back()
 {
  IN1=0;
- pwm2(50);
+ pwm2(7);
  Left_moto_pwm=1;
- pwm3(50);
+ pwm3(7);
  IN4=0;
  Right_moto_pwm=1;
 }
@@ -56,12 +56,12 @@ void turnright()
  IN2=0;
  Left_moto_pwm=0;
  IN3=0;
- pwm4(50);
+ pwm4(5);
  Right_moto_pwm=1;
 }
 void turnleft()
 {
- pwm1(50);
+ pwm1(5);
  IN2=0;
  Left_moto_pwm=1;
  IN3=0;
@@ -76,16 +76,6 @@ void stop()
  IN4=0;
 }
 
-void pwm()
-{   
-       
-   Timer0Init();
-   
-   while(1)
-   {  
-     		 
-     } 
-}
 
 void Timer0Init()
 {
@@ -106,4 +96,36 @@ void Time0() interrupt 1
  {
   timer1=0;
  }
+}
+void pwm()
+{     /*S1ÓÒ±ß  S2×ó±ß  S3ºó±ß*/  
+      if((S1<5.5)||(S2<5.5)) 
+		  {
+		  Forward();		   
+      DelayMs(500);
+		  }
+			if(S1>S2)  
+			{
+			turnleft();
+			DelayMs(500);
+			if(S3>8)
+			{
+			back();
+			}
+			}
+			else
+			{
+			turnright();
+			DelayMs(500);
+			if(S3>8)
+			{
+			back();
+			DelayMs(500);
+			}
+			}
+      while(S1<6&&S2<6&&S3<5)
+			{
+			stop();
+			}
+			
 }

@@ -368,11 +368,6 @@
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
             </File>
-            <File>
-              <FileName>HJ-4WD_PWM.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\HJ-4WD_PWM.h</FilePath>
-            </File>
           </Files>
         </Group>
       </Groups>

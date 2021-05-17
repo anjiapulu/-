@@ -1,29 +1,35 @@
 #include <stdio.h>
 #include <reg52.h>
 #include <QX_A11.h>
-//#include <math.h>
+#include <math.h>
 #include "delay.h"
 #include "1602.h"
-int leftnumber, backnumber, rightnumber,i,j;
-void Timer0_isr(void) interrupt 2
+#include "pwm.h"
+int i,j;
+char leftnumber, backnumber, rightnumber ;
+extern float S1,S2,S3;
+void Timer1_isr(void) interrupt 2
 {
+	
 	ECHOL = 0;
 	ECHOB = 0;
 	ECHOR = 0;
+	
 }
+
 void TIM1init(void)
 {
-
+	
 	TMOD |= 0x10;
 	TH1 = 0x00;
 	TL1 = 0x00;
 	ET1 = 1;
+	
 }
-
 void hcsr04()
-{ float S, arr[5], temp;
+{ 
+	float  arr[5], temp;
 	unsigned char DisTempData[7];
-
 	/*------------------------------------------------
 					右方
 	------------------------------------------------*/
@@ -37,9 +43,9 @@ void hcsr04()
 		TR1 = 1;
 		while (ECHOR);
 		TR1 = 0;
-		S = TH1 * 256 + TL1;
-		S = S / 58;
-		arr[0] = S;
+		S1 = TH1 * 256 + TL1;
+		S1 = S1 / 58;
+		arr[0] = S1;
 		TH1 = 0;
 		TL1 = 0;
 		/*two*/
@@ -50,9 +56,9 @@ void hcsr04()
 		TR1 = 1;
 		while (ECHOR);
 		TR1 = 0;
-		S = TH1 * 256 + TL1;
-		S = S / 58;
-		arr[1] = S;
+		S1 = TH1 * 256 + TL1;
+		S1 = S1 / 58;
+		arr[1] = S1;
 		TH1 = 0;
 		TL1 = 0;
 		/*third*/
@@ -63,9 +69,9 @@ void hcsr04()
 		TR1 = 1;
 		while (ECHOR);
 		TR1 = 0;
-		S = TH1 * 256 + TL1;
-		S = S / 58;
-		arr[2] = S;
+		S1 = TH1 * 256 + TL1;
+		S1 = S1 / 58;
+		arr[2] = S1;
 		TH1 = 0;
 		TL1 = 0;
 		/*four*/
@@ -76,9 +82,9 @@ void hcsr04()
 		TR1 = 1;
 		while (ECHOR);
 		TR1 = 0;
-		S = TH1 * 256 + TL1;
-		S = S / 58;
-		arr[3] = S;
+		S1 = TH1 * 256 + TL1;
+		S1 = S1 / 58;
+		arr[3] = S1;
 		TH1 = 0;
 		TL1 = 0;
 		/*five*/
@@ -89,9 +95,9 @@ void hcsr04()
 		TR1 = 1;
 		while (ECHOR);
 		TR1 = 0;
-		S = TH1 * 256 + TL1;
-		S = S / 58;
-		arr[4] = S;
+		S1 = TH1 * 256 + TL1;
+		S1 = S1 / 58;
+		arr[4] = S1;
 		TH1 = 0;
 		TL1 = 0;
 		/*try*/
@@ -104,8 +110,8 @@ void hcsr04()
 					arr[j + 1] = temp;
 				}
 		/*try*/
-		S = ((arr[1] + arr[2] + arr[3]) / 3);
-		if (S < rightnumber)
+		S1 = ((arr[1] + arr[2] + arr[3]) / 3);
+		if (S1 < rightnumber)
 		{
 
 			SPK = 0;//防止一直给喇叭通电造成损坏
@@ -113,7 +119,7 @@ void hcsr04()
 
 		}
 		SPK = 1;
-		sprintf(DisTempData, "R=%6.2f", S);
+		sprintf(DisTempData, "R=%6.2f", S1);
 		LCD_Write_String(0, 1, DisTempData);
 
 	}
@@ -130,9 +136,9 @@ void hcsr04()
 		TR1 = 1;
 		while (ECHOL);
 		TR1 = 0;
-		S = TH1 * 256 + TL1;
-		S = S / 58;       //     58    ,  Y =(X *344)/2
-		arr[0] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+		S2 = TH1 * 256 + TL1;
+		S2 = S2 / 58;       //     58    ,  Y =(X *344)/2
+		arr[0] = S2;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
 		TH1 = 0;
 		TL1 = 0;
 		/*two*/
@@ -143,9 +149,9 @@ void hcsr04()
 		TR1 = 1;
 		while (ECHOL);
 		TR1 = 0;
-		S = TH1 * 256 + TL1;
-		S = S / 58;       //     58    ,  Y =(X *344)/2
-		arr[1] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+		S2 = TH1 * 256 + TL1;
+		S2 = S2 / 58;       //     58    ,  Y =(X *344)/2
+		arr[1] = S2;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
 		TH1 = 0;
 		TL1 = 0;
 		/*third*/
@@ -156,9 +162,9 @@ void hcsr04()
 		TR1 = 1;
 		while (ECHOL);
 		TR1 = 0;
-		S = TH1 * 256 + TL1;
-		S = S / 58;
-		arr[2] = S;
+		S2 = TH1 * 256 + TL1;
+		S2 = S2 / 58;
+		arr[2] = S2;
 		TH1 = 0;
 		TL1 = 0;
 		/*four*/
@@ -169,9 +175,9 @@ void hcsr04()
 		TR1 = 1;
 		while (ECHOL);
 		TR1 = 0;
-		S = TH1 * 256 + TL1;
-		S = S / 58;
-		arr[3] = S;
+		S2 = TH1 * 256 + TL1;
+		S2 = S2 / 58;
+		arr[3] = S2;
 		TH1 = 0;
 		TL1 = 0;
 		/*five*/
@@ -182,9 +188,9 @@ void hcsr04()
 		TR1 = 1;
 		while (ECHOL);
 		TR1 = 0;
-		S = TH1 * 256 + TL1;
-		S = S / 58;
-		arr[4] = S;
+		S2 = TH1 * 256 + TL1;
+		S2 = S2 / 58;
+		arr[4] = S2;
 		TH1 = 0;
 		TL1 = 0;
 
@@ -198,8 +204,8 @@ void hcsr04()
 					arr[j + 1] = temp;
 				}
 		/*try*/
-		S = ((arr[1] + arr[2] + arr[3]) / 3);
-		if (S < leftnumber)
+		S2 = ((arr[1] + arr[2] + arr[3]) / 3);
+		if (S2 < leftnumber)
 		{
 
 			SPK = 0;//防止一直给喇叭通电造成损坏
@@ -207,7 +213,7 @@ void hcsr04()
 
 		}
 		SPK = 1;
-		sprintf(DisTempData, "L=%6.2f", S);
+		sprintf(DisTempData, "L=%6.2f", S2);
 		LCD_Write_String(8, 1, DisTempData);
 
 	}
@@ -223,9 +229,9 @@ void hcsr04()
 		TR1 = 1;
 		while (ECHOB);
 		TR1 = 0;
-		S = TH1 * 256 + TL1;
-		S = S / 58;       //     58    ,  Y =(X *344)/2
-		arr[0] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+		S3 = TH1 * 256 + TL1;
+		S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
+		arr[0] = S3;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
 		TH1 = 0;
 		TL1 = 0;
 		/*two*/
@@ -236,9 +242,9 @@ void hcsr04()
 		TR1 = 1;
 		while (ECHOB);
 		TR1 = 0;
-		S = TH1 * 256 + TL1;
-		S = S / 58;       //     58    ,  Y =(X *344)/2
-		arr[1] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+		S3 = TH1 * 256 + TL1;
+		S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
+		arr[1] = S3;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
 		TH1 = 0;
 		TL1 = 0;
 		/*third*/
@@ -249,9 +255,9 @@ void hcsr04()
 		TR1 = 1;
 		while (ECHOB);
 		TR1 = 0;
-		S = TH1 * 256 + TL1;
-		S = S / 58;       //     58    ,  Y =(X *344)/2
-		arr[2] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+		S3 = TH1 * 256 + TL1;
+		S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
+		arr[2] = S3;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
 		TH1 = 0;
 		TL1 = 0;
 		/*four*/
@@ -262,9 +268,9 @@ void hcsr04()
 		TR1 = 1;
 		while (ECHOB);
 		TR1 = 0;
-		S = TH1 * 256 + TL1;
-		S = S / 58;       //     58    ,  Y =(X *344)/2
-		arr[3] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+		S3 = TH1 * 256 + TL1;
+		S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
+		arr[3] = S3;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
 		TH1 = 0;
 		TL1 = 0;
 		/*five*/
@@ -275,9 +281,9 @@ void hcsr04()
 		TR1 = 1;
 		while (ECHOB);
 		TR1 = 0;
-		S = TH1 * 256 + TL1;
-		S = S / 58;       //     58    ,  Y =(X *344)/2
-		arr[4] = S;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+		S3 = TH1 * 256 + TL1;
+		S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
+		arr[4] = S3;	     // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
 		TH1 = 0;
 		TL1 = 0;
 		/*try*/
@@ -290,8 +296,8 @@ void hcsr04()
 					arr[j + 1] = temp;
 				}
 		/*try*/
-		S = ((arr[1] + arr[2] + arr[3]) / 3);
-		if (S < backnumber)
+		S3 = ((arr[1] + arr[2] + arr[3]) / 3);
+		if (S3 < backnumber)
 		{
 
 			SPK = 0;//防止一直给喇叭通电造成损坏
@@ -299,7 +305,7 @@ void hcsr04()
 
 		}
 		SPK = 1;
-		sprintf(DisTempData, "B=%6.2f", S);
+		sprintf(DisTempData, "B=%6.2f", S3);
 		LCD_Write_String(4, 0, DisTempData);
 	}
 }
