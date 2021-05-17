@@ -399,11 +399,6 @@
               <FilePath>.\delay.c</FilePath>
             </File>
             <File>
-              <FileName>at24c02.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\at24c02.c</FilePath>
-            </File>
-            <File>
               <FileName>pwm.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\pwm.c</FilePath>

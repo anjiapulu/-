@@ -3,6 +3,7 @@
 #include "delay.h"
 #include "string.h"
 #include "MatrixKey.h"
+
 int leftnumber, backnumber, rightnumber ;
 unsigned char code studentid[] = "0123456789";
 int KeyNum;
@@ -11,16 +12,18 @@ int  keydous()
 {
 //	/*------------------------------------------------
 //			at24c02¥Ê»°
-//	------------------------------------------------*/
+////	------------------------------------------------*/
 //		if (KeyNum == 11)
 //		{
-//     
+//     ISendStr(0xA0, 0, leftnumber, 4);
+//	   ISendStr(0xA0, 4, backnumber, 4);
+//	   ISendStr(0xA0, 8, rightnumber,4);
 //		}
 //		if (KeyNum == 12)
 //		{
-//		IRcvStr(0xA0, 0, &leftnumber, 1);
-//		IRcvStr(0xA0, 4, &backnumber, 1);
-//		IRcvStr(0xA0, 8, &rightnumber, 1);
+//		IRcvStr(0xA0, 0, leftnumber, 4);
+//		IRcvStr(0xA0, 4, backnumber, 4);
+//		IRcvStr(0xA0, 8, rightnumber, 4);
 //		k=4;
 //		}
 	/*------------------------------------------------

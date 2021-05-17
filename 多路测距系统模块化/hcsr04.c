@@ -9,6 +9,7 @@ int i,j;
 extern int leftnumber, backnumber, rightnumber ;
 extern float S1,S2,S3;
 unsigned char DisTempData[7];
+float  arr[5], temp;
 void Timer1_isr(void) interrupt 2
 {
 	
@@ -22,15 +23,14 @@ void TIM1init(void)
 {
 	
 	TMOD |= 0x10;
-	TH1 = 0x00;
-	TL1 = 0x00;
+	TH1=(0xff + 1 - 2000)/256;
+	TL1=(0xff + 1 - 2000)%256;
 	ET1 = 1;
 	
 }
 void hcsr04()
 { 
-	float  arr[5], temp;
-
+	
 	/*------------------------------------------------
 					右方
 	------------------------------------------------*/
@@ -95,7 +95,7 @@ void hcsr04()
 		while (!ECHOR);
 		TR1 = 1;
 		while (ECHOR);
-		TR1 = 0;
+		TR1 = 0;	
 		S1 = TH1 * 256 + TL1;
 		S1 = S1 / 58;
 		arr[4] = S1;
@@ -114,15 +114,13 @@ void hcsr04()
 		S1 = ((arr[1] + arr[2] + arr[3]) / 3);
 		if (S1 < rightnumber)
 		{
-
+			
 			SPK = 0;//防止一直给喇叭通电造成损坏
-			DelayMs(250);
-
+			DelayMs(200);
 		}
 		SPK = 1;
 		sprintf(DisTempData, "R=%6.2f", S1);
 		LCD_Write_String(0, 1, DisTempData);
-
 	}
 	/*------------------------------------------------
 				左方
@@ -208,9 +206,9 @@ void hcsr04()
 		S2 = ((arr[1] + arr[2] + arr[3]) / 3);
 		if (S2 < leftnumber)
 		{
-
+      
 			SPK = 0;//防止一直给喇叭通电造成损坏
-			DelayMs(250);
+			DelayMs(200);
 
 		}
 		SPK = 1;
@@ -300,9 +298,9 @@ void hcsr04()
 		S3 = ((arr[1] + arr[2] + arr[3]) / 3);
 		if (S3 < backnumber)
 		{
-
+      
 			SPK = 0;//防止一直给喇叭通电造成损坏
-			DelayMs(250);
+			DelayMs(200);
 
 		}
 		SPK = 1;

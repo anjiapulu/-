@@ -102,12 +102,10 @@ void pwm()
       if((S1<5.5)||(S2<5.5)) 
 		  {
 		  Forward();		   
-      DelayMs(500);
 		  }
 			if(S1>S2)  
 			{
 			turnleft();
-			DelayMs(500);
 			if(S3>8)
 			{
 			back();
@@ -116,11 +114,9 @@ void pwm()
 			else
 			{
 			turnright();
-			DelayMs(500);
 			if(S3>8)
 			{
 			back();
-			DelayMs(500);
 			}
 			}
       while(S1<6&&S2<6&&S3<5)
