@@ -97,31 +97,15 @@ void Time0() interrupt 1
   timer1=0;
  }
 }
-void pwm()
+void rpwm()
 {     /*S1ÓÒ±ß  S2×ó±ß  S3ºó±ß*/  
-      if((S1<5.5)||(S2<5.5)) 
-		  {
-		  Forward();		   
-		  }
-			if(S1>S2)  
-			{
-			turnleft();
-			if(S3>8)
-			{
-			back();
-			}
-			}
-			else
-			{
-			turnright();
-			if(S3>8)
-			{
-			back();
-			}
-			}
-      while(S1<6&&S2<6&&S3<5)
-			{
-			stop();
-			}
-			
+     
+}
+void lpwm()
+{     /*S1ÓÒ±ß  S2×ó±ß  S3ºó±ß*/  
+     
+}
+void bpwm()
+{     /*S1ÓÒ±ß  S2×ó±ß  S3ºó±ß*/  
+     
 }

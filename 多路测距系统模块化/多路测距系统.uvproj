@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>Target 1</TargetName>
+      <TargetName>多路测距模块化</TargetName>
       <ToolsetNumber>0x0</ToolsetNumber>
       <ToolsetName>MCS-51</ToolsetName>
       <TargetOption>
@@ -230,7 +230,7 @@
               <RCB>
                 <Type>0</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0x10000</Size>
+                <Size>0xffff</Size>
               </RCB>
               <RXB>
                 <Type>0</Type>
@@ -361,7 +361,7 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>Source Group 1</GroupName>
+          <GroupName>主程序</GroupName>
           <Files>
             <File>
               <FileName>STARTUP.A51</FileName>
@@ -373,10 +373,20 @@
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>矩阵键盘</GroupName>
+          <Files>
             <File>
               <FileName>MatrixKey.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\MatrixKey.c</FilePath>
+            </File>
+            <File>
+              <FileName>MatrixKey.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\MatrixKey.h</FilePath>
             </File>
             <File>
               <FileName>keydous.c</FileName>
@@ -384,24 +394,69 @@
               <FilePath>.\keydous.c</FilePath>
             </File>
             <File>
-              <FileName>hcsr04.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hcsr04.c</FilePath>
+              <FileName>keydous.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\keydous.h</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LCD1602</GroupName>
+          <Files>
             <File>
               <FileName>1602.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\1602.c</FilePath>
             </File>
             <File>
+              <FileName>1602.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\1602.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>HC-SR04</GroupName>
+          <Files>
+            <File>
+              <FileName>hcsr04.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\hcsr04.c</FilePath>
+            </File>
+            <File>
+              <FileName>hcsr04.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\hcsr04.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>DELAY</GroupName>
+          <Files>
+            <File>
               <FileName>delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\delay.c</FilePath>
             </File>
             <File>
+              <FileName>delay.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\delay.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>PWM电机控制</GroupName>
+          <Files>
+            <File>
               <FileName>pwm.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>pwm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\pwm.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   HCSR04                                                                05/17/2021 15:29:08 PAGE 1   
+C51 COMPILER V9.54   HCSR04                                                                05/18/2021 17:16:05 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE HCSR04
@@ -22,317 +22,339 @@ line level    source
   12          float  arr[5], temp;
   13          void Timer1_isr(void) interrupt 2
   14          {
-  15   1        
-  16   1        ECHOL = 0;
-  17   1        ECHOB = 0;
-  18   1        ECHOR = 0;
-  19   1        
-  20   1      }
-  21          
-  22          void TIM1init(void)
-  23          {
-  24   1        
-  25   1        TMOD |= 0x10;
-  26   1        TH1=(0xff + 1 - 2000)/256;
-  27   1        TL1=(0xff + 1 - 2000)%256;
-  28   1        ET1 = 1;
-  29   1        
-  30   1      }
-  31          void hcsr04()
-  32          { 
-  33   1        
-  34   1        /*------------------------------------------------
-  35   1                右方
-  36   1        ------------------------------------------------*/
-  37   1        if (1)
-  38   1        {
-  39   2          /*one*/
-  40   2          TRIGR = 1;
-  41   2          DelayUs2x(10);
-  42   2          TRIGR = 0;
-  43   2          while (!ECHOR);
-  44   2          TR1 = 1;
-  45   2          while (ECHOR);
-  46   2          TR1 = 0;
-  47   2          S1 = TH1 * 256 + TL1;
-  48   2          S1 = S1 / 58;
-  49   2          arr[0] = S1;
-  50   2          TH1 = 0;
-  51   2          TL1 = 0;
-  52   2          /*two*/
-  53   2          TRIGR = 1;
-  54   2          DelayUs2x(10);
-C51 COMPILER V9.54   HCSR04                                                                05/17/2021 15:29:08 PAGE 2   
+  15   1        ECHOL = 0;
+  16   1        ECHOB = 0;
+  17   1        ECHOR = 0;
+  18   1      }
+  19          void TIM1init(void)
+  20          {
+  21   1        TMOD |= 0x10;
+  22   1        TH1=0;
+  23   1        TL1=0;
+  24   1        ET1 = 1;
+  25   1      }
+  26          void rightdis()
+  27          {
+  28   1      /*one*/
+  29   1          TRIGR = 1;
+  30   1          DelayUs2x(10);
+  31   1          TRIGR = 0;
+  32   1          while (!ECHOR);
+  33   1          TR1 = 1;
+  34   1          while (ECHOR);
+  35   1          TR1 = 0;
+  36   1          S1 = TH1 * 256 + TL1;
+  37   1          S1 = S1 / 58;
+  38   1          arr[0] = S1;
+  39   1          TH1 = 0;
+  40   1          TL1 = 0;
+  41   1          /*two*/
+  42   1          TRIGR = 1;
+  43   1          DelayUs2x(10);
+  44   1          TRIGR = 0;
+  45   1          while (!ECHOR);
+  46   1          TR1 = 1;
+  47   1          while (ECHOR);
+  48   1          TR1 = 0;
+  49   1          S1 = TH1 * 256 + TL1;
+  50   1          S1 = S1 / 58;
+  51   1          arr[1] = S1;
+  52   1          TH1 = 0;
+  53   1          TL1 = 0;
+  54   1          /*third*/
+C51 COMPILER V9.54   HCSR04                                                                05/18/2021 17:16:05 PAGE 2   
 
-  55   2          TRIGR = 0;
-  56   2          while (!ECHOR);
-  57   2          TR1 = 1;
-  58   2          while (ECHOR);
-  59   2          TR1 = 0;
-  60   2          S1 = TH1 * 256 + TL1;
-  61   2          S1 = S1 / 58;
-  62   2          arr[1] = S1;
-  63   2          TH1 = 0;
-  64   2          TL1 = 0;
-  65   2          /*third*/
-  66   2          TRIGR = 1;
-  67   2          DelayUs2x(10);
-  68   2          TRIGR = 0;
-  69   2          while (!ECHOR);
-  70   2          TR1 = 1;
-  71   2          while (ECHOR);
-  72   2          TR1 = 0;
-  73   2          S1 = TH1 * 256 + TL1;
-  74   2          S1 = S1 / 58;
-  75   2          arr[2] = S1;
-  76   2          TH1 = 0;
-  77   2          TL1 = 0;
-  78   2          /*four*/
-  79   2          TRIGR = 1;
-  80   2          DelayUs2x(10);
-  81   2          TRIGR = 0;
-  82   2          while (!ECHOR);
-  83   2          TR1 = 1;
-  84   2          while (ECHOR);
-  85   2          TR1 = 0;
-  86   2          S1 = TH1 * 256 + TL1;
-  87   2          S1 = S1 / 58;
-  88   2          arr[3] = S1;
-  89   2          TH1 = 0;
-  90   2          TL1 = 0;
-  91   2          /*five*/
-  92   2          TRIGR = 1;
-  93   2          DelayUs2x(10);
-  94   2          TRIGR = 0;
-  95   2          while (!ECHOR);
-  96   2          TR1 = 1;
-  97   2          while (ECHOR);
-  98   2          TR1 = 0;  
-  99   2          S1 = TH1 * 256 + TL1;
- 100   2          S1 = S1 / 58;
- 101   2          arr[4] = S1;
- 102   2          TH1 = 0;
- 103   2          TL1 = 0;
- 104   2          /*try*/
- 105   2          for (i = 0; i < 5 - 1; i++)
- 106   2            for (j = 0; j < 5 - 1 - i; j++)
- 107   2              if (arr[j] > arr[j + 1])
- 108   2              {
- 109   3                temp = arr[j];
- 110   3                arr[j] = arr[j + 1];
- 111   3                arr[j + 1] = temp;
- 112   3              }
- 113   2          /*try*/
- 114   2          S1 = ((arr[1] + arr[2] + arr[3]) / 3);
- 115   2          if (S1 < rightnumber)
- 116   2          {
-C51 COMPILER V9.54   HCSR04                                                                05/17/2021 15:29:08 PAGE 3   
+  55   1          TRIGR = 1;
+  56   1          DelayUs2x(10);
+  57   1          TRIGR = 0;
+  58   1          while (!ECHOR);
+  59   1          TR1 = 1;
+  60   1          while (ECHOR);
+  61   1          TR1 = 0;
+  62   1          S1 = TH1 * 256 + TL1;
+  63   1          S1 = S1 / 58;
+  64   1          arr[2] = S1;
+  65   1          TH1 = 0;
+  66   1          TL1 = 0;
+  67   1          /*four*/
+  68   1          TRIGR = 1;
+  69   1          DelayUs2x(10);
+  70   1          TRIGR = 0;
+  71   1          while (!ECHOR);
+  72   1          TR1 = 1;
+  73   1          while (ECHOR);
+  74   1          TR1 = 0;
+  75   1          S1 = TH1 * 256 + TL1;
+  76   1          S1 = S1 / 58;
+  77   1          arr[3] = S1;
+  78   1          TH1 = 0;
+  79   1          TL1 = 0;
+  80   1          /*five*/
+  81   1          TRIGR = 1;
+  82   1          DelayUs2x(10);
+  83   1          TRIGR = 0;
+  84   1          while (!ECHOR);
+  85   1          TR1 = 1;
+  86   1          while (ECHOR);
+  87   1          TR1 = 0;  
+  88   1          S1 = TH1 * 256 + TL1;
+  89   1          S1 = S1 / 58;
+  90   1          arr[4] = S1;
+  91   1          TH1 = 0;
+  92   1          TL1 = 0;
+  93   1          /*try*/
+  94   1          for (i = 0; i < 5 - 1; i++)
+  95   1            for (j = 0; j < 5 - 1 - i; j++)
+  96   1              if (arr[j] > arr[j + 1])
+  97   1              {
+  98   2                temp = arr[j];
+  99   2                arr[j] = arr[j + 1];
+ 100   2                arr[j + 1] = temp;
+ 101   2              }
+ 102   1          /*try*/
+ 103   1          S1 = ((arr[1] + arr[2] + arr[3]) / 3)*1.089;
+ 104   1          if (S1 < rightnumber)
+ 105   1          {
+ 106   2            
+ 107   2            SPK = 0;//防止一直给喇叭通电造成损坏
+ 108   2            DelayMs(200);
+ 109   2          }
+ 110   1          SPK = 1;
+ 111   1          if(S1<500)
+ 112   1          {
+ 113   2          sprintf(DisTempData, "R=%6.2f", S1);
+ 114   2          LCD_Write_String(0, 1, DisTempData);
+ 115   2          }
+ 116   1          else 
+C51 COMPILER V9.54   HCSR04                                                                05/18/2021 17:16:05 PAGE 3   
 
- 117   3            
- 118   3            SPK = 0;//防止一直给喇叭通电造成损坏
- 119   3            DelayMs(200);
- 120   3          }
- 121   2          SPK = 1;
- 122   2          sprintf(DisTempData, "R=%6.2f", S1);
- 123   2          LCD_Write_String(0, 1, DisTempData);
- 124   2        }
- 125   1        /*------------------------------------------------
- 126   1              左方
- 127   1        ------------------------------------------------*/
- 128   1        if (1)
- 129   1        {
- 130   2          /*one*/
- 131   2          TRIGL = 1;
- 132   2          DelayUs2x(10);
- 133   2          TRIGL = 0;
- 134   2          while (!ECHOL);
- 135   2          TR1 = 1;
- 136   2          while (ECHOL);
- 137   2          TR1 = 0;
- 138   2          S2 = TH1 * 256 + TL1;
- 139   2          S2 = S2 / 58;       //     58    ,  Y =(X *344)/2
- 140   2          arr[0] = S2;       // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
- 141   2          TH1 = 0;
- 142   2          TL1 = 0;
- 143   2          /*two*/
- 144   2          TRIGL = 1;
- 145   2          DelayUs2x(10);
- 146   2          TRIGL = 0;
- 147   2          while (!ECHOL);
- 148   2          TR1 = 1;
- 149   2          while (ECHOL);
- 150   2          TR1 = 0;
- 151   2          S2 = TH1 * 256 + TL1;
- 152   2          S2 = S2 / 58;       //     58    ,  Y =(X *344)/2
- 153   2          arr[1] = S2;       // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
- 154   2          TH1 = 0;
- 155   2          TL1 = 0;
- 156   2          /*third*/
- 157   2          TRIGL = 1;
- 158   2          DelayUs2x(10);
- 159   2          TRIGL = 0;
- 160   2          while (!ECHOL);
- 161   2          TR1 = 1;
- 162   2          while (ECHOL);
- 163   2          TR1 = 0;
- 164   2          S2 = TH1 * 256 + TL1;
- 165   2          S2 = S2 / 58;
- 166   2          arr[2] = S2;
- 167   2          TH1 = 0;
- 168   2          TL1 = 0;
- 169   2          /*four*/
- 170   2          TRIGL = 1;
- 171   2          DelayUs2x(10);
- 172   2          TRIGL = 0;
- 173   2          while (!ECHOL);
- 174   2          TR1 = 1;
- 175   2          while (ECHOL);
- 176   2          TR1 = 0;
- 177   2          S2 = TH1 * 256 + TL1;
- 178   2          S2 = S2 / 58;
-C51 COMPILER V9.54   HCSR04                                                                05/17/2021 15:29:08 PAGE 4   
+ 117   1          {
+ 118   2            LCD_Write_String(2, 1, "eerror");
+ 119   2          }
+ 120   1          DelayMs(300);
+ 121   1        
+ 122   1      }
+ 123          void leftdis()
+ 124          {
+ 125   1      /*one*/
+ 126   1          TRIGL = 1;
+ 127   1          DelayUs2x(10);
+ 128   1          TRIGL = 0;
+ 129   1          while (!ECHOL);
+ 130   1          TR1 = 1;
+ 131   1          while (ECHOL);
+ 132   1          TR1 = 0;
+ 133   1          S2 = TH1 * 256 + TL1;
+ 134   1          S2 = S2 /58 ;       //     58    ,  Y =(X *344)/2
+ 135   1          arr[0] = S2;       // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+ 136   1          TH1 = 0;
+ 137   1          TL1 = 0;
+ 138   1          /*two*/
+ 139   1          TRIGL = 1;
+ 140   1          DelayUs2x(10);
+ 141   1          TRIGL = 0;
+ 142   1          while (!ECHOL);
+ 143   1          TR1 = 1;
+ 144   1          while (ECHOL);
+ 145   1          TR1 = 0;
+ 146   1          S2 = TH1 * 256 + TL1;
+ 147   1          S2 = S2 / 58;       //     58    ,  Y =(X *344)/2
+ 148   1          arr[1] = S2;       // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+ 149   1          TH1 = 0;
+ 150   1          TL1 = 0;
+ 151   1          /*third*/
+ 152   1          TRIGL = 1;
+ 153   1          DelayUs2x(10);
+ 154   1          TRIGL = 0;
+ 155   1          while (!ECHOL);
+ 156   1          TR1 = 1;
+ 157   1          while (ECHOL);
+ 158   1          TR1 = 0;
+ 159   1          S2 = TH1 * 256 + TL1;
+ 160   1          S2 = S2 / 58;
+ 161   1          arr[2] = S2;
+ 162   1          TH1 = 0;
+ 163   1          TL1 = 0;
+ 164   1          /*four*/
+ 165   1          TRIGL = 1;
+ 166   1          DelayUs2x(10);
+ 167   1          TRIGL = 0;
+ 168   1          while (!ECHOL);
+ 169   1          TR1 = 1;
+ 170   1          while (ECHOL);
+ 171   1          TR1 = 0;
+ 172   1          S2 = TH1 * 256 + TL1;
+ 173   1          S2 = S2 / 58;
+ 174   1          arr[3] = S2;
+ 175   1          TH1 = 0;
+ 176   1          TL1 = 0;
+ 177   1          /*five*/
+ 178   1          TRIGL = 1;
+C51 COMPILER V9.54   HCSR04                                                                05/18/2021 17:16:05 PAGE 4   
 
- 179   2          arr[3] = S2;
- 180   2          TH1 = 0;
- 181   2          TL1 = 0;
- 182   2          /*five*/
- 183   2          TRIGL = 1;
- 184   2          DelayUs2x(10);
- 185   2          TRIGL = 0;
- 186   2          while (!ECHOL);
- 187   2          TR1 = 1;
- 188   2          while (ECHOL);
- 189   2          TR1 = 0;
- 190   2          S2 = TH1 * 256 + TL1;
- 191   2          S2 = S2 / 58;
- 192   2          arr[4] = S2;
- 193   2          TH1 = 0;
- 194   2          TL1 = 0;
- 195   2      
- 196   2          /*try*/
- 197   2          for (i = 0; i < 5 - 1; i++)
- 198   2            for (j = 0; j < 5 - 1 - i; j++)
- 199   2              if (arr[j] > arr[j + 1])
- 200   2              {
- 201   3                temp = arr[j];
- 202   3                arr[j] = arr[j + 1];
- 203   3                arr[j + 1] = temp;
- 204   3              }
- 205   2          /*try*/
- 206   2          S2 = ((arr[1] + arr[2] + arr[3]) / 3);
- 207   2          if (S2 < leftnumber)
- 208   2          {
- 209   3            
- 210   3            SPK = 0;//防止一直给喇叭通电造成损坏
- 211   3            DelayMs(200);
- 212   3      
- 213   3          }
- 214   2          SPK = 1;
- 215   2          sprintf(DisTempData, "L=%6.2f", S2);
- 216   2          LCD_Write_String(8, 1, DisTempData);
- 217   2      
- 218   2        }
- 219   1        /*------------------------------------------------
- 220   1                后方
- 221   1        ------------------------------------------------*/
- 222   1        if (1)
- 223   1        {
- 224   2          TRIGB = 1;
- 225   2          DelayUs2x(10);
- 226   2          TRIGB = 0;
- 227   2          while (!ECHOB);
- 228   2          TR1 = 1;
- 229   2          while (ECHOB);
- 230   2          TR1 = 0;
- 231   2          S3 = TH1 * 256 + TL1;
- 232   2          S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
- 233   2          arr[0] = S3;       // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
- 234   2          TH1 = 0;
- 235   2          TL1 = 0;
- 236   2          /*two*/
- 237   2          TRIGB = 1;
- 238   2          DelayUs2x(10);
- 239   2          TRIGB = 0;
- 240   2          while (!ECHOB);
-C51 COMPILER V9.54   HCSR04                                                                05/17/2021 15:29:08 PAGE 5   
+ 179   1          DelayUs2x(10);
+ 180   1          TRIGL = 0;
+ 181   1          while (!ECHOL);
+ 182   1          TR1 = 1;
+ 183   1          while (ECHOL);
+ 184   1          TR1 = 0;
+ 185   1          S2 = TH1 * 256 + TL1;
+ 186   1          S2 = S2 / 58;
+ 187   1          arr[4] = S2;
+ 188   1          TH1 = 0;
+ 189   1          TL1 = 0;
+ 190   1      
+ 191   1          /*try*/
+ 192   1          for (i = 0; i < 5 - 1; i++)
+ 193   1            for (j = 0; j < 5 - 1 - i; j++)
+ 194   1              if (arr[j] > arr[j + 1])
+ 195   1              {
+ 196   2                temp = arr[j];
+ 197   2                arr[j] = arr[j + 1];
+ 198   2                arr[j + 1] = temp;
+ 199   2              }
+ 200   1          /*try*/
+ 201   1          S2 = ((arr[1] + arr[2] + arr[3]) / 3)*1.089;
+ 202   1          if (S2 < leftnumber)
+ 203   1          {
+ 204   2            
+ 205   2            SPK = 0;//防止一直给喇叭通电造成损坏
+ 206   2            DelayMs(200);
+ 207   2      
+ 208   2          }
+ 209   1          SPK = 1;
+ 210   1          if(S2<500)
+ 211   1          {
+ 212   2          sprintf(DisTempData, "L=%6.2f", S2);
+ 213   2          LCD_Write_String(8, 1, DisTempData);
+ 214   2          }
+ 215   1          else {LCD_Write_String(10, 1, "eerror");}
+ 216   1          DelayMs(300);
+ 217   1      
+ 218   1      }
+ 219          
+ 220          void backdis()
+ 221          {  
+ 222   1        /*one*/
+ 223   1          TRIGB = 1;
+ 224   1          DelayUs2x(10);
+ 225   1          TRIGB = 0;
+ 226   1          while (!ECHOB);
+ 227   1          TR1 = 1;
+ 228   1          while (ECHOB);
+ 229   1          TR1 = 0;
+ 230   1          S3 = TH1 * 256 + TL1;
+ 231   1          S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
+ 232   1          arr[0] = S3;       // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+ 233   1          TH1 = 0;
+ 234   1          TL1 = 0;
+ 235   1          /*two*/
+ 236   1          TRIGB = 1;
+ 237   1          DelayUs2x(10);
+ 238   1          TRIGB = 0;
+ 239   1          while (!ECHOB);
+ 240   1          TR1 = 1;
+C51 COMPILER V9.54   HCSR04                                                                05/18/2021 17:16:05 PAGE 5   
 
- 241   2          TR1 = 1;
- 242   2          while (ECHOB);
- 243   2          TR1 = 0;
- 244   2          S3 = TH1 * 256 + TL1;
- 245   2          S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
- 246   2          arr[1] = S3;       // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
- 247   2          TH1 = 0;
- 248   2          TL1 = 0;
- 249   2          /*third*/
- 250   2          TRIGB = 1;
- 251   2          DelayUs2x(10);
- 252   2          TRIGB = 0;
- 253   2          while (!ECHOB);
- 254   2          TR1 = 1;
- 255   2          while (ECHOB);
- 256   2          TR1 = 0;
- 257   2          S3 = TH1 * 256 + TL1;
- 258   2          S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
- 259   2          arr[2] = S3;       // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
- 260   2          TH1 = 0;
- 261   2          TL1 = 0;
- 262   2          /*four*/
- 263   2          TRIGB = 1;
- 264   2          DelayUs2x(10);
- 265   2          TRIGB = 0;
- 266   2          while (!ECHOB);
- 267   2          TR1 = 1;
- 268   2          while (ECHOB);
- 269   2          TR1 = 0;
- 270   2          S3 = TH1 * 256 + TL1;
- 271   2          S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
- 272   2          arr[3] = S3;       // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
- 273   2          TH1 = 0;
- 274   2          TL1 = 0;
- 275   2          /*five*/
- 276   2          TRIGB = 1;
- 277   2          DelayUs2x(10);
- 278   2          TRIGB = 0;
- 279   2          while (!ECHOB);
- 280   2          TR1 = 1;
- 281   2          while (ECHOB);
- 282   2          TR1 = 0;
- 283   2          S3 = TH1 * 256 + TL1;
- 284   2          S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
- 285   2          arr[4] = S3;       // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
- 286   2          TH1 = 0;
- 287   2          TL1 = 0;
- 288   2          /*try*/
- 289   2          for (i = 0; i < 5 - 1; i++)
- 290   2            for (j = 0; j < 5 - 1 - i; j++)
- 291   2              if (arr[j] > arr[j + 1])
- 292   2              {
- 293   3                temp = arr[j];
- 294   3                arr[j] = arr[j + 1];
- 295   3                arr[j + 1] = temp;
- 296   3              }
- 297   2          /*try*/
- 298   2          S3 = ((arr[1] + arr[2] + arr[3]) / 3);
- 299   2          if (S3 < backnumber)
- 300   2          {
- 301   3            
- 302   3            SPK = 0;//防止一直给喇叭通电造成损坏
-C51 COMPILER V9.54   HCSR04                                                                05/17/2021 15:29:08 PAGE 6   
+ 241   1          while (ECHOB);
+ 242   1          TR1 = 0;
+ 243   1          S3 = TH1 * 256 + TL1;
+ 244   1          S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
+ 245   1          arr[1] = S3;       // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+ 246   1          TH1 = 0;
+ 247   1          TL1 = 0;
+ 248   1          /*third*/
+ 249   1          TRIGB = 1;
+ 250   1          DelayUs2x(10);
+ 251   1          TRIGB = 0;
+ 252   1          while (!ECHOB);
+ 253   1          TR1 = 1;
+ 254   1          while (ECHOB);
+ 255   1          TR1 = 0;
+ 256   1          S3 = TH1 * 256 + TL1;
+ 257   1          S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
+ 258   1          arr[2] = S3;       // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+ 259   1          TH1 = 0;
+ 260   1          TL1 = 0;
+ 261   1          /*four*/
+ 262   1          TRIGB = 1;
+ 263   1          DelayUs2x(10);
+ 264   1          TRIGB = 0;
+ 265   1          while (!ECHOB);
+ 266   1          TR1 = 1;
+ 267   1          while (ECHOB);
+ 268   1          TR1 = 0;
+ 269   1          S3 = TH1 * 256 + TL1;
+ 270   1          S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
+ 271   1          arr[3] = S3;       // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+ 272   1          TH1 = 0;
+ 273   1          TL1 = 0;
+ 274   1          /*five*/
+ 275   1          TRIGB = 1;
+ 276   1          DelayUs2x(10);
+ 277   1          TRIGB = 0;
+ 278   1          while (!ECHOB);
+ 279   1          TR1 = 1;
+ 280   1          while (ECHOB);
+ 281   1          TR1 = 0;
+ 282   1          S3 = TH1 * 256 + TL1;
+ 283   1          S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
+ 284   1          arr[4] = S3;       // X =( 2*Y )/344 -> X =0.0058*Y  ->   =  /58 
+ 285   1          TH1 = 0;
+ 286   1          TL1 = 0;
+ 287   1          /*try*/
+ 288   1          for (i = 0; i < 5 - 1; i++)
+ 289   1            for (j = 0; j < 5 - 1 - i; j++)
+ 290   1              if (arr[j] > arr[j + 1])
+ 291   1              {
+ 292   2                temp = arr[j];
+ 293   2                arr[j] = arr[j + 1];
+ 294   2                arr[j + 1] = temp;
+ 295   2              }
+ 296   1          /*try*/
+ 297   1          S3 = ((arr[1] + arr[2] + arr[3]) / 3)*1.089;
+ 298   1          if (S3 < backnumber)
+ 299   1          {
+ 300   2            
+ 301   2            SPK = 0;//防止一直给喇叭通电造成损坏
+ 302   2            DelayMs(200);
+C51 COMPILER V9.54   HCSR04                                                                05/18/2021 17:16:05 PAGE 6   
 
- 303   3            DelayMs(200);
- 304   3      
- 305   3          }
- 306   2          SPK = 1;
- 307   2          sprintf(DisTempData, "B=%6.2f", S3);
- 308   2          LCD_Write_String(4, 0, DisTempData);
- 309   2        }
- 310   1      }
+ 303   2            
+ 304   2          }
+ 305   1          SPK = 1;
+ 306   1          if(S3<500)
+ 307   1          {
+ 308   2          sprintf(DisTempData, "B=%6.2f", S3);
+ 309   2          LCD_Write_String(4, 0, DisTempData);
+ 310   2          }
+ 311   1          else {LCD_Write_String(6, 0, "eerror");}
+ 312   1          DelayMs(300);
+ 313   1      }
+ 314          void hcsr04()
+ 315          { 
+ 316   1        
+ 317   1        /*------------------------------------------------
+ 318   1                右方
+ 319   1        ------------------------------------------------*/
+ 320   1        rightdis();
+ 321   1        rpwm();
+ 322   1        /*------------------------------------------------
+ 323   1              左方
+ 324   1        ------------------------------------------------*/
+ 325   1        leftdis();
+ 326   1        lpwm();
+ 327   1        /*------------------------------------------------
+ 328   1                后方
+ 329   1        ------------------------------------------------*/
+ 330   1        backdis();
+ 331   1        bpwm();
+ 332   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1993    ----
-   CONSTANT SIZE    =     24    ----
+   CODE SIZE        =   2154    ----
+   CONSTANT SIZE    =     31    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =     35    ----

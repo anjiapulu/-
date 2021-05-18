@@ -1,6 +1,8 @@
 #ifndef __pwm_H__
 #define __pwm_H__
-void pwm();
+void rpwm();
+void lpwm();
+void bpwm();
 void Forward();
 void back();
 void turnright();
