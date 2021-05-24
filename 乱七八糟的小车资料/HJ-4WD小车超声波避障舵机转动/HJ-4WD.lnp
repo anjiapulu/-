@@ -1,3 +1,5 @@
-"main.obj" 
+"main.obj",
+"18b20.obj",
+"delay.obj" 
 TO "HJ-4WD" 
 RAMSIZE(256) 

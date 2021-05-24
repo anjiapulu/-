@@ -34,19 +34,19 @@ void pwm4(u16 count)
 
 void Forward()
 {
- pwm1(5);
+ pwm1(3);
  IN2=0;
  Left_moto_pwm=1;
  IN3=0;
- pwm4(5);
+ pwm4(3);
  Right_moto_pwm=1;
 }
 void back()
 {
  IN1=0;
- pwm2(7);
+ pwm2(3);
  Left_moto_pwm=1;
- pwm3(7);
+ pwm3(3);
  IN4=0;
  Right_moto_pwm=1;
 }
@@ -56,12 +56,12 @@ void turnright()
  IN2=0;
  Left_moto_pwm=0;
  IN3=0;
- pwm4(5);
+ pwm4(3);
  Right_moto_pwm=1;
 }
 void turnleft()
 {
- pwm1(5);
+ pwm1(3);
  IN2=0;
  Left_moto_pwm=1;
  IN3=0;
@@ -98,14 +98,44 @@ void Time0() interrupt 1
  }
 }
 void rpwm()
-{     /*S1ÓÒ±ß  S2×ó±ß  S3ºó±ß*/  
+{     /*ÓÒ±ß*/  
+	if(S1<6||S1>1000)
+			{
+      turnleft();
+			DelayMs(50);
+			back();
+			DelayMs(25);
+			stop();
+			}
      
 }
 void lpwm()
-{     /*S1ÓÒ±ß  S2×ó±ß  S3ºó±ß*/  
+{     /*×ó±ß*/  
+		if(S2<6||S2>1000)
+			{
+			
+			turnright();
+			DelayMs(50);
+			back();
+			DelayMs(25);
+      stop();
+			}
      
 }
 void bpwm()
-{     /*S1ÓÒ±ß  S2×ó±ß  S3ºó±ß*/  
-     
+{     /*ºó±ß*/  
+	if(S3>5)
+	{
+	back();
+	DelayMs(50);
+  stop();
+	}
+	if(S3>1000)
+	{
+	Forward();
+	}                                                                                    
+	while(S1<6&&S2<6&&S3<5)
+  {
+	 stop();
+	}
 }

@@ -6,7 +6,7 @@
 #include "1602.h"
 #include "pwm.h"
 int i,j;
-extern int leftnumber, backnumber, rightnumber ;
+extern int leftnumber, backnumber, rightnumber;
 extern float S1,S2,S3;
 unsigned char DisTempData[7];
 float  arr[5], temp;
@@ -108,7 +108,7 @@ void rightdis()
 			DelayMs(200);
 		}
 		SPK = 1;
-		if(S1<500)
+		if(S1<450)
 		{
 		sprintf(DisTempData, "R=%6.2f", S1);
 		LCD_Write_String(0, 1, DisTempData);
@@ -117,7 +117,7 @@ void rightdis()
 		{
 			LCD_Write_String(2, 1, "eerror");
 		}
-		DelayMs(300);
+
 	
 }
 void leftdis()
@@ -207,13 +207,12 @@ void leftdis()
 
 		}
 		SPK = 1;
-	  if(S2<500)
+	  if(S2<450)
 		{
 		sprintf(DisTempData, "L=%6.2f", S2);
 		LCD_Write_String(8, 1, DisTempData);
 		}
     else {LCD_Write_String(10, 1, "eerror");}
-		DelayMs(300);
 
 }
 
@@ -303,17 +302,15 @@ void backdis()
 			
 		}
 		SPK = 1;
-		if(S3<500)
+		if(S3<450)
 		{
 		sprintf(DisTempData, "B=%6.2f", S3);
 		LCD_Write_String(4, 0, DisTempData);
 		}
     else {LCD_Write_String(6, 0, "eerror");}
-		DelayMs(300);
 }
 void hcsr04()
 { 
-	
 	/*------------------------------------------------
 					ÓÒ·½
 	------------------------------------------------*/

@@ -38,7 +38,15 @@
 	#include <AT89x51.H>
   #include <HJ-4WD_PWM.H>
 	#include <intrins.h>
-
+	#include "18b20.h"
+  #define DataPort P0 //定义数据端口 程序中遇到DataPort 则用P0 替换
+sbit LATCH1=P2^2;//定义锁存使能端口 段锁存
+sbit LATCH2=P2^3;//                 位锁存
+bit ReadTempFlag;//定义读时间标志
+unsigned char code dofly_DuanMa[10]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f};// 显示段码值0~9
+unsigned char code dofly_WeiMa[]={0xfe,0xfd,0xfb,0xf7,0xef,0xdf,0xbf,0x7f};//分别对应相应的数码管点亮,即位码
+unsigned char TempData[8]; //存储显示值的全局变量
+void Display(unsigned char FirstBit,unsigned char Num);//数码管显示函数
 	#define Sevro_moto_pwm     P2_7	   //接舵机信号端输入PWM信号调节速度
 
 	#define  ECHO  P2_4				   //超声波接口定义
@@ -51,8 +59,6 @@
 	unsigned char const positon[3]={ 0xfe,0xfd,0xfb};
 	unsigned char disbuff[4]	  ={ 0,0,0,0,};
   unsigned char posit=0;
-
-
   unsigned long S=0;
 	unsigned long S1=0;
 	unsigned long S2=0;
@@ -61,6 +67,7 @@
 	unsigned int  timer=0;			//延时基准变量
 	unsigned char timer1=0;			//扫描时间变量					
 
+	
 /************************************************************************/
     void Display(void)				  //扫描数码管
 	{

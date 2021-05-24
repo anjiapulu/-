@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  05/10/2021 23:11:44 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  05/20/2021 20:34:35 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -50,31 +50,31 @@ line level    source
   38            #include <AT89x51.H>
   39            #include <HJ-4WD_PWM.H>
   40            #include <intrins.h>
-  41          
-  42            #define Sevro_moto_pwm     P2_7    //接舵机信号端输入PWM信号调节速度
-  43          
-  44            #define  ECHO  P2_4          //超声波接口定义
-  45            #define  TRIG  P2_5          //超声波接口定义
-  46          
-  47            //HJ-4WD小车驱动接线定义
-  48          
+  41            #include "18b20.h"
+  42          
+  43            #define Sevro_moto_pwm     P2_7    //接舵机信号端输入PWM信号调节速度
+  44          
+  45            #define  ECHO  P2_4          //超声波接口定义
+  46            #define  TRIG  P2_5          //超声波接口定义
+  47          
+  48            //HJ-4WD小车驱动接线定义
   49          
-  50            unsigned char const discode[] ={ 0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90,0xBF,0xff/*-*/};
-  51            unsigned char const positon[3]={ 0xfe,0xfd,0xfb};
-  52            unsigned char disbuff[4]    ={ 0,0,0,0,};
-C51 COMPILER V9.54   MAIN                                                                  05/10/2021 23:11:44 PAGE 2   
+  50          
+  51            unsigned char const discode[] ={ 0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90,0xBF,0xff/*-*/};
+  52            unsigned char const positon[3]={ 0xfe,0xfd,0xfb};
+C51 COMPILER V9.54   MAIN                                                                  05/20/2021 20:34:35 PAGE 2   
 
-  53            unsigned char posit=0;
-  54          
-  55          
-  56            unsigned long S=0;
-  57            unsigned long S1=0;
-  58            unsigned long S2=0;
-  59            unsigned long S3=0;
-  60            unsigned long S4=0;
-  61            unsigned int  timer=0;      //延时基准变量
-  62            unsigned char timer1=0;     //扫描时间变量          
-  63          
+  53            unsigned char disbuff[4]    ={ 0,0,0,0,};
+  54            unsigned char posit=0;
+  55            unsigned long S=0;
+  56            unsigned long S1=0;
+  57            unsigned long S2=0;
+  58            unsigned long S3=0;
+  59            unsigned long S4=0;
+  60            unsigned int  timer=0;      //延时基准变量
+  61            unsigned char timer1=0;     //扫描时间变量          
+  62          
+  63            
   64          /************************************************************************/
   65              void Display(void)          //扫描数码管
   66            {
@@ -126,7 +126,7 @@ line level    source
  112   1          TR0=1;             //开启计数
  113   1          while(ECHO);         //当RX为1计数并等待
  114   1          TR0=0;           //关闭计数
-C51 COMPILER V9.54   MAIN                                                                  05/10/2021 23:11:44 PAGE 3   
+C51 COMPILER V9.54   MAIN                                                                  05/20/2021 20:34:35 PAGE 3   
 
  115   1          time=TH0*256+TL0;      //读取脉宽长度
  116   1          TH0=0;
@@ -190,7 +190,7 @@ line level    source
  174   1      }
  175          
  176          /************************************************************************/
-C51 COMPILER V9.54   MAIN                                                                  05/10/2021 23:11:44 PAGE 4   
+C51 COMPILER V9.54   MAIN                                                                  05/20/2021 20:34:35 PAGE 4   
 
  177          /*                    PWM调制电机转速                                   */
  178          /************************************************************************/
@@ -254,7 +254,7 @@ line level    source
  236   2            while(Right_X_led==0||Left_X_led==0)/*循迹*/
  237   2         {
  238   3      
-C51 COMPILER V9.54   MAIN                                                                  05/10/2021 23:11:44 PAGE 5   
+C51 COMPILER V9.54   MAIN                                                                  05/20/2021 20:34:35 PAGE 5   
 
  239   3              if (Left_X_led == 1 && Right_X_led == 0)
  240   3              {
