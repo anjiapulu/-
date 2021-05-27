@@ -4,6 +4,7 @@
 #include <math.h>
 #include "delay.h"
 #include "1602.h"
+//#include "iic1602.h"
 #include "pwm.h"
 int i,j;
 extern int leftnumber, backnumber, rightnumber;
@@ -325,5 +326,5 @@ void hcsr04()
 				  ºó·½
 	------------------------------------------------*/
   backdis();
-	bpwm();
+	bpwm(); 
 }

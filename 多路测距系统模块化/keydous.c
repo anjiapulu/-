@@ -41,8 +41,9 @@ int  keydous()
 		if (KeyNum == 13)
 		{
 			k++;
-			if (k == 1)
+			switch(k)
 			{
+				case 1:
 				for (i = 2; i < 5;)
 				{
 					KeyNum = MatrixKey();
@@ -60,10 +61,9 @@ int  keydous()
 					}
 					DelayMs(50);
 				}
+				break;
 			
-			}
-			if (k == 2)
-			{
+			case 2:
 				for (i = 7; i < 10; )
 				{
 					KeyNum = MatrixKey();
@@ -80,9 +80,8 @@ int  keydous()
 					}
 					DelayMs(50);
 				}
-			}
-			if (k == 3)
-			{
+			  break;
+						case 3:
 				k = 4;
 				for (i = 12; i < 15; )
 				{
@@ -103,9 +102,10 @@ int  keydous()
 				}
 				LCD_Write_String(0, 0, "                ");
 
-			}
+			break;
 
 		}
+	}
 
 	}
 return 0;

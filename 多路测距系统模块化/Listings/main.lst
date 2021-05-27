@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  05/24/2021 23:32:28 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  05/27/2021 20:51:23 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -19,21 +19,21 @@ line level    source
    9          /*------------------------------------------------
   10                  主函数
   11          ------------------------------------------------*/
-  12          void main()
+  12           main()
   13          { int leftnumber=0, backnumber=0, rightnumbe=0;
   14   1        Timer0Init();/*pwm电机控制*/
   15   1        LCD_Init();  /*1602初始化*/
   16   1        TIM1init();  /*·超声波定时器1初始化*/
   17   1        while (1)
   18   1        {
-  19   2      //    keydous();
+  19   2          keydous();
   20   2          hcsr04();
   21   2        }
   22   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     27    ----
+   CODE SIZE        =     30    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

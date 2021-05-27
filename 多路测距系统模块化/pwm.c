@@ -44,9 +44,9 @@ void Forward()
 void back()
 {
  IN1=0;
- pwm2(3);
+ pwm2(4);
  Left_moto_pwm=1;
- pwm3(3);
+ pwm3(4);
  IN4=0;
  Right_moto_pwm=1;
 }
@@ -56,12 +56,12 @@ void turnright()
  IN2=0;
  Left_moto_pwm=0;
  IN3=0;
- pwm4(3);
+ pwm4(4);
  Right_moto_pwm=1;
 }
 void turnleft()
 {
- pwm1(3);
+ pwm1(4);
  IN2=0;
  Left_moto_pwm=1;
  IN3=0;
@@ -102,7 +102,7 @@ void rpwm()
 	if(S1<6||S1>1000)
 			{
       turnleft();
-			DelayMs(50);
+			DelayMs(60);
 			back();
 			DelayMs(25);
 			stop();
@@ -113,9 +113,8 @@ void lpwm()
 {     /*×ó±ß*/  
 		if(S2<6||S2>1000)
 			{
-			
 			turnright();
-			DelayMs(50);
+			DelayMs(60);
 			back();
 			DelayMs(25);
       stop();
@@ -127,7 +126,7 @@ void bpwm()
 	if(S3>5)
 	{
 	back();
-	DelayMs(50);
+	DelayMs(60 );
   stop();
 	}
 	if(S3>1000)
