@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   KEYDOUS                                                               05/27/2021 20:51:23 PAGE 1   
+C51 COMPILER V9.54   KEYDOUS                                                               05/30/2021 15:59:29 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE KEYDOUS
@@ -62,7 +62,7 @@ line level    source
   52   6                case 2:if (KeyNum > 0 && KeyNum < 10)leftnumber += (KeyNum * 100); break;
   53   6                case 3: if (KeyNum > 0 && KeyNum < 10)leftnumber += (KeyNum * 10); break;
   54   6                case 4: if (KeyNum >= 0 && KeyNum < 10)leftnumber += (KeyNum); break;
-C51 COMPILER V9.54   KEYDOUS                                                               05/27/2021 20:51:23 PAGE 2   
+C51 COMPILER V9.54   KEYDOUS                                                               05/30/2021 15:59:29 PAGE 2   
 
   55   6                }
   56   5      
@@ -126,7 +126,7 @@ line level    source
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =    754    ----
-C51 COMPILER V9.54   KEYDOUS                                                               05/27/2021 20:51:23 PAGE 3   
+C51 COMPILER V9.54   KEYDOUS                                                               05/30/2021 15:59:29 PAGE 3   
 
    CONSTANT SIZE    =     62    ----
    XDATA SIZE       =   ----    ----
