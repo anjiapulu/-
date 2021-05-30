@@ -1,10 +1,10 @@
-C51 COMPILER V9.54   KEYDOUS                                                               05/30/2021 16:05:25 PAGE 1   
+C51 COMPILER V9.60.0.0   KEYDOUS                                                           05/30/2021 16:51:42 PAGE 1   
 
 
-C51 COMPILER V9.54, COMPILATION OF MODULE KEYDOUS
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE KEYDOUS
 OBJECT MODULE PLACED IN .\Objects\keydous.obj
-COMPILER INVOKED BY: C:\Program Files (x86)\Keil_v5\C51\BIN\C51.EXE keydous.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEN
-                    -D PRINT(.\Listings\keydous.lst) TABS(2) OBJECT(.\Objects\keydous.obj)
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE keydous.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\k
+                    -eydous.lst) TABS(2) OBJECT(.\Objects\keydous.obj)
 
 line level    source
 
@@ -19,7 +19,7 @@ line level    source
    9          unsigned char code studentid[] = "0123456789";
   10          int KeyNum;
   11          extern int i, j, k = 0;
-  12          int  keydous()
+  12          void  keydous()
   13          {
   14   1      #if 0
                 /*------------------------------------------------
@@ -62,7 +62,7 @@ line level    source
   52   5                KeyNum = MatrixKey();
   53   5                switch (i)
   54   5                {
-C51 COMPILER V9.54   KEYDOUS                                                               05/30/2021 16:05:25 PAGE 2   
+C51 COMPILER V9.60.0.0   KEYDOUS                                                           05/30/2021 16:51:42 PAGE 2   
 
   55   6                case 2:if (KeyNum > 0 && KeyNum < 10)leftnumber += (KeyNum * 100); break;
   56   6                case 3: if (KeyNum > 0 && KeyNum < 10)leftnumber += (KeyNum * 10); break;
@@ -123,14 +123,14 @@ line level    source
  111   3          }
  112   2      
  113   2        }
- 114   1        return 0;
+ 114   1      
  115   1      }
 
-C51 COMPILER V9.54   KEYDOUS                                                               05/30/2021 16:05:25 PAGE 3   
+C51 COMPILER V9.60.0.0   KEYDOUS                                                           05/30/2021 16:51:42 PAGE 3   
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    754    ----
+   CODE SIZE        =    751    ----
    CONSTANT SIZE    =     62    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
