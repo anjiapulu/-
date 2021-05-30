@@ -11,25 +11,28 @@ int KeyNum;
 extern int i, j, k = 0;
 int  keydous()
 {
-	//	/*------------------------------------------------
-	//			at24c02¥Ê»°
-	////	------------------------------------------------*/
-	//		if (KeyNum == 11)
-	//		{
-	//     ISendStr(0xA0, 0, leftnumber, 4);
-	//	   ISendStr(0xA0, 4, backnumber, 4);
-	//	   ISendStr(0xA0, 8, rightnumber,4);
-	//		}
-	//		if (KeyNum == 12)
-	//		{
-	//		IRcvStr(0xA0, 0, leftnumber, 4);
-	//		IRcvStr(0xA0, 4, backnumber, 4);
-	//		IRcvStr(0xA0, 8, rightnumber, 4);
-	//		k=4;
-	//		}
-		/*------------------------------------------------
-				∑‰√˘∆˜æØΩ‰÷µ ‰»Î
-		------------------------------------------------*/
+#if 0
+	/*------------------------------------------------
+			at24c02¥Ê»°
+	------------------------------------------------*/
+
+	if (KeyNum == 11)
+	{
+		ISendStr(0xA0, 0, leftnumber, 4);
+		ISendStr(0xA0, 4, backnumber, 4);
+		ISendStr(0xA0, 8, rightnumber, 4);
+	}
+	if (KeyNum == 12)
+	{
+		IRcvStr(0xA0, 0, leftnumber, 4);
+		IRcvStr(0xA0, 4, backnumber, 4);
+		IRcvStr(0xA0, 8, rightnumber, 4);
+		k = 4;
+	}
+#endif
+	/*------------------------------------------------
+			∑‰√˘∆˜æØΩ‰÷µ ‰»Î
+	------------------------------------------------*/
 	while (k < 3)
 	{
 		if (k == 0)
