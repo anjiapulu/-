@@ -1,0 +1,10 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\MatrixKey.obj",
+".\Objects\keydous.obj",
+".\Objects\iic1602.obj",
+".\Objects\hcsr04.obj",
+".\Objects\delay.obj",
+".\Objects\pwm.obj" 
+TO ".\Objects\多路测距系统" 
+PRINT(".\Listings\多路测距系统.m51") RAMSIZE(256) 

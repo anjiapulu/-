@@ -6,6 +6,7 @@
 #include "1602.h"
 //#include "iic1602.h"
 #include "pwm.h"
+#include <stdlib.h>
 int i,j;
 extern int leftnumber, backnumber, rightnumber;
 extern float S1,S2,S3;
@@ -104,7 +105,6 @@ void rightdis()
 		S1 = ((arr[1] + arr[2] + arr[3]) / 3)*1.089;
 		if (S1 < rightnumber)
 		{
-			
 			SPK = 0;//防止一直给喇叭通电造成损坏
 			DelayMs(200);
 		}
@@ -325,6 +325,6 @@ void hcsr04()
 	/*------------------------------------------------
 				  后方
 	------------------------------------------------*/
-  backdis();
+	backdis();
 	bpwm(); 
 }

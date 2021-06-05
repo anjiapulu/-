@@ -1,0 +1,58 @@
+C51 COMPILER V9.60.0.0   MATRIXKEY                                                         05/30/2021 20:42:07 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MATRIXKEY
+OBJECT MODULE PLACED IN .\Objects\MatrixKey.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE MatrixKey.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings
+                    -\MatrixKey.lst) TABS(2) OBJECT(.\Objects\MatrixKey.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2           unsigned int MatrixKey()
+   3          { 
+   4   1        while(1)
+   5   1        {
+   6   2        P1=0xFF;
+   7   2        P1_3=0;
+   8   2        if(P1_7==0){while(P1_7==0);return 1;}
+   9   2        if(P1_6==0){while(P1_6==0);return 4;}
+  10   2        if(P1_5==0){while(P1_5==0);return 7;}
+  11   2        if(P1_4==0){while(P1_4==0);return 11;} 
+  12   2        
+  13   2        P1=0xFF;
+  14   2        P1_2=0;
+  15   2        if(P1_7==0){while(P1_7==0);return 2;}
+  16   2        if(P1_6==0){while(P1_6==0);return 5;}
+  17   2        if(P1_5==0){while(P1_5==0);return 8;}
+  18   2        if(P1_4==0){while(P1_4==0);return 0;}
+  19   2        
+  20   2        P1=0xFF;
+  21   2        P1_1=0;
+  22   2        if(P1_7==0){while(P1_7==0);return 3; }
+  23   2        if(P1_6==0){while(P1_6==0);return 6; }
+  24   2        if(P1_5==0){while(P1_5==0);return 9; }
+  25   2        if(P1_4==0){while(P1_4==0);return 12;}
+  26   2        P1=0xFF;
+  27   2        P1_0=0;
+  28   2        if(P1_7==0){while(P1_7==0);return 13;} 
+  29   2        if(P1_6==0){while(P1_6==0);return 14;} 
+  30   2        if(P1_5==0){while(P1_5==0);return 15;} 
+  31   2        P1=0xFF;
+  32   2        return 10;
+  33   2       }
+  34   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    192    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -99,7 +99,8 @@ void Time0() interrupt 1
 }
 void rpwm()
 {     /*ÓÒ±ß*/  
-	if(S1<6||S1>1000)
+	
+	if(S1<7||S1>1000)
 			{
       turnleft();
 			DelayMs(60);
@@ -111,7 +112,7 @@ void rpwm()
 }
 void lpwm()
 {     /*×ó±ß*/  
-		if(S2<6||S2>1000)
+		if(S2<7||S2>1000)
 			{
 			turnright();
 			DelayMs(60);
@@ -123,7 +124,7 @@ void lpwm()
 }
 void bpwm()
 {     /*ºó±ß*/  
-	if(S3>5)
+	if(S3>5) 
 	{
 	back();
 	DelayMs(60 );
@@ -133,7 +134,7 @@ void bpwm()
 	{
 	Forward();
 	}                                                                                    
-	while(S1<6&&S2<6&&S3<5)
+	while(S1<7&&S2<7&&S3<5)
   {
 	 stop();
 	}

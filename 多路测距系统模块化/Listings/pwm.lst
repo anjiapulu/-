@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   PWM                                                               05/30/2021 16:51:43 PAGE 1   
+C51 COMPILER V9.60.0.0   PWM                                                               06/03/2021 16:13:53 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE PWM
@@ -62,7 +62,7 @@ line level    source
   52   1      }
   53          void turnright()
   54          {
-C51 COMPILER V9.60.0.0   PWM                                                               05/30/2021 16:51:43 PAGE 2   
+C51 COMPILER V9.60.0.0   PWM                                                               06/03/2021 16:13:53 PAGE 2   
 
   55   1       IN1=0;
   56   1       IN2=0;
@@ -111,47 +111,48 @@ line level    source
   99   1      }
  100          void rpwm()
  101          {     /*ÓÒ±ß*/  
- 102   1        if(S1<6||S1>1000)
- 103   1            {
- 104   2            turnleft();
- 105   2            DelayMs(60);
- 106   2            back();
- 107   2            DelayMs(25);
- 108   2            stop();
- 109   2            }
- 110   1           
- 111   1      }
- 112          void lpwm()
- 113          {     /*×ó±ß*/  
- 114   1          if(S2<6||S2>1000)
- 115   1            {
- 116   2            turnright();
-C51 COMPILER V9.60.0.0   PWM                                                               05/30/2021 16:51:43 PAGE 3   
+ 102   1        
+ 103   1        if(S1<7||S1>1000)
+ 104   1            {
+ 105   2            turnleft();
+ 106   2            DelayMs(60);
+ 107   2            back();
+ 108   2            DelayMs(25);
+ 109   2            stop();
+ 110   2            }
+ 111   1           
+ 112   1      }
+ 113          void lpwm()
+ 114          {     /*×ó±ß*/  
+ 115   1          if(S2<7||S2>1000)
+ 116   1            {
+C51 COMPILER V9.60.0.0   PWM                                                               06/03/2021 16:13:53 PAGE 3   
 
- 117   2            DelayMs(60);
- 118   2            back();
- 119   2            DelayMs(25);
- 120   2            stop();
- 121   2            }
- 122   1           
- 123   1      }
- 124          void bpwm()
- 125          {     /*ºó±ß*/  
- 126   1        if(S3>5)
- 127   1        {
- 128   2        back();
- 129   2        DelayMs(60 );
- 130   2        stop();
- 131   2        }
- 132   1        if(S3>1000)
- 133   1        {
- 134   2        Forward();
- 135   2        }                                                                                    
- 136   1        while(S1<6&&S2<6&&S3<5)
- 137   1        {
- 138   2         stop();
- 139   2        }
- 140   1      }
+ 117   2            turnright();
+ 118   2            DelayMs(60);
+ 119   2            back();
+ 120   2            DelayMs(25);
+ 121   2            stop();
+ 122   2            }
+ 123   1           
+ 124   1      }
+ 125          void bpwm()
+ 126          {     /*ºó±ß*/  
+ 127   1        if(S3>5) 
+ 128   1        {
+ 129   2        back();
+ 130   2        DelayMs(60 );
+ 131   2        stop();
+ 132   2        }
+ 133   1        if(S3>1000)
+ 134   1        {
+ 135   2        Forward();
+ 136   2        }                                                                                    
+ 137   1        while(S1<7&&S2<7&&S3<5)
+ 138   1        {
+ 139   2         stop();
+ 140   2        }
+ 141   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
