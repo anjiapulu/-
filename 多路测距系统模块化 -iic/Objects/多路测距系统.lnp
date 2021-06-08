@@ -2,7 +2,8 @@
 ".\Objects\main.obj",
 ".\Objects\MatrixKey.obj",
 ".\Objects\keydous.obj",
-".\Objects\iic1602.obj",
+".\Objects\s1602.obj",
+".\Objects\i2c.obj",
 ".\Objects\hcsr04.obj",
 ".\Objects\delay.obj",
 ".\Objects\pwm.obj" 

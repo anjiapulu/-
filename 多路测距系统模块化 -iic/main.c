@@ -1,6 +1,6 @@
-#include <reg52.h>
-#include "iic1602.h"
-//#include "1602.h"
+#include <REGX52.H>
+#include "s1602.h"
+#include "i2c.h"
 #include "keydous.h"
 #include "hcsr04.h"
 #include <QX_A11.h>
@@ -13,7 +13,7 @@ void main()
 { 
 
 	int leftnumber=0, backnumber=0, rightnumber=0;
-		SCL=1;
+	SCL=1;
 	SDA=1;
 	Timer0Init();/*pwm电机控制*/
 	LCD_Init();  /*1602初始化*/

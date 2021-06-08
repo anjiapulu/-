@@ -417,9 +417,14 @@
           <GroupName>LCD1602</GroupName>
           <Files>
             <File>
-              <FileName>iic1602.c</FileName>
+              <FileName>s1602.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\iic1602.c</FilePath>
+              <FilePath>.\s1602.c</FilePath>
+            </File>
+            <File>
+              <FileName>i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\i2c.c</FilePath>
             </File>
           </Files>
         </Group>

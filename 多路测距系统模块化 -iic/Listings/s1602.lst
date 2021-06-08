@@ -1,0 +1,151 @@
+C51 COMPILER V9.60.0.0   S1602                                                             06/08/2021 21:43:17 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE S1602
+OBJECT MODULE PLACED IN .\Objects\s1602.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE s1602.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\s16
+                    -02.lst) TABS(2) OBJECT(.\Objects\s1602.obj)
+
+line level    source
+
+   1          /*----------------------------------------
+   2          1.该模块为I2C 1602显示模块
+   3          2.模块依赖I2C通信模块，通过调用模块函数实现
+   4          3.I2C通信引脚为SDA:P2_2;
+   5                   SCL:P2_0;
+   6          4.修改通信引脚请到I2C模块修改
+   7          -----------------------------------------*/
+   8          #include "s1602.h"
+   9          #include "i2c.h"
+  10          #include "delay.h"
+  11          
+  12          unsigned char LCD_data = 0x08;
+  13          
+  14          /*-----------------------------------------
+  15                使能
+  16          -------------------------------------------*/
+  17          void Enable_LCD_write()
+  18          {
+  19   1          LCD_data|=(1<<(3-1));//E=1;
+  20   1          ISendByte(ADR_1602,LCD_data);  
+  21   1          DelayUs2x(2);
+  22   1          LCD_data&=~(1<<(3-1));//E=0;
+  23   1          ISendByte(ADR_1602,LCD_data);
+  24   1      }
+  25          /*------------------------------------------------
+  26                        写入命令函数
+  27          ------------------------------------------------*/
+  28           void LCD_Write_Com(unsigned char command) 
+  29           { 
+  30   1        DelayUs2x(16);
+  31   1          LCD_data&=~(1<<(1-1));//RS=0;
+  32   1          LCD_data&=~(1<<(2-1));//RW=0;
+  33   1          //LCD_data&=~(1<<(4-1));
+  34   1          ISendByte(ADR_1602,LCD_data);
+  35   1      
+  36   1          LCD_data&=0X0f; //清高四位
+  37   1          LCD_data|=command & 0xf0; //写高四位
+  38   1          ISendByte(ADR_1602,LCD_data);
+  39   1          Enable_LCD_write();
+  40   1      
+  41   1          command=command<<4; //低四位移到高四位
+  42   1          LCD_data&=0x0f; //清高四位
+  43   1          LCD_data|=command&0xf0; //写低四位
+  44   1          ISendByte(ADR_1602,LCD_data);
+  45   1          Enable_LCD_write();
+  46   1       }
+  47          /*------------------------------------------------
+  48                        写入数据函数
+  49          ------------------------------------------------*/
+  50           void LCD_Write_Data(unsigned char value) 
+  51           { 
+  52   1          DelayUs2x(16);;
+  53   1          LCD_data|=(1<<(1-1));//RS=1;
+  54   1          LCD_data&=~(1<<(2-1));//RW=0;
+C51 COMPILER V9.60.0.0   S1602                                                             06/08/2021 21:43:17 PAGE 2   
+
+  55   1          ISendByte(ADR_1602,LCD_data);
+  56   1      
+  57   1          LCD_data&=0X0f; //清高四位
+  58   1          LCD_data|=value&0xf0; //写高四位
+  59   1          ISendByte(ADR_1602,LCD_data);
+  60   1          Enable_LCD_write();         
+  61   1      
+  62   1          value=value<<4; //低四位移到高四位
+  63   1          LCD_data&=0x0f; //清高四位
+  64   1          LCD_data|=value&0xf0; //写低四位
+  65   1          ISendByte(ADR_1602,LCD_data);
+  66   1          Enable_LCD_write();
+  67   1       }
+  68          /*------------------------------------------------
+  69                          清屏函数
+  70          ------------------------------------------------*/
+  71          /* void LCD_Clear(void) 
+  72           { 
+  73           LCD_Write_Com(0x01); 
+  74           DelayMs(2);
+  75           }*/
+  76          /*------------------------------------------------
+  77                        写入字符串函数
+  78          ------------------------------------------------*/
+  79           void LCD_Write_String(unsigned char x,unsigned char y,unsigned char *s) 
+  80           { 
+  81   1       if (y == 0) 
+  82   1          {     
+  83   2           LCD_Write_Com(0x80 + x);     //表示第一行
+  84   2          }
+  85   1       else 
+  86   1          {      
+  87   2          LCD_Write_Com(0xC0 + x);      //表示第二行
+  88   2          }        
+  89   1       while (*s) 
+  90   1          {     
+  91   2       LCD_Write_Data( *s);     
+  92   2       s ++;     
+  93   2          }
+  94   1       }
+  95           void LCD_Write_Char(unsigned char X, unsigned char Y, unsigned char DData)
+  96          {
+  97   1        Y &= 0x1;
+  98   1        X &= 0xF;
+  99   1        if (Y)
+ 100   1          X |= 0x40;
+ 101   1        X |= 0x80;
+ 102   1        LCD_Write_Com(X);
+ 103   1        LCD_Write_Data(DData);
+ 104   1      }
+ 105          /*------------------------------------------------
+ 106                        初始化函数
+ 107          ------------------------------------------------*/
+ 108          void LCD_Init(void) 
+ 109           {
+ 110   1          LCD_Write_Com(0x02); //归位
+ 111   1          DelayUs2x(40);
+ 112   1          LCD_Write_Com(0x28); //四位数据总线(DB7-DB4),两行显示
+ 113   1          LCD_Write_Com(0x0c); //显示开
+ 114   1          LCD_Write_Com(0x01); //清屏
+ 115   1          DelayMs(10);
+ 116   1       }
+C51 COMPILER V9.60.0.0   S1602                                                             06/08/2021 21:43:17 PAGE 3   
+
+ 117          
+ 118          
+ 119          
+ 120          
+ 121          
+ 122          
+ 123          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    260    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1       7
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

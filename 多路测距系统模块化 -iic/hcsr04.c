@@ -1,10 +1,9 @@
 #include <stdio.h>
-#include <reg52.h>
+#include <REGX52.H>
 #include <QX_A11.h>
 #include <math.h>
 #include "delay.h"
-//#include "1602.h"
-#include "iic1602.h"
+#include "s1602.h"
 #include "pwm.h"
 int i,j;
 extern int leftnumber, backnumber, rightnumber;
