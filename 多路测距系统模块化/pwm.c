@@ -1,6 +1,6 @@
-#include"reg52.h"
-#include"QX_A11.h"
-#include"delay.h"
+#include "reg52.h"
+#include "QX_A11.h"
+#include "delay.h"
 typedef unsigned int u16;
 void Timer0Init();
 u16 timer1;

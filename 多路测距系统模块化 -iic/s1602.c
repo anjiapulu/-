@@ -107,7 +107,7 @@ void Enable_LCD_write()
 ------------------------------------------------*/
 void LCD_Init(void) 
  {
-    LCD_Write_Com(0x02); //归位
+    LCD_Write_Com(0x02); //?
     DelayUs2x(40);
     LCD_Write_Com(0x28); //四位数据总线(DB7-DB4),两行显示
     LCD_Write_Com(0x0c); //显示开

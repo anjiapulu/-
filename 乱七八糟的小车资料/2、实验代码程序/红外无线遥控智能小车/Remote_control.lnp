@@ -1,4 +1,0 @@
-"STARTUP.obj",
-"main.obj" 
-TO "Remote_control" 
-RAMSIZE(256) 

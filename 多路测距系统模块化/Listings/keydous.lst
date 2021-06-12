@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   KEYDOUS                                                           06/03/2021 16:13:53 PAGE 1   
+C51 COMPILER V9.60.0.0   KEYDOUS                                                           06/09/2021 17:29:11 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE KEYDOUS
@@ -62,7 +62,7 @@ line level    source
   52   5                KeyNum = MatrixKey();
   53   5                switch (i)
   54   5                {
-C51 COMPILER V9.60.0.0   KEYDOUS                                                           06/03/2021 16:13:53 PAGE 2   
+C51 COMPILER V9.60.0.0   KEYDOUS                                                           06/09/2021 17:29:11 PAGE 2   
 
   55   6                case 2:if (KeyNum > 0 && KeyNum < 10)leftnumber += (KeyNum * 100); break;
   56   6                case 3: if (KeyNum > 0 && KeyNum < 10)leftnumber += (KeyNum * 10); break;
@@ -126,7 +126,7 @@ line level    source
  114   1      
  115   1      }
 
-C51 COMPILER V9.60.0.0   KEYDOUS                                                           06/03/2021 16:13:53 PAGE 3   
+C51 COMPILER V9.60.0.0   KEYDOUS                                                           06/09/2021 17:29:11 PAGE 3   
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE

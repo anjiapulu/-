@@ -1,6 +1,0 @@
-".\OBJ\main.obj",
-".\OBJ\1602.obj",
-".\OBJ\delay.obj" 
-TO ".\OBJ\UR04" 
-PRINT(".\LIST\UR04.m51") RAMSIZE(256) 
-CODE( 0X0000-0X1FFF )

@@ -1,4 +1,0 @@
-".\Obj\main.obj",
-".\Obj\delay.obj" 
-TO ".\Obj\¶æ»ú" 
-PRINT(".\List\¶æ»ú.m51") RAMSIZE(256) 
