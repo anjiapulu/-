@@ -386,6 +386,11 @@
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
             </File>
+            <File>
+              <FileName>conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\conf.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

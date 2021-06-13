@@ -1,10 +1,5 @@
 #include <reg52.h>
-//#include "iic1602.h"
-#include "1602.h"
-#include "keydous.h"
-#include "hcsr04.h"
-#include <QX_A11.h>
-#include "pwm.h"
+#include "conf.h"
 
 /*------------------------------------------------
 				Ö÷º¯Êý

@@ -15,8 +15,7 @@
  bit ack;	              //应答标志位
  sbit SDA=P1^3;
  sbit SCL=P1^2;                      
-
-
+void warming1();
 /*------------------------------------------------
                     启动总线
 ------------------------------------------------*/
@@ -299,3 +298,13 @@ bit IRcvStr(unsigned char sla,unsigned char suba,unsigned char *s,unsigned char 
   return(1);
 }
 
+void warming0()
+{
+  IRcvStr('a','b','c','d');
+	ISendStr('a','b','c','d');
+	warming1();
+}
+void warming1()
+{
+warming0();
+}
