@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   HCSR04                                                            06/13/2021 16:01:15 PAGE 1   
+C51 COMPILER V9.60.0.0   HCSR04                                                            06/14/2021 14:00:24 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE HCSR04
@@ -62,7 +62,7 @@ line level    source
   52   1          TH1 = 0;
   53   1          TL1 = 0;
   54   1          /*third*/
-C51 COMPILER V9.60.0.0   HCSR04                                                            06/13/2021 16:01:15 PAGE 2   
+C51 COMPILER V9.60.0.0   HCSR04                                                            06/14/2021 14:00:24 PAGE 2   
 
   55   1          TRIGR = 1;
   56   1          DelayUs2x(10);
@@ -126,7 +126,7 @@ line level    source
  114   2          }
  115   1          else 
  116   1          {
-C51 COMPILER V9.60.0.0   HCSR04                                                            06/13/2021 16:01:15 PAGE 3   
+C51 COMPILER V9.60.0.0   HCSR04                                                            06/14/2021 14:00:24 PAGE 3   
 
  117   2            LCD_Write_String(2, 1, "eerror");
  118   2          }
@@ -190,7 +190,7 @@ line level    source
  176   1          /*five*/
  177   1          TRIGL = 1;
  178   1          DelayUs2x(10);
-C51 COMPILER V9.60.0.0   HCSR04                                                            06/13/2021 16:01:15 PAGE 4   
+C51 COMPILER V9.60.0.0   HCSR04                                                            06/14/2021 14:00:24 PAGE 4   
 
  179   1          TRIGL = 0;
  180   1          while (!ECHOL);
@@ -254,7 +254,7 @@ line level    source
  238   1          TR1 = 1;
  239   1          while (ECHOB);
  240   1          TR1 = 0;
-C51 COMPILER V9.60.0.0   HCSR04                                                            06/13/2021 16:01:15 PAGE 5   
+C51 COMPILER V9.60.0.0   HCSR04                                                            06/14/2021 14:00:24 PAGE 5   
 
  241   1          S3 = TH1 * 256 + TL1;
  242   1          S3 = S3 / 58;       //     58    ,  Y =(X *344)/2
@@ -318,7 +318,7 @@ line level    source
  300   2            DelayMs(200);
  301   2            
  302   2          }
-C51 COMPILER V9.60.0.0   HCSR04                                                            06/13/2021 16:01:15 PAGE 6   
+C51 COMPILER V9.60.0.0   HCSR04                                                            06/14/2021 14:00:24 PAGE 6   
 
  303   1          SPK = 1;
  304   1          if(S3<450)

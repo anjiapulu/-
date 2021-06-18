@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <reg52.h>
-#include <QX_A11.h>
+#include "QX_A11.h"
 #include <math.h>
+#include <stdlib.h>
 #include "delay.h"
 #include "1602.h"
-//#include "iic1602.h"
 #include "pwm.h"
-#include <stdlib.h>
+
 int i,j;
 extern int leftnumber, backnumber, rightnumber;
 extern float S1,S2,S3;
