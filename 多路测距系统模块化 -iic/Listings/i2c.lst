@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   I2C                                                               06/29/2021 21:14:57 PAGE 1   
+C51 COMPILER V9.60.0.0   I2C                                                               07/01/2021 00:49:04 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE I2C
@@ -62,7 +62,7 @@ line level    source
   52   1        _Nop();
   53   1        _Nop();
   54   1        _Nop();
-C51 COMPILER V9.60.0.0   I2C                                                               06/29/2021 21:14:57 PAGE 2   
+C51 COMPILER V9.60.0.0   I2C                                                               07/01/2021 00:49:04 PAGE 2   
 
   55   1        SDA=1;    //发送I2C总线结束信号
   56   1        _Nop();
@@ -126,7 +126,7 @@ line level    source
  114          函数原型: unsigned char  RcvByte();
  115          功能:  用来接收从器件传来的数据,并判断总线错误(不发应答信号)，
  116               发完后请用应答函数。  
-C51 COMPILER V9.60.0.0   I2C                                                               06/29/2021 21:14:57 PAGE 3   
+C51 COMPILER V9.60.0.0   I2C                                                               07/01/2021 00:49:04 PAGE 3   
 
  117          ------------------------------------------------------------------*/  
  118          unsigned char  RcvByte()
@@ -190,7 +190,7 @@ line level    source
  176          ----------------------------------------------------------------*/
  177          void NoAck_I2c(void)
  178          {
-C51 COMPILER V9.60.0.0   I2C                                                               06/29/2021 21:14:57 PAGE 4   
+C51 COMPILER V9.60.0.0   I2C                                                               07/01/2021 00:49:04 PAGE 4   
 
  179   1        
  180   1        SDA=1;
@@ -254,7 +254,7 @@ line level    source
  238   2           SendByte(*s);            //发送数据
  239   2             if(ack==0)return(0);
  240   2           Stop_I2c();                  //结束总线
-C51 COMPILER V9.60.0.0   I2C                                                               06/29/2021 21:14:57 PAGE 5   
+C51 COMPILER V9.60.0.0   I2C                                                               07/01/2021 00:49:04 PAGE 5   
 
  241   2         DelayMs(1);               //必须延时等待芯片内部自动处理数据完毕
  242   2         s++;
@@ -318,7 +318,7 @@ line level    source
  300          
  301          void warming0()
  302          {
-C51 COMPILER V9.60.0.0   I2C                                                               06/29/2021 21:14:57 PAGE 6   
+C51 COMPILER V9.60.0.0   I2C                                                               07/01/2021 00:49:04 PAGE 6   
 
  303   1        IRcvStr('a','b','c','d');
  304   1        ISendStr('a','b','c','d');

@@ -55,8 +55,8 @@ void  keydous()
 					KeyNum = MatrixKey();
 					switch (i)
 					{
-					case 2:if (KeyNum > 0 && KeyNum < 10)leftnumber += (KeyNum * 100); break;
-					case 3: if (KeyNum > 0 && KeyNum < 10)leftnumber += (KeyNum * 10); break;
+					case 2:if (KeyNum >= 0 && KeyNum < 10)leftnumber += (KeyNum * 100); break;
+					case 3: if (KeyNum >= 0 && KeyNum < 10)leftnumber += (KeyNum * 10); break;
 					case 4: if (KeyNum >= 0 && KeyNum < 10)leftnumber += (KeyNum); break;
 					}
 
@@ -75,8 +75,8 @@ void  keydous()
 					KeyNum = MatrixKey();
 					switch (i)
 					{
-					case 7: if (KeyNum > 0 && KeyNum < 10)backnumber += (KeyNum * 100); break;
-					case 8: if (KeyNum > 0 && KeyNum < 10)backnumber += (KeyNum * 10); break;
+					case 7: if (KeyNum >= 0 && KeyNum < 10)backnumber += (KeyNum * 100); break;
+					case 8: if (KeyNum >= 0 && KeyNum < 10)backnumber += (KeyNum * 10); break;
 					case 9: if (KeyNum >= 0 && KeyNum < 10)backnumber += (KeyNum); break;
 					}
 					if (KeyNum < 10)
@@ -94,8 +94,8 @@ void  keydous()
 					KeyNum = MatrixKey();
 					switch (i)
 					{
-					case 12: if (KeyNum > 0 && KeyNum < 10)rightnumber += (KeyNum * 100); break;
-					case 13: if (KeyNum > 0 && KeyNum < 10)rightnumber += (KeyNum * 10); break;
+					case 12: if (KeyNum >= 0 && KeyNum < 10)rightnumber += (KeyNum * 100); break;
+					case 13: if (KeyNum >= 0 && KeyNum < 10)rightnumber += (KeyNum * 10); break;
 					case 14: if (KeyNum >= 0 && KeyNum < 10)rightnumber += (KeyNum); break;
 					}
 

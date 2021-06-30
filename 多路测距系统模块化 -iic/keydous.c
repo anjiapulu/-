@@ -56,11 +56,11 @@ void keydous()
 					switch (i)
 					{
 					case 2:
-						if (KeyNum > 0 && KeyNum < 10)
+						if (KeyNum >= 0 && KeyNum < 10)
 							leftnumber += (KeyNum * 100);
 						break;
 					case 3:
-						if (KeyNum > 0 && KeyNum < 10)
+						if (KeyNum >= 0 && KeyNum < 10)
 							leftnumber += (KeyNum * 10);
 						break;
 					case 4:
@@ -85,11 +85,11 @@ void keydous()
 					switch (i)
 					{
 					case 7:
-						if (KeyNum > 0 && KeyNum < 10)
+						if (KeyNum >= 0 && KeyNum < 10)
 							backnumber += (KeyNum * 100);
 						break;
 					case 8:
-						if (KeyNum > 0 && KeyNum < 10)
+						if (KeyNum >= 0 && KeyNum < 10)
 							backnumber += (KeyNum * 10);
 						break;
 					case 9:
@@ -113,11 +113,11 @@ void keydous()
 					switch (i)
 					{
 					case 12:
-						if (KeyNum > 0 && KeyNum < 10)
+						if (KeyNum >= 0 && KeyNum < 10)
 							rightnumber += (KeyNum * 100);
 						break;
 					case 13:
-						if (KeyNum > 0 && KeyNum < 10)
+						if (KeyNum >= 0 && KeyNum < 10)
 							rightnumber += (KeyNum * 10);
 						break;
 					case 14:
