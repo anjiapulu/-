@@ -3,7 +3,7 @@
         {
             "name": "多路测距模块化",
             "includePath": [
-                "C:\\Keil_v5\\C51\\INC",
+                "D:\\Program Files\\tools\\Keil_v5\\C51\\INC",
                 "d:\\Program Files\\study\\github\\hr-sc04-step\\多路测距系统模块化"
             ],
             "defines": [

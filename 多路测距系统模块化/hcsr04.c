@@ -119,7 +119,6 @@ void rightdis()
 			LCD_Write_String(2, 1, "eerror");
 		}
 
-	
 }
 void leftdis()
 {

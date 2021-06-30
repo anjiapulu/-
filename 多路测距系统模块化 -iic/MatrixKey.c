@@ -28,6 +28,7 @@
 	if(P1_7==0){while(P1_7==0);return 13;} 
   if(P1_6==0){while(P1_6==0);return 14;} 
 	if(P1_5==0){while(P1_5==0);return 15;} 
+	
 	P1=0xFF;
 	return 10;
  }

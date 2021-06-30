@@ -5,6 +5,7 @@
 #include "delay.h"
 #include "s1602.h"
 #include "pwm.h"
+
 int i,j;
 extern int leftnumber, backnumber, rightnumber;
 extern float S1,S2,S3;

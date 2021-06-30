@@ -8,7 +8,7 @@ int leftnumber, backnumber, rightnumber;
 unsigned char code studentid[] = "0123456789";
 int KeyNum;
 extern int i, j, k = 0;
-void  keydous()
+void keydous()
 {
 #if 0
 	/*------------------------------------------------
@@ -30,7 +30,7 @@ void  keydous()
 	}
 #endif
 	/*------------------------------------------------
-			·äÃùÆ÷¾¯½äÖµÊäÈë
+               ?????????1602???
 	------------------------------------------------*/
 	while (k < 3)
 	{
@@ -42,6 +42,10 @@ void  keydous()
 		KeyNum = MatrixKey();
 		if (KeyNum == 13)
 		{
+			if (k == 4)
+			{
+				k = 0;
+			}
 			k++;
 			switch (k)
 			{
@@ -51,9 +55,18 @@ void  keydous()
 					KeyNum = MatrixKey();
 					switch (i)
 					{
-					case 2:if (KeyNum > 0 && KeyNum < 10)leftnumber += (KeyNum * 100); break;
-					case 3: if (KeyNum > 0 && KeyNum < 10)leftnumber += (KeyNum * 10); break;
-					case 4: if (KeyNum >= 0 && KeyNum < 10)leftnumber += (KeyNum); break;
+					case 2:
+						if (KeyNum > 0 && KeyNum < 10)
+							leftnumber += (KeyNum * 100);
+						break;
+					case 3:
+						if (KeyNum > 0 && KeyNum < 10)
+							leftnumber += (KeyNum * 10);
+						break;
+					case 4:
+						if (KeyNum >= 0 && KeyNum < 10)
+							leftnumber += (KeyNum);
+						break;
 					}
 
 					if (KeyNum < 10)
@@ -66,14 +79,23 @@ void  keydous()
 				break;
 
 			case 2:
-				for (i = 7; i < 10; )
+				for (i = 7; i < 10;)
 				{
 					KeyNum = MatrixKey();
 					switch (i)
 					{
-					case 7: if (KeyNum > 0 && KeyNum < 10)backnumber += (KeyNum * 100); break;
-					case 8: if (KeyNum > 0 && KeyNum < 10)backnumber += (KeyNum * 10); break;
-					case 9: if (KeyNum >= 0 && KeyNum < 10)backnumber += (KeyNum); break;
+					case 7:
+						if (KeyNum > 0 && KeyNum < 10)
+							backnumber += (KeyNum * 100);
+						break;
+					case 8:
+						if (KeyNum > 0 && KeyNum < 10)
+							backnumber += (KeyNum * 10);
+						break;
+					case 9:
+						if (KeyNum >= 0 && KeyNum < 10)
+							backnumber += (KeyNum);
+						break;
 					}
 					if (KeyNum < 10)
 					{
@@ -85,14 +107,23 @@ void  keydous()
 				break;
 			case 3:
 				k = 4;
-				for (i = 12; i < 15; )
+				for (i = 12; i < 15;)
 				{
 					KeyNum = MatrixKey();
 					switch (i)
 					{
-					case 12: if (KeyNum > 0 && KeyNum < 10)rightnumber += (KeyNum * 100); break;
-					case 13: if (KeyNum > 0 && KeyNum < 10)rightnumber += (KeyNum * 10); break;
-					case 14: if (KeyNum >= 0 && KeyNum < 10)rightnumber += (KeyNum); break;
+					case 12:
+						if (KeyNum > 0 && KeyNum < 10)
+							rightnumber += (KeyNum * 100);
+						break;
+					case 13:
+						if (KeyNum > 0 && KeyNum < 10)
+							rightnumber += (KeyNum * 10);
+						break;
+					case 14:
+						if (KeyNum >= 0 && KeyNum < 10)
+							rightnumber += (KeyNum);
+						break;
 					}
 
 					if (KeyNum < 10)
@@ -105,10 +136,7 @@ void  keydous()
 				LCD_Write_String(0, 0, "                ");
 
 				break;
-
 			}
 		}
-
 	}
-
 }

@@ -4,9 +4,9 @@
 #include "string.h"
 #include "MatrixKey.h"
 
-int leftnumber, backnumber, rightnumber;
+int leftnumber=0, backnumber=0, rightnumber=0;
 unsigned char code studentid[] = "0123456789";
-int KeyNum;
+unsigned int KeyNum;
 extern int i, j, k = 0;
 void  keydous()
 {
@@ -42,6 +42,10 @@ void  keydous()
 		KeyNum = MatrixKey();
 		if (KeyNum == 13)
 		{
+			if(k==4)
+			{
+			k=0;
+			}
 			k++;
 			switch (k)
 			{

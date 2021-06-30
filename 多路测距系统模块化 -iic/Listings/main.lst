@@ -1,10 +1,10 @@
-C51 COMPILER V9.60.0.0   MAIN                                                              06/14/2021 14:00:23 PAGE 1   
+C51 COMPILER V9.60.0.0   MAIN                                                              06/29/2021 21:14:57 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
 OBJECT MODULE PLACED IN .\Objects\main.obj
-COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
-                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+COMPILER INVOKED BY: D:\Program Files\tools\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND P
+                    -RINT(.\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
 
 line level    source
 
@@ -16,26 +16,24 @@ line level    source
    6          ------------------------------------------------*/
    7          void main()
    8          { 
-   9   1        int leftnumber=0, backnumber=0, rightnumber=0;
-  10   1        SCL=1;
-  11   1        SDA=1;
-  12   1        Timer0Init();/*pwm电机控制*/
-  13   1        LCD_Init();  /*1602初始化*/
-  14   1        TIM1init();  /*·超声波定时器1初始化*/
-  15   1        while (1)
-  16   1        {
-  17   2          keydous();
-  18   2          hcsr04();
-  19   2        }
-  20   1      }
+   9   1        
+  10   1        Timer0Init();/*pwm电机控制*/
+  11   1        LCD_Init();  /*1602初始化*/
+  12   1        TIM1init();  /*·超声波定时器1初始化*/
+  13   1        while (1)
+  14   1        {
+  15   2          keydous();
+  16   2          hcsr04();
+  17   2        }
+  18   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     34    ----
+   CODE SIZE        =     17    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----       6
+   DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
