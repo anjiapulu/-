@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   HCSR04                                                            07/01/2021 21:51:37 PAGE 1   
+C51 COMPILER V9.60.0.0   HCSR04                                                            07/02/2021 21:52:57 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE HCSR04
@@ -62,7 +62,7 @@ line level    source
   52   1          S1 = S1 / 58;
   53   1          arr[1] = S1;
   54   1          TH1 = 0;
-C51 COMPILER V9.60.0.0   HCSR04                                                            07/01/2021 21:51:37 PAGE 2   
+C51 COMPILER V9.60.0.0   HCSR04                                                            07/02/2021 21:52:57 PAGE 2   
 
   55   1          TL1 = 0;
   56   1          /*third*/
@@ -126,7 +126,7 @@ line level    source
  114   2          sprintf(DisTempData, "R=%6.2f", S1);
  115   2          LCD_Write_String(0, 1, DisTempData);
  116   2          }
-C51 COMPILER V9.60.0.0   HCSR04                                                            07/01/2021 21:51:37 PAGE 3   
+C51 COMPILER V9.60.0.0   HCSR04                                                            07/02/2021 21:52:57 PAGE 3   
 
  117   1          else 
  118   1          {
@@ -190,7 +190,7 @@ line level    source
  176   1          TL1 = 0;
  177   1          /*five*/
  178   1          TRIGL = 1;
-C51 COMPILER V9.60.0.0   HCSR04                                                            07/01/2021 21:51:37 PAGE 4   
+C51 COMPILER V9.60.0.0   HCSR04                                                            07/02/2021 21:52:57 PAGE 4   
 
  179   1          DelayUs2x(10);
  180   1          TRIGL = 0;
@@ -254,7 +254,7 @@ line level    source
  238   1          while (!ECHOB);
  239   1          TR1 = 1;
  240   1          while (ECHOB);
-C51 COMPILER V9.60.0.0   HCSR04                                                            07/01/2021 21:51:37 PAGE 5   
+C51 COMPILER V9.60.0.0   HCSR04                                                            07/02/2021 21:52:57 PAGE 5   
 
  241   1          TR1 = 0;
  242   1          S3 = TH1 * 256 + TL1;
@@ -318,7 +318,7 @@ line level    source
  300   2            SPK = 0;//防止一直给喇叭通电造成损坏
  301   2            DelayMs(200);
  302   2            
-C51 COMPILER V9.60.0.0   HCSR04                                                            07/01/2021 21:51:37 PAGE 6   
+C51 COMPILER V9.60.0.0   HCSR04                                                            07/02/2021 21:52:57 PAGE 6   
 
  303   2          }
  304   1          SPK = 1;

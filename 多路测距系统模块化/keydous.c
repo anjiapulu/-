@@ -32,6 +32,14 @@ void keydous()
 	/*------------------------------------------------
 			∑‰√˘∆˜æØΩ‰÷µ ‰»Î
 	------------------------------------------------*/
+	KeyNum = MatrixKey();
+	if (KeyNum == 13)
+	{
+	  if (k == 4)
+	  {
+	   k = 0;
+  	 }
+  }
 	while (k < 3)
 	{ 
 		if (k == 0)
@@ -42,12 +50,6 @@ void keydous()
 		KeyNum = MatrixKey();
 		if (KeyNum == 13)
 		{
-			if (k == 4)
-			{
-				k = 0;
-				LCD_Write_String(0, 1, " L___ B___ R___ ");
-				LCD_Write_String(0, 0, "   input dist   ");
-			}
 			k++;
 			switch (k)
 			{
