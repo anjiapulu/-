@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   KEYDOUS                                                           07/01/2021 00:49:04 PAGE 1   
+C51 COMPILER V9.60.0.0   KEYDOUS                                                           07/13/2021 19:25:04 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE KEYDOUS
@@ -16,10 +16,10 @@ line level    source
    6          
    7          int leftnumber, backnumber, rightnumber;
    8          unsigned char code studentid[] = "0123456789";
-   9          int KeyNum;
-  10          extern int i, j, k = 0;
-  11          void keydous()
-  12          {
+   9          extern int i, j, k = 0;
+  10          void keydous()
+  11          {
+  12   1        int KeyNum;
   13   1      #if 0
                 /*------------------------------------------------
                     at24c02¥Ê»°
@@ -62,7 +62,7 @@ line level    source
   52   4            case 1:
   53   4              for (i = 2; i < 5;)
   54   4              {
-C51 COMPILER V9.60.0.0   KEYDOUS                                                           07/01/2021 00:49:04 PAGE 2   
+C51 COMPILER V9.60.0.0   KEYDOUS                                                           07/13/2021 19:25:04 PAGE 2   
 
   55   5                KeyNum = MatrixKey();
   56   5                switch (i)
@@ -126,7 +126,7 @@ line level    source
  114   5                {
  115   6                case 12:
  116   6                  if (KeyNum >= 0 && KeyNum < 10)
-C51 COMPILER V9.60.0.0   KEYDOUS                                                           07/01/2021 00:49:04 PAGE 3   
+C51 COMPILER V9.60.0.0   KEYDOUS                                                           07/13/2021 19:25:04 PAGE 3   
 
  117   6                    rightnumber += (KeyNum * 100);
  118   6                  break;
@@ -161,7 +161,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    CONSTANT SIZE    =     62    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     10    ----
+   DATA SIZE        =      8       2
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

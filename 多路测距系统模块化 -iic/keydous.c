@@ -6,10 +6,10 @@
 
 int leftnumber, backnumber, rightnumber;
 unsigned char code studentid[] = "0123456789";
-int KeyNum;
 extern int i, j, k = 0;
 void keydous()
 {
+	int KeyNum;
 #if 0
 	/*------------------------------------------------
 			at24c02´æÈ¡
